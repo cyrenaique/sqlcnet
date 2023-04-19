@@ -330,6 +330,57 @@ namespace sqlcnet
 
         private void button2_Click(object sender, EventArgs e)
         {
+            string sql2 = "select * from genepath";
+            NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn);
+            conn.Open();
+            Npgsql.NpgsqlDataReader Resource = command2.ExecuteReader();
+            HashSet<string> path_list = new HashSet<string>();
+            //List<string> gene_list = new List<string>();
+            while (Resource.Read())
+            {
+                if (Resource.GetString(0).Contains("hsa"))
+                {
+                    path_list.Add(Resource.GetString(0));
+                }
+               
+              
+                //break;
+            }
+
+            Dictionary<string, HashSet<string>> unique_pathways = new Dictionary<string, HashSet<string>>();
+            foreach (var item in path_list)
+            {
+                unique_pathways.Add(item, new HashSet<string>());
+            }
+            conn.Close();
+            conn.Open();
+            Npgsql.NpgsqlDataReader Resource2 = command2.ExecuteReader();
+
+            while (Resource2.Read())
+            {
+                if (Resource2.GetString(0).Contains("hsa"))
+                {
+
+                    unique_pathways[Resource2.GetString(0)].Add(Resource2.GetString(1));
+                }
+                //break;
+            }
+
+            conn.Close();
+
+            Dictionary<string, int> pathwaytotalGeneCounts = new Dictionary<string, int>();
+
+            // Loop through the pathways in the pathway_genes dictionary
+            foreach (KeyValuePair<string, HashSet<string>> kvp in unique_pathways)
+            {
+                string pathway = kvp.Key; // get the name of the pathway from the key of the current key-value pair
+                HashSet<string> genes = kvp.Value; // get the list of genes from the value of the current key-value pair
+                int geneCount = genes.Count; // get the number of genes in the list
+                pathwaytotalGeneCounts.Add(pathway, geneCount); // add the pathway and gene count to the pathwayGeneCounts dictionary
+            }
+
+
+
             List<string> sel = new List<string>();
             Dictionary<string, HashSet<string>> pathway_genes = new Dictionary<string, HashSet<string>>();
             foreach (DataGridViewRow row in dataGridView1.Rows)
@@ -373,15 +424,25 @@ namespace sqlcnet
             //newSeries.ChartType = SeriesChartType.Column;
             //fc.chart1.Series[0].ChartType = SeriesChartType.
             // Loop through the pathwayGeneCounts dictionary and add the data points to the chart
-            foreach (KeyValuePair<string, int> kvp in pathwayGeneCounts)
+            //foreach (KeyValuePair<string, int> kvp in pathwayGeneCounts)
+            //{
+            //    string pathway = kvp.Key; // get the name of the pathway from the key of the current key-value pair
+            //    int geneCount = kvp.Value; // get the number of genes in the pathway from the value of the current key-value pair
+            //    fc.chart1.Series[0].Points.AddXY(pathway, geneCount); // add the pathway and gene count as a data point to the chart
+            //}
+
+            foreach (var kvp in pathwayGeneCounts.Zip(pathwaytotalGeneCounts, (kvp1, kvp2) => new { Pathway = kvp1.Key, Count1 = kvp1.Value, Count = kvp2.Value }))
             {
-                string pathway = kvp.Key; // get the name of the pathway from the key of the current key-value pair
-                int geneCount = kvp.Value; // get the number of genes in the pathway from the value of the current key-value pair
-                fc.chart1.Series[0].Points.AddXY(pathway, geneCount); // add the pathway and gene count as a data point to the chart
+                string pathway = kvp.Pathway; // get the name of the pathway from the first dictionary
+                 // get the list of genes from the first dictionary
+                float geneCounttot = kvp.Count; // get the number of genes in the pathway from the second dictionary
+                float geneCount = kvp.Count1;
+                fc.chart1.Series[0].Points.AddXY(pathway, 100*geneCount/geneCounttot);
             }
+
             //chart.Series.Add(newSeries);
             // Display the chart in a new form
-           
+            fc.chart1.Series["Genes in Pathway"].ToolTip = "Pathway: #VALX";
             //form.Controls.Add(chart);
             fc.Show();
 

@@ -64,7 +64,7 @@ namespace sqlcnet
 
             // Create a new List to store the column names
             List<string> columnNames = new List<string>();
-
+            // test
             // Loop through the columns and add their names to the List
             while (columnReader.Read())
             {

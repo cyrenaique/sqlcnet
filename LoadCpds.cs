@@ -431,14 +431,17 @@ namespace sqlcnet
             //    fc.chart1.Series[0].Points.AddXY(pathway, geneCount); // add the pathway and gene count as a data point to the chart
             //}
 
-            foreach (var kvp in pathwayGeneCounts.Zip(pathwaytotalGeneCounts, (kvp1, kvp2) => new { Pathway = kvp1.Key, Count1 = kvp1.Value, Count = kvp2.Value }))
+            var commonKeys = pathwayGeneCounts.Keys.Intersect(pathwaytotalGeneCounts.Keys);
+
+            foreach (var key in commonKeys)
             {
-                string pathway = kvp.Pathway; // get the name of the pathway from the first dictionary
-                 // get the list of genes from the first dictionary
-                float geneCounttot = kvp.Count; // get the number of genes in the pathway from the second dictionary
-                float geneCount = kvp.Count1;
-                fc.chart1.Series[0].Points.AddXY(pathway, 100*geneCount/geneCounttot);
+                pathwaytotalGeneCounts.TryGetValue(key, out var geneCounttot);
+                pathwayGeneCounts.TryGetValue(key, out var geneCount);
+                float res = (float)geneCount / (float)geneCounttot;
+                fc.chart1.Series[0].Points.AddXY(key, 100 * res);
+                // do something with the common key
             }
+
 
             //chart.Series.Add(newSeries);
             // Display the chart in a new form

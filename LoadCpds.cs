@@ -371,7 +371,7 @@ namespace sqlcnet
 
             // Set the chart type to a histogram
             //newSeries.ChartType = SeriesChartType.Column;
-            
+            //fc.chart1.Series[0].ChartType = SeriesChartType.
             // Loop through the pathwayGeneCounts dictionary and add the data points to the chart
             foreach (KeyValuePair<string, int> kvp in pathwayGeneCounts)
             {

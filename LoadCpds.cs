@@ -259,12 +259,12 @@ namespace sqlcnet
                 {
                     sql = "SELECT " + cmb + ".*, gene.name, gene.symbol FROM " + cmb + " JOIN gene ON gene.geneid= " + cmb + ".geneid WHERE  " + cmb + "." + cmb2 + " IN (";
                 }
-                if (cmb == "genepath" || cmb == "cpdpath")
+                if (cmb == "cpdpath")
                 {
                     sql = "SELECT " + cmb + ".*, pathway.name FROM " + cmb + " JOIN pathway ON pathway.pathid= " + cmb + ".pathid WHERE  " + cmb + "." + cmb2 + " IN (";
                 }
 
-                if (cmb == "genedis" || cmb == "cpddis" )
+                if ( cmb == "cpddis" )
                 {
                     sql = "SELECT " + cmb + ".*, disease.name FROM " + cmb + " JOIN disease ON disease.disid= " + cmb + ".disid WHERE  " + cmb + "." + cmb2 + " IN (";
                 }

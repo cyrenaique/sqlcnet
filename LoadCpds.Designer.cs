@@ -49,18 +49,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox_fields = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox_tables = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.searchBox = new System.Windows.Forms.TextBox();
+            this.dGV_results = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox_mapping = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.swap = new System.Windows.Forms.Button();
             this.toolTip_swap = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
             this.SuspendLayout();
             // 
             // dGV_cpds
@@ -236,15 +236,15 @@
             this.comboBox_fields.Size = new System.Drawing.Size(121, 21);
             this.comboBox_fields.TabIndex = 15;
             // 
-            // comboBox1
+            // comboBox_tables
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(1030, 57);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.Sorted = true;
-            this.comboBox1.TabIndex = 14;
-            this.comboBox1.DropDownClosed += new System.EventHandler(this.comboBox1_DropDownClosed);
+            this.comboBox_tables.FormattingEnabled = true;
+            this.comboBox_tables.Location = new System.Drawing.Point(1030, 57);
+            this.comboBox_tables.Name = "comboBox_tables";
+            this.comboBox_tables.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_tables.Sorted = true;
+            this.comboBox_tables.TabIndex = 14;
+            this.comboBox_tables.DropDownClosed += new System.EventHandler(this.comboBox_tables_DropDownClosed);
             // 
             // label4
             // 
@@ -255,32 +255,32 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "SearchBox";
             // 
-            // textBox1
+            // searchBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(1371, 112);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 12;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.searchBox.Location = new System.Drawing.Point(1371, 112);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(100, 20);
+            this.searchBox.TabIndex = 12;
+            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
             // 
-            // dataGridView1
+            // dGV_results
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dGV_results.AllowUserToAddRows = false;
+            this.dGV_results.AllowUserToDeleteRows = false;
+            this.dGV_results.AllowUserToOrderColumns = true;
+            this.dGV_results.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(719, 134);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(752, 486);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
-            this.dataGridView1.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseDoubleClick);
+            this.dGV_results.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dGV_results.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dGV_results.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dGV_results.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGV_results.Location = new System.Drawing.Point(719, 134);
+            this.dGV_results.Name = "dGV_results";
+            this.dGV_results.Size = new System.Drawing.Size(752, 486);
+            this.dGV_results.TabIndex = 0;
+            this.dGV_results.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_results_CellDoubleClick);
+            this.dGV_results.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dGV_results_ColumnHeaderMouseDoubleClick);
             // 
             // label5
             // 
@@ -309,33 +309,33 @@
             this.label6.TabIndex = 20;
             this.label6.Text = "Mapping column";
             // 
-            // button1
+            // swap
             // 
-            this.button1.Location = new System.Drawing.Point(667, 86);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Swap";
-            this.toolTip_swap.SetToolTip(this.button1, "Swap Data between the Grid View");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.swap.Location = new System.Drawing.Point(667, 86);
+            this.swap.Name = "swap";
+            this.swap.Size = new System.Drawing.Size(75, 23);
+            this.swap.TabIndex = 21;
+            this.swap.Text = "Swap";
+            this.toolTip_swap.SetToolTip(this.swap, "Swap Data between the Grid View");
+            this.swap.UseVisualStyleBackColor = true;
+            this.swap.Click += new System.EventHandler(this.swap_Click);
             // 
             // LoadCpdsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1532, 856);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.swap);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.comboBox_mapping);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBox_fields);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBox_tables);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.searchBox);
+            this.Controls.Add(this.dGV_results);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.dGV_cpds);
@@ -344,7 +344,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,14 +369,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox_fields;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox_tables;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TextBox searchBox;
+        private System.Windows.Forms.DataGridView dGV_results;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBox_mapping;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button swap;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem pathwaysToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip_swap;

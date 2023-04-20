@@ -38,7 +38,9 @@ namespace sqlcnet
         {
             InitializeComponent();
             dGV_cpds.Visible = false;
-            dataGridView1.Visible = false;
+            dGV_results.Visible = false;
+
+            //comboBox_tables----------------------------------------------
             conn = new NpgsqlConnection(cs);
             conn.Open();
             NpgsqlCommand cmd = new NpgsqlCommand
@@ -52,29 +54,25 @@ namespace sqlcnet
             {
                 dt = new DataTable();
                 dt.Load(reader);
-                comboBox1.DataSource = dt;
-                comboBox1.ValueMember = dt.Columns[0].ColumnName;
+                comboBox_tables.DataSource = dt;
+                comboBox_tables.ValueMember = dt.Columns[0].ColumnName;
 
             }
 
+            //comboBox_mapping----------------------------------------------
             cmd.CommandText = "SELECT column_name, table_name FROM information_schema.columns WHERE table_schema = 'public'";
-            
-            // Execute the command and get the values from the table
             NpgsqlDataReader columnReader = cmd.ExecuteReader();
-
-            // Create a new List to store the column names
             List<string> columnNames = new List<string>();
             
             // Loop through the columns and add their names to the List
             while (columnReader.Read())
             {
                 string columnName = columnReader.GetString(0); // get the name of the column from the first column of the column reader
-                //string tableName = columnReader.GetString(1); // get the name of the table from the second column of the column reader
-                columnNames.Add($"{columnName}"); // add the column name to the List, including the table name as a prefix
+                 columnNames.Add($"{columnName}"); // add the column name to the List, including the table name as a prefix
             }
             List<string> unique_items = new HashSet<string>(columnNames).ToList();
 
-            columnReader.Close(); // close the reader for the list of columns in the database
+            columnReader.Close(); 
             comboBox_mapping.DataSource = unique_items;
             cmd.Dispose();
             conn.Close();
@@ -86,26 +84,15 @@ namespace sqlcnet
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
 
-
                 this.Text = openFileDialog1.FileName;
                 FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
                 System.IO.StreamReader sr = new System.IO.StreamReader(fs);
                 csv = new CachedCsvReader(sr, true);
 
-
             }
-
-
             dGV_cpds.DataSource = csv;
             dGV_cpds.Visible = true;
-            //List<string> BATCH_ID = new List<string>();
-
-            //foreach (DataGridViewRow row in dGV_cpds.Rows)
-            //{
-
-            //    BATCH_ID.Add(row.Cells["pubchem_cid"].Value.ToString());
-            //}
             List<string> columns_name = new List<string>();
             for (var i = 0; i < dGV_cpds.ColumnCount; i++)
             {
@@ -115,13 +102,8 @@ namespace sqlcnet
             comboBox_fields.DataSource = columns_name;
             foreach (DataGridViewRow row in dGV_cpds.Rows)
             {
-
-
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
-            //var unique_items = new HashSet<string>(BATCH_ID).ToList();
-
-
         }
 
         private void helpToolStripButton_Click(object sender, EventArgs e)
@@ -130,6 +112,7 @@ namespace sqlcnet
             HelpF.Show();
 
         }
+
         public string Find_Info(string Path)
         {
             HttpWebRequest req2 = WebRequest.Create(string.Format("http://rest.kegg.jp/get/" + Path)) as HttpWebRequest;
@@ -144,15 +127,14 @@ namespace sqlcnet
             return GenInfo;
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dGV_results_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             
-
             if (e.RowIndex > -1)
             {
 
 
-                string gene_txt = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                string gene_txt = dGV_results.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
                 List<string> columns_name = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
                 if (columns_name[e.ColumnIndex].Contains("pathid"))
@@ -160,7 +142,7 @@ namespace sqlcnet
                     f2 = new GKForm();
                     List<string> sel = new List<string>();
                     Dictionary<string, List<string>> pathway_genes = new Dictionary<string, List<string>>();
-                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    foreach (DataGridViewRow row in dGV_results.Rows)
                     {
 
                         if (row.Cells[e.ColumnIndex].Value.ToString() == gene_txt)
@@ -193,12 +175,24 @@ namespace sqlcnet
                 {
                     f2 = new GKForm();
                     ChromiumWebBrowser browser = new ChromiumWebBrowser("https://www.genome.jp/entry/" + gene_txt);
+                    if (gene_txt.Contains("REACT"))
+                    {
+                        gene_txt = gene_txt.Replace("REACT:", "");
+                        browser = new ChromiumWebBrowser("https://reactome.org/PathwayBrowser/#/" + gene_txt);
+                    }
+                    if (gene_txt.Contains("MESH"))
+                    {
+                        gene_txt = gene_txt.Replace("MESH:", "");
+                        browser = new ChromiumWebBrowser("https://id.nlm.nih.gov/mesh//" + gene_txt);
+                    }
 
                     f2.toolStripContainer1.ContentPanel.Controls.Add(browser);
                     f2.Show();
 
                 }
+
                 else
+           
                 {
                     f2 = new GKForm();
                     ChromiumWebBrowser browser = new ChromiumWebBrowser("https://pubchem.ncbi.nlm.nih.gov/compound/" + gene_txt);
@@ -214,19 +208,21 @@ namespace sqlcnet
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void searchBox_TextChanged(object sender, EventArgs e)
         {
             string text = comboBox_mapping.GetItemText(this.comboBox_mapping.SelectedItem);
-            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format(text+" LIKE '{0}%'", textBox1.Text);                    
+            (dGV_results.DataSource as DataTable).DefaultView.RowFilter = string.Format(text+" LIKE '{0}%'", searchBox.Text);                    
 
         }
 
-        private void comboBox1_DropDownClosed(object sender, EventArgs e)
+        private void comboBox_tables_DropDownClosed(object sender, EventArgs e)
         {
-            cmb = comboBox1.GetItemText(this.comboBox1.SelectedItem);
+            cmb = comboBox_tables.GetItemText(this.comboBox_tables.SelectedItem);
 
             conn.Open();
-            string sql2 = "select * from " + cmb;
+       
+            string sql2 ="select * from " + cmb; ;
+           
             NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn);
             Npgsql.NpgsqlDataReader Resource = command2.ExecuteReader();
             List<string> col_list = new List<string>();
@@ -241,25 +237,37 @@ namespace sqlcnet
             conn.Close();
 
 
-            List<string> BATCH_ID = new List<string>();
-            //f_cpds = new LoadCpdsForm();
+            List<string> list_res_data = new List<string>();
             string val_combo = comboBox_fields.GetItemText(this.comboBox_fields.SelectedItem);
             cmb2 = comboBox_mapping.GetItemText(this.comboBox_mapping.SelectedItem);
-            //dataGridView1.Rows.Clear();
-            dataGridView1.Visible = true;
-
+            dGV_results.Visible = true;
             if (col_list.Contains(cmb2))
             {
                 foreach (DataGridViewRow row in dGV_cpds.Rows)
                 {
 
-                    BATCH_ID.Add(row.Cells[val_combo].Value.ToString());
+                    list_res_data.Add(row.Cells[val_combo].Value.ToString());
                 }
 
-                List<string> unique_items = new HashSet<string>(BATCH_ID).ToList();
+                List<string> unique_items = new HashSet<string>(list_res_data).ToList();
 
                 // Define the SQL query using a parameterized query with the IN operator
                 string sql = "SELECT * FROM " + cmb + " WHERE " + cmb2 + " IN (";
+
+
+                if (cmb == "cpdgene" || cmb == "genepath" || cmb == "genedis")
+                {
+                    sql = "SELECT " + cmb + ".*, gene.name, gene.symbol FROM " + cmb + " JOIN gene ON gene.geneid= " + cmb + ".geneid WHERE  " + cmb + "." + cmb2 + " IN (";
+                }
+                if (cmb == "genepath" || cmb == "cpdpath")
+                {
+                    sql = "SELECT " + cmb + ".*, pathway.name FROM " + cmb + " JOIN pathway ON pathway.pathid= " + cmb + ".pathid WHERE  " + cmb + "." + cmb2 + " IN (";
+                }
+
+                if (cmb == "genedis" || cmb == "cpddis" )
+                {
+                    sql = "SELECT " + cmb + ".*, disease.name FROM " + cmb + " JOIN disease ON disease.disid= " + cmb + ".disid WHERE  " + cmb + "." + cmb2 + " IN (";
+                }
 
                 // Add a parameter placeholder for each value in the stringList
                 for (int i = 0; i < unique_items.Count; i++)
@@ -282,9 +290,9 @@ namespace sqlcnet
                 NpgsqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
                 dt.Load(reader);
-                dataGridView1.DataSource = dt;
+                dGV_results.DataSource = dt;
                 
-                foreach (DataGridViewRow row in dataGridView1.Rows)
+                foreach (DataGridViewRow row in dGV_results.Rows)
                 {
                     row.HeaderCell.Value = (row.Index + 1).ToString();                    
                 }
@@ -299,12 +307,12 @@ namespace sqlcnet
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void swap_Click(object sender, EventArgs e)
         {
-            DataTable tempTable = (DataTable)dataGridView1.DataSource;
+            DataTable tempTable = (DataTable)dGV_results.DataSource;
 
             // Set the data source of dataGridView1 to the data source of dataGridView2
-            dataGridView1.DataSource = dGV_cpds.DataSource;
+            dGV_results.DataSource = dGV_cpds.DataSource;
 
             // Set the data source of dataGridView2 to the DataTable object that was created from dataGridView1
             dGV_cpds.DataSource = tempTable;
@@ -374,7 +382,7 @@ namespace sqlcnet
 
             List<string> sel = new List<string>();
             Dictionary<string, HashSet<string>> pathway_genes = new Dictionary<string, HashSet<string>>();
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            foreach (DataGridViewRow row in dGV_results.Rows)
             {
                 if (row.Cells[0].Value.ToString().Contains("hsa"))
                 {
@@ -388,7 +396,7 @@ namespace sqlcnet
             {
                 pathway_genes.Add(item, new HashSet<string>());
             }
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            foreach (DataGridViewRow row in dGV_results.Rows)
             {
                 if (row.Cells[0].Value.ToString().Contains("hsa"))
                 {
@@ -441,10 +449,10 @@ namespace sqlcnet
             fc.Show();
         }
 
-        private void dataGridView1_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             List<string> sel = new List<string>();
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            foreach (DataGridViewRow row in dGV_results.Rows)
             {
                 if (row.Cells[e.ColumnIndex].Value.ToString() != "No result" & row.Cells[e.ColumnIndex].Value.ToString() != "")
                 {

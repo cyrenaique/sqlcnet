@@ -28,7 +28,7 @@ namespace sqlcnet
         public HelpForm HelpF;
         NpgsqlConnection conn;
         readonly string cs = "Server=192.168.2.131;Port=5432;User Id=arno; Database=ksi_cpds; Password=12345";
-        NpgsqlDataAdapter adapt;
+        //NpgsqlDataAdapter adapt;
         public GKForm f2;
         public LoadCpdsForm f_cpds;
         public TestForm TF;
@@ -75,7 +75,7 @@ namespace sqlcnet
             List<string> unique_items = new HashSet<string>(columnNames).ToList();
 
             columnReader.Close(); // close the reader for the list of columns in the database
-            comboBox2.DataSource = unique_items;
+            comboBox_mapping.DataSource = unique_items;
             cmd.Dispose();
             conn.Close();
         }
@@ -216,18 +216,8 @@ namespace sqlcnet
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            conn = new NpgsqlConnection(cs);
-            conn.Open();
-            cmb = comboBox1.GetItemText(this.comboBox1.SelectedItem);
-            List<string> columns_name = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
-            comboBox_fields.DataSource = columns_name;
-
-            string val_combo = comboBox_fields.GetItemText(this.comboBox_fields.SelectedItem);
-            adapt = new NpgsqlDataAdapter("select * from " + cmb + " where " + val_combo + " like '" + textBox1.Text + "%'", conn);
-            dt = new DataTable();
-            adapt.Fill(dt);
-            dataGridView1.DataSource = dt;
-            conn.Close();
+            string text = comboBox_mapping.GetItemText(this.comboBox_mapping.SelectedItem);
+            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format(text+" LIKE '{0}%'", textBox1.Text);                    
 
         }
 
@@ -254,7 +244,7 @@ namespace sqlcnet
             List<string> BATCH_ID = new List<string>();
             //f_cpds = new LoadCpdsForm();
             string val_combo = comboBox_fields.GetItemText(this.comboBox_fields.SelectedItem);
-            cmb2 = comboBox2.GetItemText(this.comboBox2.SelectedItem);
+            cmb2 = comboBox_mapping.GetItemText(this.comboBox_mapping.SelectedItem);
             //dataGridView1.Rows.Clear();
             dataGridView1.Visible = true;
 
@@ -328,7 +318,8 @@ namespace sqlcnet
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+
+        private void pathwaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string sql2 = "select * from genepath";
             NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn);
@@ -342,8 +333,8 @@ namespace sqlcnet
                 {
                     path_list.Add(Resource.GetString(0));
                 }
-               
-              
+
+
                 //break;
             }
 
@@ -389,7 +380,7 @@ namespace sqlcnet
                 {
                     sel.Add(row.Cells[0].Value.ToString());
                 }
-                
+
 
             }
             List<string> unique_pathw = new HashSet<string>(sel).ToList();
@@ -448,7 +439,6 @@ namespace sqlcnet
             fc.chart1.Series["Genes in Pathway"].ToolTip = "Pathway: #VALX";
             //form.Controls.Add(chart);
             fc.Show();
-
         }
 
         private void dataGridView1_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

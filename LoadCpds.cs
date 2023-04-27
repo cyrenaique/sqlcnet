@@ -458,6 +458,7 @@ namespace sqlcnet
             }
             fc.chart1.Series[0].Name = val_combo_x + "__" + val_combo_y;
             fc.Show();
+            // add cpds 
         }
 
         private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

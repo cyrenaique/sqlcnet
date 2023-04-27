@@ -58,6 +58,11 @@
             this.label6 = new System.Windows.Forms.Label();
             this.swap = new System.Windows.Forms.Button();
             this.toolTip_swap = new System.Windows.Forms.ToolTip(this.components);
+            this.x_combo = new System.Windows.Forms.ComboBox();
+            this.y_combo = new System.Windows.Forms.ComboBox();
+            this.x_label = new System.Windows.Forms.Label();
+            this.y_label = new System.Windows.Forms.Label();
+            this.plot_results = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
@@ -320,11 +325,60 @@
             this.swap.UseVisualStyleBackColor = true;
             this.swap.Click += new System.EventHandler(this.swap_Click);
             // 
+            // x_combo
+            // 
+            this.x_combo.FormattingEnabled = true;
+            this.x_combo.Location = new System.Drawing.Point(1264, 646);
+            this.x_combo.Name = "x_combo";
+            this.x_combo.Size = new System.Drawing.Size(121, 21);
+            this.x_combo.TabIndex = 22;
+            // 
+            // y_combo
+            // 
+            this.y_combo.FormattingEnabled = true;
+            this.y_combo.Location = new System.Drawing.Point(1264, 673);
+            this.y_combo.Name = "y_combo";
+            this.y_combo.Size = new System.Drawing.Size(121, 21);
+            this.y_combo.TabIndex = 23;
+            // 
+            // x_label
+            // 
+            this.x_label.AutoSize = true;
+            this.x_label.Location = new System.Drawing.Point(1207, 649);
+            this.x_label.Name = "x_label";
+            this.x_label.Size = new System.Drawing.Size(14, 13);
+            this.x_label.TabIndex = 24;
+            this.x_label.Text = "X";
+            // 
+            // y_label
+            // 
+            this.y_label.AutoSize = true;
+            this.y_label.Location = new System.Drawing.Point(1207, 676);
+            this.y_label.Name = "y_label";
+            this.y_label.Size = new System.Drawing.Size(14, 13);
+            this.y_label.TabIndex = 25;
+            this.y_label.Text = "Y";
+            // 
+            // plot_results
+            // 
+            this.plot_results.Location = new System.Drawing.Point(1412, 666);
+            this.plot_results.Name = "plot_results";
+            this.plot_results.Size = new System.Drawing.Size(75, 23);
+            this.plot_results.TabIndex = 26;
+            this.plot_results.Text = "plot results";
+            this.plot_results.UseVisualStyleBackColor = true;
+            this.plot_results.Click += new System.EventHandler(this.plot_results_Click);
+            // 
             // LoadCpdsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1532, 856);
+            this.Controls.Add(this.plot_results);
+            this.Controls.Add(this.y_label);
+            this.Controls.Add(this.x_label);
+            this.Controls.Add(this.y_combo);
+            this.Controls.Add(this.x_combo);
             this.Controls.Add(this.swap);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.comboBox_mapping);
@@ -380,5 +434,10 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem pathwaysToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip_swap;
+        private System.Windows.Forms.ComboBox x_combo;
+        private System.Windows.Forms.ComboBox y_combo;
+        private System.Windows.Forms.Label x_label;
+        private System.Windows.Forms.Label y_label;
+        private System.Windows.Forms.Button plot_results;
     }
 }

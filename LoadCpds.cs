@@ -28,7 +28,6 @@ namespace sqlcnet
         public HelpForm HelpF;
         NpgsqlConnection conn;
         readonly string cs = "Server=192.168.2.131;Port=5432;User Id=arno; Database=ksi_cpds; Password=12345";
-        //NpgsqlDataAdapter adapt;
         public GKForm f2;
         public LoadCpdsForm f_cpds;
         public TestForm TF;
@@ -110,7 +109,6 @@ namespace sqlcnet
         {
             HelpF = new HelpForm();
             HelpF.Show();
-
         }
 
         public string Find_Info(string Path)
@@ -132,8 +130,6 @@ namespace sqlcnet
             
             if (e.RowIndex > -1)
             {
-
-
                 string gene_txt = dGV_results.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
                 List<string> columns_name = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
@@ -144,17 +140,14 @@ namespace sqlcnet
                     Dictionary<string, List<string>> pathway_genes = new Dictionary<string, List<string>>();
                     foreach (DataGridViewRow row in dGV_results.Rows)
                     {
-
                         if (row.Cells[e.ColumnIndex].Value.ToString() == gene_txt)
                         {
                             sel.Add(row.Cells[1].Value.ToString());
 
                         }
 
-
                     }
                     List<string> unique_items = new HashSet<string>(sel).ToList();
-
                     string string_path = "http://www.kegg.jp/kegg-bin/show_pathway?"+gene_txt+ "/default%3dpink/";
                     foreach (string item in unique_items)
                     {
@@ -163,7 +156,6 @@ namespace sqlcnet
                     }
                     string_path += "%09,blue";
                     ChromiumWebBrowser browser = new ChromiumWebBrowser(string_path);
-
                     f2.toolStripContainer1.ContentPanel.Controls.Add(browser);
                     f2.Show();
                     //pathway_genes.Add(gene_txt, unique_items);
@@ -188,21 +180,15 @@ namespace sqlcnet
 
                     f2.toolStripContainer1.ContentPanel.Controls.Add(browser);
                     f2.Show();
-
                 }
 
                 else
-           
                 {
                     f2 = new GKForm();
                     ChromiumWebBrowser browser = new ChromiumWebBrowser("https://pubchem.ncbi.nlm.nih.gov/compound/" + gene_txt);
                     f2.toolStripContainer1.ContentPanel.Controls.Add(browser);
                     f2.Show();
-
                 }
-
-
-                //button_form2.Text = "test";
                
             }
 
@@ -297,12 +283,16 @@ namespace sqlcnet
                     row.HeaderCell.Value = (row.Index + 1).ToString();                    
                 }
                 MessageBox.Show("Done");
+                // add col to x_combo and y_combo
+                foreach (DataGridViewColumn col in dGV_results.Columns)
+                {
+                    x_combo.Items.Add(col.HeaderText);
+                    y_combo.Items.Add(col.HeaderText);
+                }
             }           
-
             else
             {
                 MessageBox.Show("No infos");
-                
             }       
 
         }
@@ -310,10 +300,8 @@ namespace sqlcnet
         private void swap_Click(object sender, EventArgs e)
         {
             DataTable tempTable = (DataTable)dGV_results.DataSource;
-
             // Set the data source of dataGridView1 to the data source of dataGridView2
             dGV_results.DataSource = dGV_cpds.DataSource;
-
             // Set the data source of dataGridView2 to the DataTable object that was created from dataGridView1
             dGV_cpds.DataSource = tempTable;
             List<string> columns_name = new List<string>();
@@ -323,7 +311,6 @@ namespace sqlcnet
 
             }
             comboBox_fields.DataSource = columns_name;
-
         }
 
 
@@ -341,8 +328,6 @@ namespace sqlcnet
                 {
                     path_list.Add(Resource.GetString(0));
                 }
-
-
                 //break;
             }
 
@@ -416,22 +401,7 @@ namespace sqlcnet
 
             // Create a new Chart object to display the histogram
             FormChart fc = new FormChart();
-            //Chart chart = new Chart();
-            //Series newSeries = new Series("New Series");
-
-            // Set the chart type to a histogram
-            //newSeries.ChartType = SeriesChartType.Column;
-            //fc.chart1.Series[0].ChartType = SeriesChartType.
-            // Loop through the pathwayGeneCounts dictionary and add the data points to the chart
-            //foreach (KeyValuePair<string, int> kvp in pathwayGeneCounts)
-            //{
-            //    string pathway = kvp.Key; // get the name of the pathway from the key of the current key-value pair
-            //    int geneCount = kvp.Value; // get the number of genes in the pathway from the value of the current key-value pair
-            //    fc.chart1.Series[0].Points.AddXY(pathway, geneCount); // add the pathway and gene count as a data point to the chart
-            //}
-
             var commonKeys = pathwayGeneCounts.Keys.Intersect(pathwaytotalGeneCounts.Keys);
-
             foreach (var key in commonKeys)
             {
                 pathwaytotalGeneCounts.TryGetValue(key, out var geneCounttot);
@@ -441,11 +411,52 @@ namespace sqlcnet
                 // do something with the common key
             }
 
-
             //chart.Series.Add(newSeries);
             // Display the chart in a new form
             fc.chart1.Series["Genes in Pathway"].ToolTip = "Pathway: #VALX";
             //form.Controls.Add(chart);
+            fc.Show();
+        }
+
+
+        private void plot_results_Click(object sender, EventArgs e)
+        {
+            // for example X:gene , Y:cpd
+            FormChart fc = new FormChart();
+            HashSet<string> list_x_data = new HashSet<string>();
+            List<string> list_y_data = new List<string>();
+
+            string val_combo_x = x_combo.GetItemText(this.x_combo.SelectedItem);
+            string val_combo_y = y_combo.GetItemText(this.y_combo.SelectedItem);
+
+            /* X values should be unique */
+            foreach (DataGridViewRow row in dGV_results.Rows)
+            {
+                list_x_data.Add(row.Cells[val_combo_x].Value.ToString());
+            }
+
+            /* dictinary of X and  y to chart plot*/
+            Dictionary<string, List<string>> xyCounts = new Dictionary<string, List<string>>();
+            foreach (string item in list_x_data)
+            {
+                xyCounts.Add(item, new List<string>());
+            }
+
+            foreach (DataGridViewRow row in dGV_results.Rows)
+            {
+                xyCounts[row.Cells[val_combo_x].Value.ToString()].Add(row.Cells[val_combo_y].Value.ToString());
+
+            }
+
+            // now count Y and chart!
+            foreach (KeyValuePair<string, List<string>> kvp in xyCounts)
+            {
+                string x_values = kvp.Key;
+                List<string> y_values = kvp.Value;
+                int y_counts = y_values.Count;
+                fc.chart1.Series[0].Points.AddXY(x_values, y_counts);
+            }
+            fc.chart1.Series[0].Name = val_combo_x + "__" + val_combo_y;
             fc.Show();
         }
 

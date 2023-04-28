@@ -16,11 +16,13 @@ using LumenWorks.Framework.IO.Csv;
 using Npgsql;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Net;
+using MaterialSkin.Controls;
+using MaterialSkin;
 
 namespace sqlcnet
 {
 
-    public partial class LoadCpdsForm : Form
+    public partial class LoadCpdsForm : MaterialForm
     {
         DataTable dt;
         CachedCsvReader csv;
@@ -36,6 +38,10 @@ namespace sqlcnet
         public LoadCpdsForm()
         {
             InitializeComponent();
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             dGV_cpds.Visible = false;
             dGV_results.Visible = false;
 
@@ -460,6 +466,8 @@ namespace sqlcnet
             fc.Show();
             // add cpds 
         }
+
+      
 
         private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {

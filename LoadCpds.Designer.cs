@@ -45,27 +45,30 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.pathwaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.comboBox_fields = new System.Windows.Forms.ComboBox();
             this.comboBox_tables = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.dGV_results = new System.Windows.Forms.DataGridView();
-            this.label5 = new System.Windows.Forms.Label();
             this.comboBox_mapping = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.swap = new System.Windows.Forms.Button();
             this.toolTip_swap = new System.Windows.Forms.ToolTip(this.components);
             this.x_combo = new System.Windows.Forms.ComboBox();
             this.y_combo = new System.Windows.Forms.ComboBox();
-            this.x_label = new System.Windows.Forms.Label();
-            this.y_label = new System.Windows.Forms.Label();
             this.plot_results = new System.Windows.Forms.Button();
+            this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.selectLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
+            this.materialTabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dGV_cpds
@@ -75,9 +78,9 @@
             this.dGV_cpds.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dGV_cpds.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dGV_cpds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_cpds.Location = new System.Drawing.Point(12, 134);
+            this.dGV_cpds.Location = new System.Drawing.Point(6, 70);
             this.dGV_cpds.Name = "dGV_cpds";
-            this.dGV_cpds.Size = new System.Drawing.Size(669, 486);
+            this.dGV_cpds.Size = new System.Drawing.Size(641, 348);
             this.dGV_cpds.TabIndex = 0;
             // 
             // toolStrip1
@@ -94,9 +97,9 @@
             this.toolStripSeparator1,
             this.helpToolStripButton,
             this.toolStripDropDownButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(3, 64);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1532, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1526, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -206,37 +209,10 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(249, 107);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Data Source";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1044, 41);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Choose Table";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(144, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Select Column";
-            // 
             // comboBox_fields
             // 
             this.comboBox_fields.FormattingEnabled = true;
-            this.comboBox_fields.Location = new System.Drawing.Point(121, 57);
+            this.comboBox_fields.Location = new System.Drawing.Point(46, 43);
             this.comboBox_fields.Name = "comboBox_fields";
             this.comboBox_fields.Size = new System.Drawing.Size(121, 21);
             this.comboBox_fields.TabIndex = 15;
@@ -244,25 +220,16 @@
             // comboBox_tables
             // 
             this.comboBox_tables.FormattingEnabled = true;
-            this.comboBox_tables.Location = new System.Drawing.Point(1030, 57);
+            this.comboBox_tables.Location = new System.Drawing.Point(784, 43);
             this.comboBox_tables.Name = "comboBox_tables";
             this.comboBox_tables.Size = new System.Drawing.Size(121, 21);
             this.comboBox_tables.Sorted = true;
             this.comboBox_tables.TabIndex = 14;
             this.comboBox_tables.DropDownClosed += new System.EventHandler(this.comboBox_tables_DropDownClosed);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1388, 96);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 13);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "SearchBox";
-            // 
             // searchBox
             // 
-            this.searchBox.Location = new System.Drawing.Point(1371, 112);
+            this.searchBox.Location = new System.Drawing.Point(1030, 43);
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(100, 20);
             this.searchBox.TabIndex = 12;
@@ -280,43 +247,25 @@
             this.dGV_results.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dGV_results.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dGV_results.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_results.Location = new System.Drawing.Point(719, 134);
+            this.dGV_results.Location = new System.Drawing.Point(745, 70);
             this.dGV_results.Name = "dGV_results";
-            this.dGV_results.Size = new System.Drawing.Size(752, 486);
+            this.dGV_results.Size = new System.Drawing.Size(530, 446);
             this.dGV_results.TabIndex = 0;
             this.dGV_results.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_results_CellDoubleClick);
             this.dGV_results.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dGV_results_ColumnHeaderMouseDoubleClick);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1051, 107);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 13);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Data In DB";
-            // 
             // comboBox_mapping
             // 
             this.comboBox_mapping.FormattingEnabled = true;
-            this.comboBox_mapping.Location = new System.Drawing.Point(342, 57);
+            this.comboBox_mapping.Location = new System.Drawing.Point(276, 43);
             this.comboBox_mapping.Name = "comboBox_mapping";
             this.comboBox_mapping.Size = new System.Drawing.Size(121, 21);
             this.comboBox_mapping.Sorted = true;
             this.comboBox_mapping.TabIndex = 19;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(365, 41);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(85, 13);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "Mapping column";
-            // 
             // swap
             // 
-            this.swap.Location = new System.Drawing.Point(667, 86);
+            this.swap.Location = new System.Drawing.Point(653, 108);
             this.swap.Name = "swap";
             this.swap.Size = new System.Drawing.Size(75, 23);
             this.swap.TabIndex = 21;
@@ -328,7 +277,7 @@
             // x_combo
             // 
             this.x_combo.FormattingEnabled = true;
-            this.x_combo.Location = new System.Drawing.Point(1264, 646);
+            this.x_combo.Location = new System.Drawing.Point(96, 495);
             this.x_combo.Name = "x_combo";
             this.x_combo.Size = new System.Drawing.Size(121, 21);
             this.x_combo.TabIndex = 22;
@@ -336,32 +285,14 @@
             // y_combo
             // 
             this.y_combo.FormattingEnabled = true;
-            this.y_combo.Location = new System.Drawing.Point(1264, 673);
+            this.y_combo.Location = new System.Drawing.Point(96, 536);
             this.y_combo.Name = "y_combo";
             this.y_combo.Size = new System.Drawing.Size(121, 21);
             this.y_combo.TabIndex = 23;
             // 
-            // x_label
-            // 
-            this.x_label.AutoSize = true;
-            this.x_label.Location = new System.Drawing.Point(1207, 649);
-            this.x_label.Name = "x_label";
-            this.x_label.Size = new System.Drawing.Size(14, 13);
-            this.x_label.TabIndex = 24;
-            this.x_label.Text = "X";
-            // 
-            // y_label
-            // 
-            this.y_label.AutoSize = true;
-            this.y_label.Location = new System.Drawing.Point(1207, 676);
-            this.y_label.Name = "y_label";
-            this.y_label.Size = new System.Drawing.Size(14, 13);
-            this.y_label.TabIndex = 25;
-            this.y_label.Text = "Y";
-            // 
             // plot_results
             // 
-            this.plot_results.Location = new System.Drawing.Point(1412, 666);
+            this.plot_results.Location = new System.Drawing.Point(267, 511);
             this.plot_results.Name = "plot_results";
             this.plot_results.Size = new System.Drawing.Size(75, 23);
             this.plot_results.TabIndex = 26;
@@ -369,36 +300,143 @@
             this.plot_results.UseVisualStyleBackColor = true;
             this.plot_results.Click += new System.EventHandler(this.plot_results_Click);
             // 
+            // materialTabControl1
+            // 
+            this.materialTabControl1.Controls.Add(this.tabPage1);
+            this.materialTabControl1.Controls.Add(this.tabPage2);
+            this.materialTabControl1.Depth = 0;
+            this.materialTabControl1.Location = new System.Drawing.Point(6, 92);
+            this.materialTabControl1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialTabControl1.Multiline = true;
+            this.materialTabControl1.Name = "materialTabControl1";
+            this.materialTabControl1.SelectedIndex = 0;
+            this.materialTabControl1.Size = new System.Drawing.Size(1300, 619);
+            this.materialTabControl1.TabIndex = 27;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.materialLabel5);
+            this.tabPage1.Controls.Add(this.materialLabel4);
+            this.tabPage1.Controls.Add(this.materialLabel3);
+            this.tabPage1.Controls.Add(this.materialLabel2);
+            this.tabPage1.Controls.Add(this.materialLabel1);
+            this.tabPage1.Controls.Add(this.selectLabel);
+            this.tabPage1.Controls.Add(this.comboBox_fields);
+            this.tabPage1.Controls.Add(this.plot_results);
+            this.tabPage1.Controls.Add(this.comboBox_mapping);
+            this.tabPage1.Controls.Add(this.y_combo);
+            this.tabPage1.Controls.Add(this.comboBox_tables);
+            this.tabPage1.Controls.Add(this.x_combo);
+            this.tabPage1.Controls.Add(this.searchBox);
+            this.tabPage1.Controls.Add(this.dGV_results);
+            this.tabPage1.Controls.Add(this.swap);
+            this.tabPage1.Controls.Add(this.dGV_cpds);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1292, 593);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1292, 473);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // selectLabel
+            // 
+            this.selectLabel.AutoSize = true;
+            this.selectLabel.Depth = 0;
+            this.selectLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.selectLabel.Location = new System.Drawing.Point(43, 21);
+            this.selectLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.selectLabel.Name = "selectLabel";
+            this.selectLabel.Size = new System.Drawing.Size(103, 19);
+            this.selectLabel.TabIndex = 27;
+            this.selectLabel.Text = "Select Column";
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel1.Location = new System.Drawing.Point(274, 21);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(123, 19);
+            this.materialLabel1.TabIndex = 28;
+            this.materialLabel1.Text = "Mapping Column";
+            // 
+            // materialLabel2
+            // 
+            this.materialLabel2.AutoSize = true;
+            this.materialLabel2.Depth = 0;
+            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel2.Location = new System.Drawing.Point(781, 21);
+            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel2.Name = "materialLabel2";
+            this.materialLabel2.Size = new System.Drawing.Size(98, 19);
+            this.materialLabel2.TabIndex = 29;
+            this.materialLabel2.Text = "Choose Table";
+            // 
+            // materialLabel3
+            // 
+            this.materialLabel3.AutoSize = true;
+            this.materialLabel3.Depth = 0;
+            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel3.Location = new System.Drawing.Point(1027, 21);
+            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel3.Name = "materialLabel3";
+            this.materialLabel3.Size = new System.Drawing.Size(77, 19);
+            this.materialLabel3.TabIndex = 30;
+            this.materialLabel3.Text = "SearchBox";
+            // 
+            // materialLabel4
+            // 
+            this.materialLabel4.AutoSize = true;
+            this.materialLabel4.Depth = 0;
+            this.materialLabel4.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel4.Location = new System.Drawing.Point(60, 495);
+            this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel4.Name = "materialLabel4";
+            this.materialLabel4.Size = new System.Drawing.Size(11, 19);
+            this.materialLabel4.TabIndex = 31;
+            this.materialLabel4.Text = "X";
+            // 
+            // materialLabel5
+            // 
+            this.materialLabel5.AutoSize = true;
+            this.materialLabel5.Depth = 0;
+            this.materialLabel5.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel5.Location = new System.Drawing.Point(60, 536);
+            this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel5.Name = "materialLabel5";
+            this.materialLabel5.Size = new System.Drawing.Size(11, 19);
+            this.materialLabel5.TabIndex = 32;
+            this.materialLabel5.Text = "Y";
+            // 
             // LoadCpdsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1532, 856);
-            this.Controls.Add(this.plot_results);
-            this.Controls.Add(this.y_label);
-            this.Controls.Add(this.x_label);
-            this.Controls.Add(this.y_combo);
-            this.Controls.Add(this.x_combo);
-            this.Controls.Add(this.swap);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox_mapping);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox_fields);
-            this.Controls.Add(this.comboBox_tables);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.searchBox);
-            this.Controls.Add(this.dGV_results);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.materialTabControl1);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.dGV_cpds);
             this.Name = "LoadCpdsForm";
             this.Text = "LoadCpds";
             ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).EndInit();
+            this.materialTabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -419,25 +457,26 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox_fields;
         private System.Windows.Forms.ComboBox comboBox_tables;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.DataGridView dGV_results;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBox_mapping;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button swap;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem pathwaysToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip_swap;
         private System.Windows.Forms.ComboBox x_combo;
         private System.Windows.Forms.ComboBox y_combo;
-        private System.Windows.Forms.Label x_label;
-        private System.Windows.Forms.Label y_label;
         private System.Windows.Forms.Button plot_results;
+        private MaterialSkin.Controls.MaterialTabControl materialTabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private MaterialSkin.Controls.MaterialLabel selectLabel;
+        private MaterialSkin.Controls.MaterialLabel materialLabel5;
+        private MaterialSkin.Controls.MaterialLabel materialLabel4;
+        private MaterialSkin.Controls.MaterialLabel materialLabel3;
+        private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
     }
 }

@@ -37,6 +37,7 @@ namespace sqlcnet
         protected DataGridView MyDgv;
         public LoadCpdsForm()
         {
+
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -466,8 +467,6 @@ namespace sqlcnet
             fc.Show();
             // add cpds 
         }
-
-      
 
         private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {

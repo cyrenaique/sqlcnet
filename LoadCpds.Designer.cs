@@ -253,7 +253,7 @@
             this.search.Padding = new System.Windows.Forms.Padding(3);
             this.search.Size = new System.Drawing.Size(1382, 623);
             this.search.TabIndex = 0;
-            this.search.Text = "search";
+            this.search.Text = "Meta Data";
             this.search.UseVisualStyleBackColor = true;
             // 
             // selectLabel
@@ -442,7 +442,7 @@
             this.profiles.Name = "profiles";
             this.profiles.Size = new System.Drawing.Size(1382, 623);
             this.profiles.TabIndex = 1;
-            this.profiles.Text = "profiles";
+            this.profiles.Text = "Profiles";
             this.profiles.UseVisualStyleBackColor = true;
             // 
             // comboBox1
@@ -470,9 +470,9 @@
             this.synonyms,
             this.crisperplate,
             this.crisperwell});
-            this.dataGridView1.Location = new System.Drawing.Point(24, 90);
+            this.dataGridView1.Location = new System.Drawing.Point(14, 109);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(641, 110);
+            this.dataGridView1.Size = new System.Drawing.Size(643, 110);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -486,9 +486,9 @@
             this.plate,
             this.well,
             this.tags});
-            this.dataGridView2.Location = new System.Drawing.Point(24, 225);
+            this.dataGridView2.Location = new System.Drawing.Point(14, 241);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(641, 150);
+            this.dataGridView2.Size = new System.Drawing.Size(643, 150);
             this.dataGridView2.TabIndex = 3;
             // 
             // geneid
@@ -553,7 +553,7 @@
             // 
             // pltcorr
             // 
-            this.pltcorr.Location = new System.Drawing.Point(244, 417);
+            this.pltcorr.Location = new System.Drawing.Point(225, 428);
             this.pltcorr.Name = "pltcorr";
             this.pltcorr.Size = new System.Drawing.Size(158, 23);
             this.pltcorr.TabIndex = 4;

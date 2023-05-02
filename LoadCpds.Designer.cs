@@ -64,33 +64,34 @@
             this.dGV_cpds = new System.Windows.Forms.DataGridView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.profiles = new System.Windows.Forms.TabPage();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.pltcorr = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.geneid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.symbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.synonyms = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cpdname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pubchemid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.batchid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.plate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.well = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tags = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.geneid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.symbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.synonyms = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.crisperplate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.crisperwell = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pltcorr = new System.Windows.Forms.Button();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Search_Button = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.profiles.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -232,6 +233,7 @@
             // 
             // search
             // 
+            this.search.Controls.Add(this.Search_Button);
             this.search.Controls.Add(this.selectLabel);
             this.search.Controls.Add(this.plot_results);
             this.search.Controls.Add(this.materialLabel5);
@@ -384,9 +386,6 @@
             this.dGV_results.AllowUserToAddRows = false;
             this.dGV_results.AllowUserToDeleteRows = false;
             this.dGV_results.AllowUserToOrderColumns = true;
-            this.dGV_results.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dGV_results.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dGV_results.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dGV_results.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -422,6 +421,9 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.search);
             this.tabControl1.Controls.Add(this.profiles);
             this.tabControl1.Location = new System.Drawing.Point(17, 92);
@@ -445,36 +447,22 @@
             this.profiles.Text = "Profiles";
             this.profiles.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // dataGridView3
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(148, 34);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Location = new System.Drawing.Point(759, 52);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.Size = new System.Drawing.Size(602, 500);
+            this.dataGridView3.TabIndex = 5;
             // 
-            // textBox1
+            // pltcorr
             // 
-            this.textBox1.Location = new System.Drawing.Point(24, 34);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.geneid,
-            this.name,
-            this.symbol,
-            this.synonyms,
-            this.crisperplate,
-            this.crisperwell});
-            this.dataGridView1.Location = new System.Drawing.Point(14, 109);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(643, 110);
-            this.dataGridView1.TabIndex = 2;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.pltcorr.Location = new System.Drawing.Point(225, 428);
+            this.pltcorr.Name = "pltcorr";
+            this.pltcorr.Size = new System.Drawing.Size(158, 23);
+            this.pltcorr.TabIndex = 4;
+            this.pltcorr.Text = "plot heatmap";
+            this.pltcorr.UseVisualStyleBackColor = true;
             // 
             // dataGridView2
             // 
@@ -490,26 +478,6 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(643, 150);
             this.dataGridView2.TabIndex = 3;
-            // 
-            // geneid
-            // 
-            this.geneid.HeaderText = "Gene ID";
-            this.geneid.Name = "geneid";
-            // 
-            // name
-            // 
-            this.name.HeaderText = "Name";
-            this.name.Name = "name";
-            // 
-            // symbol
-            // 
-            this.symbol.HeaderText = "symbol";
-            this.symbol.Name = "symbol";
-            // 
-            // synonyms
-            // 
-            this.synonyms.HeaderText = "synonyms";
-            this.synonyms.Name = "synonyms";
             // 
             // cpdname
             // 
@@ -541,6 +509,42 @@
             this.tags.HeaderText = "tags";
             this.tags.Name = "tags";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.geneid,
+            this.name,
+            this.symbol,
+            this.synonyms,
+            this.crisperplate,
+            this.crisperwell});
+            this.dataGridView1.Location = new System.Drawing.Point(14, 109);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(643, 110);
+            this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // geneid
+            // 
+            this.geneid.HeaderText = "Gene ID";
+            this.geneid.Name = "geneid";
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
+            // 
+            // symbol
+            // 
+            this.symbol.HeaderText = "symbol";
+            this.symbol.Name = "symbol";
+            // 
+            // synonyms
+            // 
+            this.synonyms.HeaderText = "synonyms";
+            this.synonyms.Name = "synonyms";
+            // 
             // crisperplate
             // 
             this.crisperplate.HeaderText = "Crisper Plate";
@@ -551,22 +555,30 @@
             this.crisperwell.HeaderText = "Crisper Well";
             this.crisperwell.Name = "crisperwell";
             // 
-            // pltcorr
+            // textBox1
             // 
-            this.pltcorr.Location = new System.Drawing.Point(225, 428);
-            this.pltcorr.Name = "pltcorr";
-            this.pltcorr.Size = new System.Drawing.Size(158, 23);
-            this.pltcorr.TabIndex = 4;
-            this.pltcorr.Text = "plot heatmap";
-            this.pltcorr.UseVisualStyleBackColor = true;
+            this.textBox1.Location = new System.Drawing.Point(24, 34);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 1;
             // 
-            // dataGridView3
+            // comboBox1
             // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(759, 52);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(602, 500);
-            this.dataGridView3.TabIndex = 5;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(148, 34);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 0;
+            // 
+            // Search_Button
+            // 
+            this.Search_Button.Location = new System.Drawing.Point(644, 34);
+            this.Search_Button.Name = "Search_Button";
+            this.Search_Button.Size = new System.Drawing.Size(75, 23);
+            this.Search_Button.TabIndex = 33;
+            this.Search_Button.Text = "Search";
+            this.Search_Button.UseVisualStyleBackColor = true;
+            this.Search_Button.Click += new System.EventHandler(this.Search_Button_Click);
             // 
             // LoadCpdsForm
             // 
@@ -586,9 +598,9 @@
             this.tabControl1.ResumeLayout(false);
             this.profiles.ResumeLayout(false);
             this.profiles.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -647,5 +659,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn synonyms;
         private System.Windows.Forms.DataGridViewTextBoxColumn crisperplate;
         private System.Windows.Forms.DataGridViewTextBoxColumn crisperwell;
+        private System.Windows.Forms.Button Search_Button;
     }
 }

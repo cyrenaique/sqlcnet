@@ -18,6 +18,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using System.Net;
 using MaterialSkin.Controls;
 using MaterialSkin;
+using System.Data.SqlClient;
 
 namespace sqlcnet
 {
@@ -70,16 +71,16 @@ namespace sqlcnet
             cmd.CommandText = "SELECT column_name, table_name FROM information_schema.columns WHERE table_schema = 'public'";
             NpgsqlDataReader columnReader = cmd.ExecuteReader();
             List<string> columnNames = new List<string>();
-            
+
             // Loop through the columns and add their names to the List
             while (columnReader.Read())
             {
                 string columnName = columnReader.GetString(0); // get the name of the column from the first column of the column reader
-                 columnNames.Add($"{columnName}"); // add the column name to the List, including the table name as a prefix
+                columnNames.Add($"{columnName}"); // add the column name to the List, including the table name as a prefix
             }
             List<string> unique_items = new HashSet<string>(columnNames).ToList();
 
-            columnReader.Close(); 
+            columnReader.Close();
             comboBox_mapping.DataSource = unique_items;
             cmd.Dispose();
             conn.Close();
@@ -135,13 +136,13 @@ namespace sqlcnet
 
         private void dGV_results_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
             if (e.RowIndex > -1)
             {
                 string gene_txt = dGV_results.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
-                List<string> columns_name = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
-                if (columns_name[e.ColumnIndex].Contains("pathid"))
+                //List<string> columns_name = dGV_results.Columns;
+                if (dGV_results.Columns[e.ColumnIndex].ToString().Contains("pathid"))
                 {
                     f2 = new GKForm();
                     List<string> sel = new List<string>();
@@ -156,10 +157,10 @@ namespace sqlcnet
 
                     }
                     List<string> unique_items = new HashSet<string>(sel).ToList();
-                    string string_path = "http://www.kegg.jp/kegg-bin/show_pathway?"+gene_txt+ "/default%3dpink/";
+                    string string_path = "http://www.kegg.jp/kegg-bin/show_pathway?" + gene_txt + "/default%3dpink/";
                     foreach (string item in unique_items)
                     {
-                        string_path += item+"+";
+                        string_path += item + "+";
 
                     }
                     string_path += "%09,blue";
@@ -170,8 +171,8 @@ namespace sqlcnet
 
 
                 }
-                if (columns_name[e.ColumnIndex].Contains("kegg") | columns_name[e.ColumnIndex].Contains("pathid")
-                    | columns_name[e.ColumnIndex].Contains("geneid") | columns_name[e.ColumnIndex].Contains("disid"))
+                if (dGV_results.Columns[e.ColumnIndex].ToString().Contains("kegg") | dGV_results.Columns[e.ColumnIndex].ToString().Contains("pathid")
+                    | dGV_results.Columns[e.ColumnIndex].ToString().Contains("geneid") | dGV_results.Columns[e.ColumnIndex].ToString().Contains("disid"))
                 {
                     f2 = new GKForm();
                     ChromiumWebBrowser browser = new ChromiumWebBrowser("https://www.genome.jp/entry/" + gene_txt);
@@ -197,14 +198,15 @@ namespace sqlcnet
                     f2.toolStripContainer1.ContentPanel.Controls.Add(browser);
                     f2.Show();
                 }
-               
+
             }
 
         }
 
         private void searchBox_TextChanged(object sender, EventArgs e)
         {
-            string text = comboBox_mapping.GetItemText(this.comboBox_mapping.SelectedItem);
+            string text = comboBox_mapping.GetItemText(this.comboBox_mapping.SelectedItem);          
+           
             (dGV_results.DataSource as DataTable).DefaultView.RowFilter = string.Format(text+" LIKE '{0}%'", searchBox.Text);                    
 
         }
@@ -214,9 +216,9 @@ namespace sqlcnet
             cmb = comboBox_tables.GetItemText(this.comboBox_tables.SelectedItem);
 
             conn.Open();
-       
-            string sql2 ="select * from " + cmb; ;
-           
+
+            string sql2 = "select * from " + cmb; ;
+
             NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn);
             Npgsql.NpgsqlDataReader Resource = command2.ExecuteReader();
             List<string> col_list = new List<string>();
@@ -258,7 +260,7 @@ namespace sqlcnet
                     sql = "SELECT " + cmb + ".*, pathway.name FROM " + cmb + " JOIN pathway ON pathway.pathid= " + cmb + ".pathid WHERE  " + cmb + "." + cmb2 + " IN (";
                 }
 
-                if ( cmb == "cpddis" )
+                if (cmb == "cpddis")
                 {
                     sql = "SELECT " + cmb + ".*, disease.name FROM " + cmb + " JOIN disease ON disease.disid= " + cmb + ".disid WHERE  " + cmb + "." + cmb2 + " IN (";
                 }
@@ -275,20 +277,20 @@ namespace sqlcnet
                     }
                 }
 
-                sql += ")";                
+                sql += ")";
 
                 dt = new DataTable();
-                NpgsqlCommand command = new NpgsqlCommand(sql, conn); 
+                NpgsqlCommand command = new NpgsqlCommand(sql, conn);
                 // Execute the query and retrieve the results
                 conn.Open();
                 NpgsqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
                 dt.Load(reader);
                 dGV_results.DataSource = dt;
-                
+
                 foreach (DataGridViewRow row in dGV_results.Rows)
                 {
-                    row.HeaderCell.Value = (row.Index + 1).ToString();                    
+                    row.HeaderCell.Value = (row.Index + 1).ToString();
                 }
                 MessageBox.Show("Done");
                 // add col to x_combo and y_combo
@@ -297,11 +299,11 @@ namespace sqlcnet
                     x_combo.Items.Add(col.HeaderText);
                     y_combo.Items.Add(col.HeaderText);
                 }
-            }           
+            }
             else
             {
                 MessageBox.Show("No infos");
-            }       
+            }
 
         }
 
@@ -474,6 +476,95 @@ namespace sqlcnet
 
         }
 
+        private void Search_Button_Click(object sender, EventArgs e)
+        {
+            string text = searchBox.Text;
+            if (conn.FullState == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+
+
+            // get a list of all tables in the database
+            var tables = conn.GetSchema("Tables").Rows.Cast<DataRow>()
+                .Select(row => row["TABLE_NAME"].ToString())
+                .ToList();
+
+            // create a new DataTable to hold the results
+            var resultsTable = new DataTable();
+            NpgsqlCommand cmd = new NpgsqlCommand
+            {
+                Connection = conn,
+                CommandType = CommandType.Text,
+                //CommandText = "select table_name from information_schema.tables where table_schema='public'"
+            };
+
+          
+            List<string> TableNames = new List<string>();
+
+           
+            dGV_results.Visible = true;
+
+            // loop over each table and search for the string
+            foreach (var table in tables)
+            {
+                var schemaTable = conn.GetSchema("Columns", new[] { null, null, table });
+
+                // iterate over the rows of the schema table and extract the column names
+                var columnNames = new List<string>();
+                foreach (DataRow row in schemaTable.Rows)
+                {
+                    if (row["DATA_TYPE"].ToString() != "double precision")
+                        columnNames.Add(row["COLUMN_NAME"].ToString());
+                }
+
+
+                foreach (var col in columnNames)
+                {
+
+
+                    // create a new SqlCommand object to search the table for the string
+                    var command = new NpgsqlCommand($"SELECT * FROM {table} WHERE {col} LIKE '%{text}%'", conn);
+
+                    // create a new SqlDataAdapter object to fill a DataTable with the results of the query
+                    var adapter = new NpgsqlDataAdapter(command);
+                    var tableResults = new DataTable();
+
+                    adapter.Fill(tableResults);
+                    resultsTable.Merge(tableResults);
+
+                }
+            
+
+            }
+
+            // bind the results table to a DataGridView
+            dGV_results.DataSource = resultsTable;
+            int blankCellIndex = -1;
+            int numberOfDataRows = dGV_results.AllowUserToAddRows ? dGV_results.Rows.Count - 1 : dGV_results.Rows.Count; //it may be a blank row at the end
+            for (int j = 0; j < numberOfDataRows; j++)
+            {
+                for (int i = 0; i < dGV_results.Rows[j].Cells.Count; i++)
+                {
+                    if (dGV_results.Rows[j].Cells[i].Value.ToString() == "" && i > blankCellIndex)
+                    {
+                        blankCellIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (blankCellIndex > -1)
+            {
+                for (int index = blankCellIndex; index < dGV_results.Columns.Count; index++)
+                {
+                    dGV_results.Columns.RemoveAt(index);
+                    index--;
+                }
+            }
+
+        }
+
         private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             List<string> sel = new List<string>();
@@ -488,13 +579,13 @@ namespace sqlcnet
                 // do something with the row..
             }
             List<string> unique_items = new HashSet<string>(sel).ToList();
-            List<string> columns_name = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
+            //List<string> columns_name = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
 
             foreach (string item in unique_items)
             {
                 //if (columns_name[e.ColumnIndex].Contains("pubchem") | columns_name[e.ColumnIndex].Contains("cas"))
-                if (columns_name[e.ColumnIndex].Contains("kegg") | columns_name[e.ColumnIndex].Contains("pathid")
-                    | columns_name[e.ColumnIndex].Contains("geneid") | columns_name[e.ColumnIndex].Contains("disid"))
+                if (dGV_results.Columns[e.ColumnIndex].ToString().Contains("kegg") | dGV_results.Columns[e.ColumnIndex].ToString().Contains("pathid")
+                    | dGV_results.Columns[e.ColumnIndex].ToString().Contains("geneid") | dGV_results.Columns[e.ColumnIndex].ToString().Contains("disid"))
                 {
                     f2 = new GKForm();
                     ChromiumWebBrowser browser = new ChromiumWebBrowser("https://www.genome.jp/entry/" + item);

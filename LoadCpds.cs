@@ -37,6 +37,7 @@ namespace sqlcnet
         protected DataGridView MyDgv;
         public LoadCpdsForm()
         {
+            // test2s
 
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;
@@ -466,6 +467,11 @@ namespace sqlcnet
             fc.chart1.Series[0].Name = val_combo_x + "__" + val_combo_y;
             fc.Show();
             // add cpds 
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

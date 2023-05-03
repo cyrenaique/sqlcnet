@@ -529,6 +529,7 @@
             this.search_2.Text = "SearchDB";
             this.search_2.UseVisualStyleBackColor = true;
             this.search_2.Click += new System.EventHandler(this.search_2_Click);
+            
             // 
             // LoadCpdsForm
             // 

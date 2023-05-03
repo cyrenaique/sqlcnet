@@ -283,15 +283,18 @@ namespace sqlcnet
                     }
                 }
 
-                sql += ")";                
+                sql += ")";
 
+
+                conn.Close();
+                conn.Open();
                 dt = new DataTable();
                 NpgsqlCommand command = new NpgsqlCommand(sql, conn);
                 // Execute the query and retrieve the results
-                if (conn.State == ConnectionState.Closed)
-                {
-                    conn.Open();
-                }
+                //if (conn.State == ConnectionState.Closed)
+                //{
+                    
+               // }
                 NpgsqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
                 dt.Load(reader);
@@ -447,7 +450,7 @@ namespace sqlcnet
                 }
                 //break;
             }
-
+            conn.Close();
             Dictionary<string, HashSet<string>> unique_pathways = new Dictionary<string, HashSet<string>>();
             foreach (var item in path_list)
             {
@@ -576,6 +579,7 @@ namespace sqlcnet
                 fc.chart1.Series[0].Points.AddXY(x_values, y_counts);
             }
             fc.chart1.Series[0].Name = val_combo_x + "__" + val_combo_y;
+            fc.chart1.Series["Genes in Pathway"].ToolTip = "Pathway: #VALX";
             fc.Show();
             // add cpds 
         }
@@ -592,7 +596,7 @@ namespace sqlcnet
                 conn.Open();
             }
             string gen_nam = textBox_gene.Text;
-            
+
             // create a new DataTable to hold the results
 
             var resultsTable_crisper = new DataTable();
@@ -602,26 +606,26 @@ namespace sqlcnet
             var schemaTable = conn.GetSchema("Columns", new[] { null, null, "gene" });
             var columnNames = new List<string>();
             foreach (DataRow row in schemaTable.Rows)
-                {
-                    if (row["DATA_TYPE"].ToString() != "double precision")
-                        columnNames.Add(row["COLUMN_NAME"].ToString());
-                }
+            {
+                if (row["DATA_TYPE"].ToString() != "double precision")
+                    columnNames.Add(row["COLUMN_NAME"].ToString());
+            }
 
             // dGV_crisper
             foreach (var col in columnNames)
-                {
+            {
                 string sal_last_line = " where gene. " + col + " LIKE '%" + gen_nam + "%' GROUP BY plate, well,tags,symbol";
 
                 if (equal_radioButton.Checked)
                 {
-                     sal_last_line = " where gene. " + col + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
+                    sal_last_line = " where gene. " + col + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
                 }
 
 
                 string sql3 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
                                     " inner join crispermeta on crispermeta.batchid=platemap.batchid" +
                                     " inner join gene on crispermeta.geneid=gene.geneid" + sal_last_line;
-                                
+
 
                 var command = new NpgsqlCommand(sql3, conn);
                 var adapter = new NpgsqlDataAdapter(command);
@@ -629,7 +633,7 @@ namespace sqlcnet
                 adapter.Fill(tableResults);
                 resultsTable_crisper.Merge(tableResults);
 
-                }
+            }
 
             dGV_crisper.DataSource = resultsTable_crisper;
             foreach (DataGridViewRow row in dGV_crisper.Rows)
@@ -652,7 +656,7 @@ namespace sqlcnet
                     " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
                     " inner join gene on cpdgene.geneid=gene.geneid" +
                     sal_last_line;
-                    
+
 
 
 
@@ -669,6 +673,7 @@ namespace sqlcnet
             {
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
+
 
 
         }

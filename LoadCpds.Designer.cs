@@ -418,6 +418,9 @@
             // 
             // searchtb
             // 
+            this.searchtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.searchtb.Controls.Add(this.search);
             this.searchtb.Controls.Add(this.profiles);
             this.searchtb.Controls.Add(this.tabPage1);
@@ -446,6 +449,9 @@
             // 
             // dGV_corr
             // 
+            this.dGV_corr.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dGV_corr.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_corr.Location = new System.Drawing.Point(687, 59);
             this.dGV_corr.Name = "dGV_corr";
@@ -494,6 +500,9 @@
             // 
             this.dGV_search.AllowUserToAddRows = false;
             this.dGV_search.AllowUserToDeleteRows = false;
+            this.dGV_search.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dGV_search.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_search.Location = new System.Drawing.Point(382, 27);
             this.dGV_search.Name = "dGV_search";
@@ -509,13 +518,14 @@
             // 
             // search_2
             // 
-            this.search_2.Location = new System.Drawing.Point(231, 49);
+            this.search_2.Location = new System.Drawing.Point(220, 44);
             this.search_2.Name = "search_2";
-            this.search_2.Size = new System.Drawing.Size(75, 23);
+            this.search_2.Size = new System.Drawing.Size(81, 28);
             this.search_2.TabIndex = 0;
             this.search_2.Text = "SearchDB";
             this.search_2.UseVisualStyleBackColor = true;
             this.search_2.Click += new System.EventHandler(this.search_2_Click);
+
             // 
             // find_gene
             // 
@@ -556,6 +566,7 @@
             this.equal_radioButton.TabStop = true;
             this.equal_radioButton.Text = "equal";
             this.equal_radioButton.UseVisualStyleBackColor = true;
+
             // 
             // LoadCpdsForm
             // 

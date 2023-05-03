@@ -508,9 +508,9 @@
             this.dGV_search.AllowUserToAddRows = false;
             this.dGV_search.AllowUserToDeleteRows = false;
             this.dGV_search.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_search.Location = new System.Drawing.Point(386, 66);
+            this.dGV_search.Location = new System.Drawing.Point(382, 27);
             this.dGV_search.Name = "dGV_search";
-            this.dGV_search.Size = new System.Drawing.Size(698, 358);
+            this.dGV_search.Size = new System.Drawing.Size(976, 542);
             this.dGV_search.TabIndex = 2;
             // 
             // searchText
@@ -601,8 +601,8 @@
         private System.Windows.Forms.DataGridView dGV_corr;
         private System.Windows.Forms.Button pltcorr;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.DataGridView dGV_search;
-        private System.Windows.Forms.TextBox searchText;
-        private System.Windows.Forms.Button search_2;
+        public System.Windows.Forms.TextBox searchText;
+        public System.Windows.Forms.Button search_2;
+        public System.Windows.Forms.DataGridView dGV_search;
     }
 }

@@ -642,6 +642,7 @@ namespace sqlcnet
                 fc.chart1.Series[0].Points.AddXY(x_values, y_counts);
             }
             fc.chart1.Series[0].Name = val_combo_x + "__" + val_combo_y;
+            fc.chart1.Series["Genes in Pathway"].ToolTip = "Pathway: #VALX";
             fc.Show();
             // add cpds 
         }

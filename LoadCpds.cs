@@ -37,8 +37,7 @@ namespace sqlcnet
         protected DataGridView MyDgv;
         public LoadCpdsForm()
         {
-            // test2s
-
+            
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -81,10 +80,67 @@ namespace sqlcnet
 
             columnReader.Close(); 
             comboBox_mapping.DataSource = unique_items;
+            //genecombo----------------------------------------------
+            genecombo.DataSource = unique_items;
             cmd.Dispose();
             conn.Close();
         }
+        private void genecombo_DropDownClosed(object sender, EventArgs e)
+        {
+           
+                // for dGV_crisper
+                conn.Open();
+                string gen_nam = textBox_gene.Text;
+                cmb = genecombo.GetItemText(this.genecombo.SelectedItem);
+                string sql3 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
+                    " inner join crispermeta on crispermeta.batchid=platemap.batchid" +
+                    " inner join gene on crispermeta.geneid=gene.geneid" +
+                    " where gene. " + cmb + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
 
+
+                Console.WriteLine(sql3);
+                dt = new DataTable();
+                NpgsqlCommand command = new NpgsqlCommand(sql3, conn);
+
+                NpgsqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+                dt.Load(reader);
+                dGV_crisper.DataSource = dt;
+
+                foreach (DataGridViewRow row in dGV_crisper.Rows)
+                {
+                    row.HeaderCell.Value = (row.Index + 1).ToString();
+                }
+
+                // for dGV_cpd
+                conn.Open();
+                string sql4 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
+                    " inner join batchs on batchs.batchid=platemap.batchid" +
+                    " inner join cpd on cpd.pubchemid=batchs.pubchemid" +
+                    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
+                    " inner join gene on cpdgene.geneid=gene.geneid" +
+                    " where gene. " + cmb + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
+                Console.WriteLine(sql4);
+                dt = new DataTable();
+                NpgsqlCommand command2 = new NpgsqlCommand(sql4, conn);
+
+                NpgsqlDataReader reader2 = command2.ExecuteReader(CommandBehavior.CloseConnection);
+
+                dt.Load(reader2);
+
+                dGV_cpd.DataSource = dt;
+
+                foreach (DataGridViewRow row in dGV_cpd.Rows)
+                {
+                    row.HeaderCell.Value = (row.Index + 1).ToString();
+                }
+
+           
+
+        
+
+
+        }
         private void openToolStripButton_Click(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "CSV Files (*.csv)|*.csv";

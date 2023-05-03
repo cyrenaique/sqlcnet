@@ -589,7 +589,7 @@ namespace sqlcnet
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void find_gene_Click(object sender, EventArgs e)
         {
             if (conn.State == ConnectionState.Closed)
             {
@@ -598,11 +598,8 @@ namespace sqlcnet
             string gen_nam = textBox_gene.Text;
 
             // create a new DataTable to hold the results
-
             var resultsTable_crisper = new DataTable();
             var resultsTable_cpd = new DataTable();
-
-
             var schemaTable = conn.GetSchema("Columns", new[] { null, null, "gene" });
             var columnNames = new List<string>();
             foreach (DataRow row in schemaTable.Rows)
@@ -611,70 +608,49 @@ namespace sqlcnet
                     columnNames.Add(row["COLUMN_NAME"].ToString());
             }
 
-            // dGV_crisper
+       
             foreach (var col in columnNames)
             {
-                string sal_last_line = " where gene. " + col + " LIKE '%" + gen_nam + "%' GROUP BY plate, well,tags,symbol";
-
+                string sql_last_line = " where gene. " + col + " LIKE '%" + gen_nam + "%' GROUP BY plate, well,tags,symbol,gene.synonyms";
                 if (equal_radioButton.Checked)
                 {
-                    sal_last_line = " where gene. " + col + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
+                    sql_last_line = " where gene. " + col + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol,gene.synonyms";
                 }
 
-
-                string sql3 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
+                //dGV_crisper
+                string sql_crisper = "select platemap.plate,platemap.well,platemap.tags,gene.symbol,gene.synonyms from platemap" +
                                     " inner join crispermeta on crispermeta.batchid=platemap.batchid" +
-                                    " inner join gene on crispermeta.geneid=gene.geneid" + sal_last_line;
+                                    " inner join gene on crispermeta.geneid=gene.geneid" + sql_last_line;
+                var command_1 = new NpgsqlCommand(sql_crisper, conn);
+                var adapter_1 = new NpgsqlDataAdapter(command_1);
+                var tableResults_1 = new DataTable();
+                adapter_1.Fill(tableResults_1);
+                resultsTable_crisper.Merge(tableResults_1);
 
-
-                var command = new NpgsqlCommand(sql3, conn);
-                var adapter = new NpgsqlDataAdapter(command);
-                var tableResults = new DataTable();
-                adapter.Fill(tableResults);
-                resultsTable_crisper.Merge(tableResults);
-
+                //dGV_cpd
+                string sql_cpd = "select platemap.plate,platemap.well,platemap.tags,gene.symbol,gene.synonyms from platemap" +
+                    " inner join batchs on batchs.batchid=platemap.batchid" +
+                    " inner join cpd on cpd.pubchemid=batchs.pubchemid" +
+                    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
+                    " inner join gene on cpdgene.geneid=gene.geneid" + sql_last_line;
+                var command_2 = new NpgsqlCommand(sql_cpd, conn);
+                var adapter_2 = new NpgsqlDataAdapter(command_2);
+                var tableResults_2 = new DataTable();
+                adapter_2.Fill(tableResults_2);
+                resultsTable_cpd.Merge(tableResults_2);
             }
-
+            //dGV_crisper
             dGV_crisper.DataSource = resultsTable_crisper;
             foreach (DataGridViewRow row in dGV_crisper.Rows)
             {
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
-
             // dGV_cpd
-            foreach (var col in columnNames)
-            {
-                string sal_last_line = " where gene. " + col + " LIKE '%" + gen_nam + "%' GROUP BY plate, well,tags,symbol";
-
-                if (equal_radioButton.Checked)
-                {
-                    sal_last_line = " where gene. " + col + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
-                }
-                string sql4 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
-                    " inner join batchs on batchs.batchid=platemap.batchid" +
-                    " inner join cpd on cpd.pubchemid=batchs.pubchemid" +
-                    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
-                    " inner join gene on cpdgene.geneid=gene.geneid" +
-                    sal_last_line;
-
-
-
-
-                var command2 = new NpgsqlCommand(sql4, conn);
-                var adapter2 = new NpgsqlDataAdapter(command2);
-                var tableResults2 = new DataTable();
-                adapter2.Fill(tableResults2);
-                resultsTable_cpd.Merge(tableResults2);
-
-            }
-
             dGV_cpd.DataSource = resultsTable_cpd;
             foreach (DataGridViewRow row in dGV_cpd.Rows)
             {
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
-
-
 
         }
 

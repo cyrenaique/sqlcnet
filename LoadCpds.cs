@@ -346,15 +346,18 @@ namespace sqlcnet
                     }
                 }
 
-                sql += ")";                
+                sql += ")";
 
+
+                conn.Close();
+                conn.Open();
                 dt = new DataTable();
                 NpgsqlCommand command = new NpgsqlCommand(sql, conn);
                 // Execute the query and retrieve the results
-                if (conn.State == ConnectionState.Closed)
-                {
-                    conn.Open();
-                }
+                //if (conn.State == ConnectionState.Closed)
+                //{
+                    
+               // }
                 NpgsqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
                 dt.Load(reader);
@@ -510,7 +513,7 @@ namespace sqlcnet
                 }
                 //break;
             }
-
+            conn.Close();
             Dictionary<string, HashSet<string>> unique_pathways = new Dictionary<string, HashSet<string>>();
             foreach (var item in path_list)
             {

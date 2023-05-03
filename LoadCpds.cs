@@ -594,28 +594,56 @@ namespace sqlcnet
 
             // bind the results table to a DataGridView
             dGV_search.DataSource = resultsTable;
-            int blankCellIndex = -1;
-            int numberOfDataRows = dGV_search.AllowUserToAddRows ? dGV_search.Rows.Count - 1 : dGV_search.Rows.Count; //it may be a blank row at the end
-            for (int j = 0; j < numberOfDataRows; j++)
+            //int blankCellIndex = -1;
+            //int numberOfDataRows = dGV_search.AllowUserToAddRows ? dGV_search.Rows.Count - 1 : dGV_search.Rows.Count; //it may be a blank row at the end
+            //for (int j = 0; j < numberOfDataRows; j++)
+            //{
+            //    for (int i = 0; i < dGV_search.Rows[j].Cells.Count; i++)
+            //    {
+            //        if (dGV_search.Rows[j].Cells[i].Value.ToString() == "" && i > blankCellIndex)
+            //        {
+            //            blankCellIndex = i;
+            //            break;
+            //        }
+            //    }
+            //}
+
+            //if (blankCellIndex > -1)
+            //{
+            //    for (int index = blankCellIndex; index < dGV_search.Columns.Count; index++)
+            //    {
+            //        dGV_search.Columns.RemoveAt(index);
+            //        index--;
+            //    }
+            //}
+            List<string> collist=new List<string>();
+
+            foreach (DataGridViewColumn column in dGV_search.Columns)
             {
-                for (int i = 0; i < dGV_search.Rows[j].Cells.Count; i++)
+                bool hasValue = false;
+
+                // check if the column has any non-null values
+                foreach (DataGridViewRow row in dGV_search.Rows)
                 {
-                    if (dGV_search.Rows[j].Cells[i].Value.ToString() == "" && i > blankCellIndex)
+                    if (row.Cells[column.Index].Value.ToString() != "")
                     {
-                        blankCellIndex = i;
+                        hasValue = true;
                         break;
                     }
                 }
-            }
 
-            if (blankCellIndex > -1)
-            {
-                for (int index = blankCellIndex; index < dGV_search.Columns.Count; index++)
+                // if the column has no non-null values, remove it from the DataGridView
+                if (!hasValue)
                 {
-                    dGV_search.Columns.RemoveAt(index);
-                    index--;
+                    //dGV_search.Columns.Remove(column);
+                    collist.Add(column.Name);
                 }
             }
+            foreach (var item in collist)
+            {
+                dGV_search.Columns.Remove(item);
+            }
+
         }
 
         private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

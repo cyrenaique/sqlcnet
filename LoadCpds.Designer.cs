@@ -71,9 +71,9 @@
             this.textBox_gene = new System.Windows.Forms.TextBox();
             this.genecombo = new System.Windows.Forms.ComboBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.search_2 = new System.Windows.Forms.Button();
-            this.searchText = new System.Windows.Forms.TextBox();
             this.dGV_search = new System.Windows.Forms.DataGridView();
+            this.searchText = new System.Windows.Forms.TextBox();
+            this.search_2 = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
@@ -503,6 +503,23 @@
             this.tabPage1.Text = "search";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // dGV_search
+            // 
+            this.dGV_search.AllowUserToAddRows = false;
+            this.dGV_search.AllowUserToDeleteRows = false;
+            this.dGV_search.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGV_search.Location = new System.Drawing.Point(386, 66);
+            this.dGV_search.Name = "dGV_search";
+            this.dGV_search.Size = new System.Drawing.Size(698, 358);
+            this.dGV_search.TabIndex = 2;
+            // 
+            // searchText
+            // 
+            this.searchText.Location = new System.Drawing.Point(74, 49);
+            this.searchText.Name = "searchText";
+            this.searchText.Size = new System.Drawing.Size(100, 20);
+            this.searchText.TabIndex = 1;
+            // 
             // search_2
             // 
             this.search_2.Location = new System.Drawing.Point(231, 49);
@@ -512,21 +529,6 @@
             this.search_2.Text = "button1";
             this.search_2.UseVisualStyleBackColor = true;
             this.search_2.Click += new System.EventHandler(this.search_2_Click);
-            // 
-            // searchText
-            // 
-            this.searchText.Location = new System.Drawing.Point(74, 49);
-            this.searchText.Name = "searchText";
-            this.searchText.Size = new System.Drawing.Size(100, 20);
-            this.searchText.TabIndex = 1;
-            // 
-            // dGV_search
-            // 
-            this.dGV_search.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_search.Location = new System.Drawing.Point(386, 66);
-            this.dGV_search.Name = "dGV_search";
-            this.dGV_search.Size = new System.Drawing.Size(698, 358);
-            this.dGV_search.TabIndex = 2;
             // 
             // LoadCpdsForm
             // 

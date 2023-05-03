@@ -18,6 +18,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using System.Net;
 using MaterialSkin.Controls;
 using MaterialSkin;
+using System.Reflection;
 
 namespace sqlcnet
 {
@@ -37,8 +38,7 @@ namespace sqlcnet
         protected DataGridView MyDgv;
         public LoadCpdsForm()
         {
-            // test2s
-
+            
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -70,7 +70,7 @@ namespace sqlcnet
             cmd.CommandText = "SELECT column_name, table_name FROM information_schema.columns WHERE table_schema = 'public'";
             NpgsqlDataReader columnReader = cmd.ExecuteReader();
             List<string> columnNames = new List<string>();
-            
+
             // Loop through the columns and add their names to the List
             while (columnReader.Read())
             {
@@ -81,6 +81,10 @@ namespace sqlcnet
 
             columnReader.Close(); 
             comboBox_mapping.DataSource = unique_items;
+
+            //genecombo----------------------------------------------
+            genecombo.DataSource = unique_items;
+
             cmd.Dispose();
             conn.Close();
         }
@@ -209,14 +213,77 @@ namespace sqlcnet
 
         }
 
+        private void genecombo_DropDownClosed(object sender, EventArgs e)
+        {
+            try
+            {
+                // for dGV_crisper
+                conn.Open();
+                string gen_nam = textBox_gene.Text;
+                cmb = genecombo.GetItemText(this.genecombo.SelectedItem);
+                string sql3 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
+                    " inner join crispermeta on crispermeta.batchid=platemap.batchid" +
+                    " inner join gene on crispermeta.geneid=gene.geneid" +
+                    " where gene. " + cmb + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
+                    
+                    
+                Console.WriteLine(sql3);
+                dt = new DataTable();
+                NpgsqlCommand command = new NpgsqlCommand(sql3, conn);
+        
+                NpgsqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+                dt.Load(reader);
+                dGV_crisper.DataSource = dt;
+
+                foreach (DataGridViewRow row in dGV_crisper.Rows)
+                {
+                row.HeaderCell.Value = (row.Index + 1).ToString();
+                }
+
+                // for dGV_cpd
+                conn.Open();
+                string sql4 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
+                    " inner join batchs on batchs.batchid=platemap.batchid" +
+                    " inner join cpd on cpd.pubchemid=batchs.pubchemid" +
+                    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
+                    " inner join gene on cpdgene.geneid=gene.geneid" +
+                    " where gene. " + cmb + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
+                Console.WriteLine(sql4);
+                dt = new DataTable();
+                NpgsqlCommand command2 = new NpgsqlCommand(sql4, conn);
+
+                NpgsqlDataReader reader2 = command2.ExecuteReader(CommandBehavior.CloseConnection);
+
+                dt.Load(reader2);
+              
+                dGV_cpd.DataSource = dt;
+
+                foreach (DataGridViewRow row in dGV_cpd.Rows)
+                {
+                    row.HeaderCell.Value = (row.Index + 1).ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                
+            }
+
+
+        }
+
+        //NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+
+
         private void comboBox_tables_DropDownClosed(object sender, EventArgs e)
         {
             cmb = comboBox_tables.GetItemText(this.comboBox_tables.SelectedItem);
 
             conn.Open();
-       
-            string sql2 ="select * from " + cmb; ;
-           
+
+            string sql2 = "select * from " + cmb; ;
+
             NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn);
             Npgsql.NpgsqlDataReader Resource = command2.ExecuteReader();
             List<string> col_list = new List<string>();
@@ -258,7 +325,7 @@ namespace sqlcnet
                     sql = "SELECT " + cmb + ".*, pathway.name FROM " + cmb + " JOIN pathway ON pathway.pathid= " + cmb + ".pathid WHERE  " + cmb + "." + cmb2 + " IN (";
                 }
 
-                if ( cmb == "cpddis" )
+                if (cmb == "cpddis")
                 {
                     sql = "SELECT " + cmb + ".*, disease.name FROM " + cmb + " JOIN disease ON disease.disid= " + cmb + ".disid WHERE  " + cmb + "." + cmb2 + " IN (";
                 }
@@ -275,20 +342,20 @@ namespace sqlcnet
                     }
                 }
 
-                sql += ")";                
+                sql += ")";
 
                 dt = new DataTable();
-                NpgsqlCommand command = new NpgsqlCommand(sql, conn); 
+                NpgsqlCommand command = new NpgsqlCommand(sql, conn);
                 // Execute the query and retrieve the results
                 conn.Open();
                 NpgsqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
                 dt.Load(reader);
                 dGV_results.DataSource = dt;
-                
+
                 foreach (DataGridViewRow row in dGV_results.Rows)
                 {
-                    row.HeaderCell.Value = (row.Index + 1).ToString();                    
+                    row.HeaderCell.Value = (row.Index + 1).ToString();
                 }
                 MessageBox.Show("Done");
                 // add col to x_combo and y_combo
@@ -297,11 +364,11 @@ namespace sqlcnet
                     x_combo.Items.Add(col.HeaderText);
                     y_combo.Items.Add(col.HeaderText);
                 }
-            }           
+            }
             else
             {
                 MessageBox.Show("No infos");
-            }       
+            }
 
         }
 
@@ -469,10 +536,14 @@ namespace sqlcnet
             // add cpds 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+       
+
+        private void search_Click(object sender, EventArgs e)
         {
 
         }
+
+       
 
         private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {

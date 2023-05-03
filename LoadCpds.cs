@@ -18,6 +18,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using System.Net;
 using MaterialSkin.Controls;
 using MaterialSkin;
+using System.Data.SqlClient;
 
 namespace sqlcnet
 {
@@ -48,7 +49,11 @@ namespace sqlcnet
 
             //comboBox_tables----------------------------------------------
             conn = new NpgsqlConnection(cs);
-            conn.Open();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+          
             NpgsqlCommand cmd = new NpgsqlCommand
             {
                 Connection = conn,
@@ -83,14 +88,18 @@ namespace sqlcnet
             //genecombo----------------------------------------------
             genecombo.DataSource = unique_items;
             cmd.Dispose();
-            conn.Close();
+          
         }
         private void genecombo_DropDownClosed(object sender, EventArgs e)
         {
            
                 // for dGV_crisper
+               
+            if (conn.State == ConnectionState.Closed)
+            {
                 conn.Open();
-                string gen_nam = textBox_gene.Text;
+            }
+            string gen_nam = textBox_gene.Text;
                 cmb = genecombo.GetItemText(this.genecombo.SelectedItem);
                 string sql3 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
                     " inner join crispermeta on crispermeta.batchid=platemap.batchid" +
@@ -112,9 +121,12 @@ namespace sqlcnet
                     row.HeaderCell.Value = (row.Index + 1).ToString();
                 }
 
-                // for dGV_cpd
+            // for dGV_cpd
+            if (conn.State == ConnectionState.Closed)
+            {
                 conn.Open();
-                string sql4 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
+            }
+            string sql4 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
                     " inner join batchs on batchs.batchid=platemap.batchid" +
                     " inner join cpd on cpd.pubchemid=batchs.pubchemid" +
                     " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
@@ -136,7 +148,7 @@ namespace sqlcnet
                 }
 
            
-
+                
         
 
 
@@ -269,8 +281,11 @@ namespace sqlcnet
         {
             cmb = comboBox_tables.GetItemText(this.comboBox_tables.SelectedItem);
 
-            conn.Open();
-       
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+
             string sql2 ="select * from " + cmb; ;
            
             NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn);
@@ -284,7 +299,7 @@ namespace sqlcnet
                 }
                 break;
             }
-            conn.Close();
+            
 
 
             List<string> list_res_data = new List<string>();
@@ -334,9 +349,12 @@ namespace sqlcnet
                 sql += ")";                
 
                 dt = new DataTable();
-                NpgsqlCommand command = new NpgsqlCommand(sql, conn); 
+                NpgsqlCommand command = new NpgsqlCommand(sql, conn);
                 // Execute the query and retrieve the results
-                conn.Open();
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
                 NpgsqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
                 dt.Load(reader);
@@ -382,7 +400,10 @@ namespace sqlcnet
         {
             string sql2 = "select * from genepath";
             NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn);
-            conn.Open();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
             Npgsql.NpgsqlDataReader Resource = command2.ExecuteReader();
             HashSet<string> path_list = new HashSet<string>();
             //List<string> gene_list = new List<string>();
@@ -400,8 +421,10 @@ namespace sqlcnet
             {
                 unique_pathways.Add(item, new HashSet<string>());
             }
-            conn.Close();
-            conn.Open();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
             Npgsql.NpgsqlDataReader Resource2 = command2.ExecuteReader();
 
             while (Resource2.Read())
@@ -414,7 +437,7 @@ namespace sqlcnet
                 //break;
             }
 
-            conn.Close();
+            
 
             Dictionary<string, int> pathwaytotalGeneCounts = new Dictionary<string, int>();
 
@@ -578,7 +601,7 @@ namespace sqlcnet
 
 
                     // create a new SqlCommand object to search the table for the string
-                    var command = new NpgsqlCommand($"SELECT * FROM {table} WHERE {col} LIKE '%{text}%'", conn);
+                    var command = new NpgsqlCommand($"SELECT * FROM {table} WHERE {col} = '{text}'", conn);
 
                     // create a new SqlDataAdapter object to fill a DataTable with the results of the query
                     var adapter = new NpgsqlDataAdapter(command);

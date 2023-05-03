@@ -526,7 +526,7 @@
             this.search_2.Name = "search_2";
             this.search_2.Size = new System.Drawing.Size(75, 23);
             this.search_2.TabIndex = 0;
-            this.search_2.Text = "button1";
+            this.search_2.Text = "SearchDB";
             this.search_2.UseVisualStyleBackColor = true;
             this.search_2.Click += new System.EventHandler(this.search_2_Click);
             // 

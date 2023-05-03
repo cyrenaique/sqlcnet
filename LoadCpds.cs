@@ -19,6 +19,7 @@ using System.Net;
 using MaterialSkin.Controls;
 using MaterialSkin;
 using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace sqlcnet
 {
@@ -85,73 +86,9 @@ namespace sqlcnet
 
             columnReader.Close(); 
             comboBox_mapping.DataSource = unique_items;
-            //genecombo----------------------------------------------
-            genecombo.DataSource = unique_items;
+         
             cmd.Dispose();
           
-        }
-        private void genecombo_DropDownClosed(object sender, EventArgs e)
-        {
-           
-                // for dGV_crisper
-               
-            if (conn.State == ConnectionState.Closed)
-            {
-                conn.Open();
-            }
-            string gen_nam = textBox_gene.Text;
-                cmb = genecombo.GetItemText(this.genecombo.SelectedItem);
-                string sql3 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
-                    " inner join crispermeta on crispermeta.batchid=platemap.batchid" +
-                    " inner join gene on crispermeta.geneid=gene.geneid" +
-                    " where gene. " + cmb + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
-
-
-                Console.WriteLine(sql3);
-                dt = new DataTable();
-                NpgsqlCommand command = new NpgsqlCommand(sql3, conn);
-
-                NpgsqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-
-                dt.Load(reader);
-                dGV_crisper.DataSource = dt;
-
-                foreach (DataGridViewRow row in dGV_crisper.Rows)
-                {
-                    row.HeaderCell.Value = (row.Index + 1).ToString();
-                }
-
-            // for dGV_cpd
-            if (conn.State == ConnectionState.Closed)
-            {
-                conn.Open();
-            }
-            string sql4 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
-                    " inner join batchs on batchs.batchid=platemap.batchid" +
-                    " inner join cpd on cpd.pubchemid=batchs.pubchemid" +
-                    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
-                    " inner join gene on cpdgene.geneid=gene.geneid" +
-                    " where gene. " + cmb + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
-                Console.WriteLine(sql4);
-                dt = new DataTable();
-                NpgsqlCommand command2 = new NpgsqlCommand(sql4, conn);
-
-                NpgsqlDataReader reader2 = command2.ExecuteReader(CommandBehavior.CloseConnection);
-
-                dt.Load(reader2);
-
-                dGV_cpd.DataSource = dt;
-
-                foreach (DataGridViewRow row in dGV_cpd.Rows)
-                {
-                    row.HeaderCell.Value = (row.Index + 1).ToString();
-                }
-
-           
-                
-        
-
-
         }
         private void openToolStripButton_Click(object sender, EventArgs e)
         {
@@ -648,7 +585,93 @@ namespace sqlcnet
 
         }
 
-       
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            string gen_nam = textBox_gene.Text;
+            
+            // create a new DataTable to hold the results
+
+            var resultsTable_crisper = new DataTable();
+            var resultsTable_cpd = new DataTable();
+
+
+            var schemaTable = conn.GetSchema("Columns", new[] { null, null, "gene" });
+            var columnNames = new List<string>();
+            foreach (DataRow row in schemaTable.Rows)
+                {
+                    if (row["DATA_TYPE"].ToString() != "double precision")
+                        columnNames.Add(row["COLUMN_NAME"].ToString());
+                }
+
+            // dGV_crisper
+            foreach (var col in columnNames)
+                {
+                string sal_last_line = " where gene. " + col + " LIKE '%" + gen_nam + "%' GROUP BY plate, well,tags,symbol";
+
+                if (equal_radioButton.Checked)
+                {
+                     sal_last_line = " where gene. " + col + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
+                }
+
+
+                string sql3 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
+                                    " inner join crispermeta on crispermeta.batchid=platemap.batchid" +
+                                    " inner join gene on crispermeta.geneid=gene.geneid" + sal_last_line;
+                                
+
+                var command = new NpgsqlCommand(sql3, conn);
+                var adapter = new NpgsqlDataAdapter(command);
+                var tableResults = new DataTable();
+                adapter.Fill(tableResults);
+                resultsTable_crisper.Merge(tableResults);
+
+                }
+
+            dGV_crisper.DataSource = resultsTable_crisper;
+            foreach (DataGridViewRow row in dGV_crisper.Rows)
+            {
+                row.HeaderCell.Value = (row.Index + 1).ToString();
+            }
+
+            // dGV_cpd
+            foreach (var col in columnNames)
+            {
+                string sal_last_line = " where gene. " + col + " LIKE '%" + gen_nam + "%' GROUP BY plate, well,tags,symbol";
+
+                if (equal_radioButton.Checked)
+                {
+                    sal_last_line = " where gene. " + col + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol";
+                }
+                string sql4 = "select platemap.plate,platemap.well,platemap.tags,gene.symbol from platemap" +
+                    " inner join batchs on batchs.batchid=platemap.batchid" +
+                    " inner join cpd on cpd.pubchemid=batchs.pubchemid" +
+                    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
+                    " inner join gene on cpdgene.geneid=gene.geneid" +
+                    sal_last_line;
+                    
+
+
+
+                var command2 = new NpgsqlCommand(sql4, conn);
+                var adapter2 = new NpgsqlDataAdapter(command2);
+                var tableResults2 = new DataTable();
+                adapter2.Fill(tableResults2);
+                resultsTable_cpd.Merge(tableResults2);
+
+            }
+
+            dGV_cpd.DataSource = resultsTable_cpd;
+            foreach (DataGridViewRow row in dGV_cpd.Rows)
+            {
+                row.HeaderCell.Value = (row.Index + 1).ToString();
+            }
+
+
+        }
 
         private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {

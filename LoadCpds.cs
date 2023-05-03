@@ -530,6 +530,94 @@ namespace sqlcnet
 
         }
 
+        private void search_2_Click(object sender, EventArgs e)
+        {
+            string text = searchText.Text;
+            if (conn.FullState == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+
+
+            // get a list of all tables in the database
+            var tables = conn.GetSchema("Tables").Rows.Cast<DataRow>()
+                .Select(row => row["TABLE_NAME"].ToString())
+                .ToList();
+
+            // create a new DataTable to hold the results
+            var resultsTable = new DataTable();
+            NpgsqlCommand cmd = new NpgsqlCommand
+            {
+                Connection = conn,
+                CommandType = CommandType.Text,
+                //CommandText = "select table_name from information_schema.tables where table_schema='public'"
+            };
+
+
+            List<string> TableNames = new List<string>();
+
+
+            dGV_search.Visible = true;
+
+            // loop over each table and search for the string
+            foreach (var table in tables)
+            {
+                var schemaTable = conn.GetSchema("Columns", new[] { null, null, table });
+
+                // iterate over the rows of the schema table and extract the column names
+                var columnNames = new List<string>();
+                foreach (DataRow row in schemaTable.Rows)
+                {
+                    if (row["DATA_TYPE"].ToString() != "double precision")
+                        columnNames.Add(row["COLUMN_NAME"].ToString());
+                }
+
+
+                foreach (var col in columnNames)
+                {
+
+
+                    // create a new SqlCommand object to search the table for the string
+                    var command = new NpgsqlCommand($"SELECT * FROM {table} WHERE {col} LIKE '%{text}%'", conn);
+
+                    // create a new SqlDataAdapter object to fill a DataTable with the results of the query
+                    var adapter = new NpgsqlDataAdapter(command);
+                    var tableResults = new DataTable();
+
+                    adapter.Fill(tableResults);
+                    resultsTable.Merge(tableResults);
+
+                }
+
+
+            }
+
+            // bind the results table to a DataGridView
+            dGV_search.DataSource = resultsTable;
+            int blankCellIndex = -1;
+            int numberOfDataRows = dGV_search.AllowUserToAddRows ? dGV_search.Rows.Count - 1 : dGV_search.Rows.Count; //it may be a blank row at the end
+            for (int j = 0; j < numberOfDataRows; j++)
+            {
+                for (int i = 0; i < dGV_search.Rows[j].Cells.Count; i++)
+                {
+                    if (dGV_search.Rows[j].Cells[i].Value.ToString() == "" && i > blankCellIndex)
+                    {
+                        blankCellIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (blankCellIndex > -1)
+            {
+                for (int index = blankCellIndex; index < dGV_search.Columns.Count; index++)
+                {
+                    dGV_search.Columns.RemoveAt(index);
+                    index--;
+                }
+            }
+        }
+
         private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             List<string> sel = new List<string>();

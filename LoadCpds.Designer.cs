@@ -62,7 +62,7 @@
             this.dGV_results = new System.Windows.Forms.DataGridView();
             this.comboBox_tables = new System.Windows.Forms.ComboBox();
             this.dGV_cpds = new System.Windows.Forms.DataGridView();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.searchtb = new System.Windows.Forms.TabControl();
             this.profiles = new System.Windows.Forms.TabPage();
             this.dGV_corr = new System.Windows.Forms.DataGridView();
             this.pltcorr = new System.Windows.Forms.Button();
@@ -70,15 +70,21 @@
             this.dGV_crisper = new System.Windows.Forms.DataGridView();
             this.textBox_gene = new System.Windows.Forms.TextBox();
             this.genecombo = new System.Windows.Forms.ComboBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.search_2 = new System.Windows.Forms.Button();
+            this.searchText = new System.Windows.Forms.TextBox();
+            this.dGV_search = new System.Windows.Forms.DataGridView();
             this.toolStrip1.SuspendLayout();
             this.search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).BeginInit();
-            this.tabControl1.SuspendLayout();
+            this.searchtb.SuspendLayout();
             this.profiles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_corr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_cpd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_crisper)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_search)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -408,15 +414,16 @@
             this.dGV_cpds.Size = new System.Drawing.Size(659, 414);
             this.dGV_cpds.TabIndex = 0;
             // 
-            // tabControl1
+            // searchtb
             // 
-            this.tabControl1.Controls.Add(this.search);
-            this.tabControl1.Controls.Add(this.profiles);
-            this.tabControl1.Location = new System.Drawing.Point(17, 92);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1390, 649);
-            this.tabControl1.TabIndex = 28;
+            this.searchtb.Controls.Add(this.search);
+            this.searchtb.Controls.Add(this.profiles);
+            this.searchtb.Controls.Add(this.tabPage1);
+            this.searchtb.Location = new System.Drawing.Point(17, 92);
+            this.searchtb.Name = "searchtb";
+            this.searchtb.SelectedIndex = 0;
+            this.searchtb.Size = new System.Drawing.Size(1390, 649);
+            this.searchtb.TabIndex = 28;
             // 
             // profiles
             // 
@@ -483,12 +490,50 @@
             this.genecombo.TabIndex = 0;
             this.genecombo.DropDownClosed += new System.EventHandler(this.genecombo_DropDownClosed);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.dGV_search);
+            this.tabPage1.Controls.Add(this.searchText);
+            this.tabPage1.Controls.Add(this.search_2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1382, 623);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "search";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // search_2
+            // 
+            this.search_2.Location = new System.Drawing.Point(231, 49);
+            this.search_2.Name = "search_2";
+            this.search_2.Size = new System.Drawing.Size(75, 23);
+            this.search_2.TabIndex = 0;
+            this.search_2.Text = "button1";
+            this.search_2.UseVisualStyleBackColor = true;
+            this.search_2.Click += new System.EventHandler(this.search_2_Click);
+            // 
+            // searchText
+            // 
+            this.searchText.Location = new System.Drawing.Point(74, 49);
+            this.searchText.Name = "searchText";
+            this.searchText.Size = new System.Drawing.Size(100, 20);
+            this.searchText.TabIndex = 1;
+            // 
+            // dGV_search
+            // 
+            this.dGV_search.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGV_search.Location = new System.Drawing.Point(386, 66);
+            this.dGV_search.Name = "dGV_search";
+            this.dGV_search.Size = new System.Drawing.Size(698, 358);
+            this.dGV_search.TabIndex = 2;
+            // 
             // LoadCpdsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1451, 755);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.searchtb);
             this.Controls.Add(this.toolStrip1);
             this.Name = "LoadCpdsForm";
             this.Text = "LoadCpds";
@@ -498,12 +543,15 @@
             this.search.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).EndInit();
-            this.tabControl1.ResumeLayout(false);
+            this.searchtb.ResumeLayout(false);
             this.profiles.ResumeLayout(false);
             this.profiles.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_corr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_cpd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_crisper)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_search)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -542,7 +590,7 @@
         private System.Windows.Forms.DataGridView dGV_results;
         private System.Windows.Forms.ComboBox comboBox_tables;
         public System.Windows.Forms.DataGridView dGV_cpds;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl searchtb;
         private System.Windows.Forms.TabPage profiles;
         private System.Windows.Forms.DataGridView dGV_cpd;
         private System.Windows.Forms.DataGridView dGV_crisper;
@@ -550,5 +598,9 @@
         private System.Windows.Forms.ComboBox genecombo;
         private System.Windows.Forms.DataGridView dGV_corr;
         private System.Windows.Forms.Button pltcorr;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView dGV_search;
+        private System.Windows.Forms.TextBox searchText;
+        private System.Windows.Forms.Button search_2;
     }
 }

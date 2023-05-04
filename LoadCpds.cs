@@ -587,6 +587,7 @@ namespace sqlcnet
 
         private void find_gene_Click(object sender, EventArgs e)
         {
+            conn.Close();
             if (conn.State == ConnectionState.Closed)
             {
                 conn.Open();
@@ -612,7 +613,10 @@ namespace sqlcnet
                 {
                     sql_last_line = " where gene. " + col + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol,gene.synonyms,gene.geneid";
                 }
-
+                if (startswith_radioButton.Checked)
+                {
+                    sql_last_line = " where gene. " + col + " LIKE '" + gen_nam + "%' GROUP BY plate, well,tags,symbol,gene.synonyms,gene.geneid";
+                }
                 //dGV_crisper
                 string sql_crisper = "select gene.geneid,platemap.plate,platemap.well,platemap.tags,gene.symbol,gene.synonyms from platemap" +
                                     " inner join crispermeta on crispermeta.batchid=platemap.batchid" +

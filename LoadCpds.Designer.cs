@@ -76,6 +76,7 @@
             this.dGV_search = new System.Windows.Forms.DataGridView();
             this.searchText = new System.Windows.Forms.TextBox();
             this.search_2 = new System.Windows.Forms.Button();
+            this.startswith_radioButton = new System.Windows.Forms.RadioButton();
             this.toolStrip1.SuspendLayout();
             this.search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
@@ -279,7 +280,7 @@
             this.materialLabel5.AutoSize = true;
             this.materialLabel5.Depth = 0;
             this.materialLabel5.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel5.Location = new System.Drawing.Point(84, 572);
+            this.materialLabel5.Location = new System.Drawing.Point(269, 570);
             this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel5.Name = "materialLabel5";
             this.materialLabel5.Size = new System.Drawing.Size(11, 19);
@@ -289,7 +290,7 @@
             // y_combo
             // 
             this.y_combo.FormattingEnabled = true;
-            this.y_combo.Location = new System.Drawing.Point(101, 572);
+            this.y_combo.Location = new System.Drawing.Point(286, 570);
             this.y_combo.Name = "y_combo";
             this.y_combo.Size = new System.Drawing.Size(121, 21);
             this.y_combo.TabIndex = 23;
@@ -307,7 +308,7 @@
             this.materialLabel4.AutoSize = true;
             this.materialLabel4.Depth = 0;
             this.materialLabel4.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel4.Location = new System.Drawing.Point(297, 574);
+            this.materialLabel4.Location = new System.Drawing.Point(58, 572);
             this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel4.Name = "materialLabel4";
             this.materialLabel4.Size = new System.Drawing.Size(11, 19);
@@ -329,7 +330,7 @@
             // x_combo
             // 
             this.x_combo.FormattingEnabled = true;
-            this.x_combo.Location = new System.Drawing.Point(314, 574);
+            this.x_combo.Location = new System.Drawing.Point(75, 572);
             this.x_combo.Name = "x_combo";
             this.x_combo.Size = new System.Drawing.Size(121, 21);
             this.x_combo.TabIndex = 22;
@@ -415,8 +416,6 @@
             this.dGV_cpds.Name = "dGV_cpds";
             this.dGV_cpds.Size = new System.Drawing.Size(659, 414);
             this.dGV_cpds.TabIndex = 0;
-            
-
             // 
             // searchtb
             // 
@@ -434,6 +433,7 @@
             // 
             // profiles
             // 
+            this.profiles.Controls.Add(this.startswith_radioButton);
             this.profiles.Controls.Add(this.equal_radioButton);
             this.profiles.Controls.Add(this.contains);
             this.profiles.Controls.Add(this.dGV_cpd);
@@ -453,7 +453,7 @@
             // 
             this.equal_radioButton.AutoSize = true;
             this.equal_radioButton.Checked = true;
-            this.equal_radioButton.Location = new System.Drawing.Point(267, 55);
+            this.equal_radioButton.Location = new System.Drawing.Point(267, 9);
             this.equal_radioButton.Name = "equal_radioButton";
             this.equal_radioButton.Size = new System.Drawing.Size(51, 17);
             this.equal_radioButton.TabIndex = 9;
@@ -464,7 +464,7 @@
             // contains
             // 
             this.contains.AutoSize = true;
-            this.contains.Location = new System.Drawing.Point(266, 32);
+            this.contains.Location = new System.Drawing.Point(266, 59);
             this.contains.Name = "contains";
             this.contains.Size = new System.Drawing.Size(65, 17);
             this.contains.TabIndex = 8;
@@ -473,6 +473,7 @@
             // 
             // dGV_cpd
             // 
+            this.dGV_cpd.AllowUserToAddRows = false;
             this.dGV_cpd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_cpd.Location = new System.Drawing.Point(14, 277);
             this.dGV_cpd.Name = "dGV_cpd";
@@ -491,6 +492,7 @@
             // 
             // dGV_corr
             // 
+            this.dGV_corr.AllowUserToAddRows = false;
             this.dGV_corr.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -511,13 +513,13 @@
             // 
             // dGV_crisper
             // 
+            this.dGV_crisper.AllowUserToAddRows = false;
             this.dGV_crisper.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_crisper.Location = new System.Drawing.Point(14, 82);
             this.dGV_crisper.Name = "dGV_crisper";
             this.dGV_crisper.Size = new System.Drawing.Size(651, 176);
             this.dGV_crisper.TabIndex = 2;
             this.dGV_crisper.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            
             // 
             // textBox_gene
             // 
@@ -568,6 +570,17 @@
             this.search_2.Text = "SearchDB";
             this.search_2.UseVisualStyleBackColor = true;
             this.search_2.Click += new System.EventHandler(this.search_2_Click);
+            // 
+            // startswith_radioButton
+            // 
+            this.startswith_radioButton.AutoSize = true;
+            this.startswith_radioButton.Location = new System.Drawing.Point(266, 32);
+            this.startswith_radioButton.Name = "startswith_radioButton";
+            this.startswith_radioButton.Size = new System.Drawing.Size(50, 17);
+            this.startswith_radioButton.TabIndex = 10;
+            this.startswith_radioButton.TabStop = true;
+            this.startswith_radioButton.Text = "starts";
+            this.startswith_radioButton.UseVisualStyleBackColor = true;
             // 
             // LoadCpdsForm
             // 
@@ -645,5 +658,6 @@
         private System.Windows.Forms.DataGridView dGV_cpd;
         private System.Windows.Forms.RadioButton equal_radioButton;
         private System.Windows.Forms.RadioButton contains;
+        private System.Windows.Forms.RadioButton startswith_radioButton;
     }
 }

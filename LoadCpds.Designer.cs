@@ -415,6 +415,8 @@
             this.dGV_cpds.Name = "dGV_cpds";
             this.dGV_cpds.Size = new System.Drawing.Size(659, 414);
             this.dGV_cpds.TabIndex = 0;
+            
+
             // 
             // searchtb
             // 
@@ -515,6 +517,7 @@
             this.dGV_crisper.Size = new System.Drawing.Size(651, 176);
             this.dGV_crisper.TabIndex = 2;
             this.dGV_crisper.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            
             // 
             // textBox_gene
             // 

@@ -541,7 +541,6 @@ namespace sqlcnet
             fc.Show();
         }
 
-
         private void plot_results_Click(object sender, EventArgs e)
         {
             // for example X:gene , Y:cpd
@@ -580,11 +579,8 @@ namespace sqlcnet
                 fc.chart1.Series[0].Points.AddXY(x_values, y_counts);
             }
             fc.chart1.Series[0].Name = val_combo_x + "__" + val_combo_y;
-            fc.chart1.Series["Genes in Pathway"].ToolTip = "Pathway: #VALX";
             fc.Show();
-            // add cpds 
         }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -612,14 +608,14 @@ namespace sqlcnet
        
             foreach (var col in columnNames)
             {
-                string sql_last_line = " where gene. " + col + " LIKE '%" + gen_nam + "%' GROUP BY plate, well,tags,symbol,gene.synonyms";
+                string sql_last_line = " where gene. " + col + " LIKE '%" + gen_nam + "%' GROUP BY plate, well,tags,symbol,gene.synonyms,gene.geneid";
                 if (equal_radioButton.Checked)
                 {
-                    sql_last_line = " where gene. " + col + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol,gene.synonyms";
+                    sql_last_line = " where gene. " + col + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol,gene.synonyms,gene.geneid";
                 }
 
                 //dGV_crisper
-                string sql_crisper = "select platemap.plate,platemap.well,platemap.tags,gene.symbol,gene.synonyms from platemap" +
+                string sql_crisper = "select gene.geneid,platemap.plate,platemap.well,platemap.tags,gene.symbol,gene.synonyms from platemap" +
                                     " inner join crispermeta on crispermeta.batchid=platemap.batchid" +
                                     " inner join gene on crispermeta.geneid=gene.geneid" + sql_last_line;
                 var command_1 = new NpgsqlCommand(sql_crisper, conn);
@@ -629,7 +625,7 @@ namespace sqlcnet
                 resultsTable_crisper.Merge(tableResults_1);
 
                 //dGV_cpd
-                string sql_cpd = "select platemap.plate,platemap.well,platemap.tags,gene.symbol,gene.synonyms from platemap" +
+                string sql_cpd = "select gene.geneid,platemap.plate,platemap.well,platemap.tags,gene.symbol,gene.synonyms from platemap" +
                     " inner join batchs on batchs.batchid=platemap.batchid" +
                     " inner join cpd on cpd.pubchemid=batchs.pubchemid" +
                     " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
@@ -654,7 +650,7 @@ namespace sqlcnet
             }
 
         }
-
+       
         private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             List<string> sel = new List<string>();

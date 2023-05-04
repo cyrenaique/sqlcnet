@@ -217,7 +217,7 @@ namespace sqlcnet
         private void comboBox_tables_DropDownClosed(object sender, EventArgs e)
         {
             cmb = comboBox_tables.GetItemText(this.comboBox_tables.SelectedItem);
-
+            conn.Close();
             if (conn.State == ConnectionState.Closed)
             {
                 conn.Open();
@@ -435,6 +435,7 @@ namespace sqlcnet
         {
             string sql2 = "select * from genepath";
             NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn);
+            conn.Close();
             if (conn.State == ConnectionState.Closed)
             {
                 conn.Open();

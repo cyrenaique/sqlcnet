@@ -22,6 +22,7 @@ using System.Data.SqlClient;
 using static System.Net.Mime.MediaTypeNames;
 using CefSharp.DevTools.Profiler;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace sqlcnet
 {
@@ -39,8 +40,8 @@ namespace sqlcnet
         public TestForm TF;
         string cmb, cmb2;
         protected DataGridView MyDgv;
-        public DataTable resultsTable_crisper;
-        public DataTable resultsTable_cpd;
+        public DataTable plt_welss;
+      
         public LoadCpdsForm()
         {
             
@@ -541,26 +542,50 @@ namespace sqlcnet
             {
                 conn.Open();
             }
-            List<string> plts = new List<string>(resultsTable_crisper.Rows.Count);
-            List<string> wells = new List<string>(resultsTable_crisper.Rows.Count);
-            foreach (DataRow row in resultsTable_crisper.Rows)
+
+            var profiles = new DataTable();
+            foreach (DataRow row in plt_welss.Rows)
             {
-                plts.Add("'"+(string)row["plate"]+"'");
-                wells.Add("'" + (string)row["well"] + "'");
+                string plt_name = (string)row["plate"] ;
+                string well_name = (string)row["well"] ;
+                string plt_wel = "'" + plt_name + well_name + "'";
+                string sql_profile = "select \"Metadata_Plate\",\"Metadata_Well\" from profiles " +
+                    "where CONCAT(\"Metadata_Plate\",\"Metadata_Well\")  =" + plt_wel;
+
+
+                var cmd_profile = new NpgsqlCommand(sql_profile, conn);
+                var adp_profile = new NpgsqlDataAdapter(cmd_profile);
+                var tbl_profile = new DataTable();
+                adp_profile.Fill(tbl_profile);
+                profiles.Merge(tbl_profile);
             }
+           
 
 
-            string sql_profile = "select \"Metadata_Plate\",\"Metadata_Well\" from profiles where \"Metadata_Plate\"  in ("
-               + string.Join(",", plts)
-               + ")" +
-               " and \"Metadata_Well\"  in ("
-            + string.Join(",", wells)
-               + ")";
-            var cmd_profile = new NpgsqlCommand(sql_profile, conn);
-            var adp_profile = new NpgsqlDataAdapter(cmd_profile);
-            var tbl_profile = new DataTable();
-            adp_profile.Fill(tbl_profile);
-            dGV_profiles.DataSource = tbl_profile;
+
+
+
+            //List<string> plts = new List<string>(resultsTable_crisper.Rows.Count+ resultsTable_cpd.Rows.Count);
+            //List<string> wells = new List<string>(resultsTable_crisper.Rows.Count +resultsTable_cpd.Rows.Count);
+            //foreach (DataRow row in resultsTable_crisper.Rows)
+            //{
+            //    plts.Add("'"+(string)row["plate"]+"'");
+            //    wells.Add("'" + (string)row["well"] + "'");
+            //}
+            //foreach (DataRow row in resultsTable_cpd.Rows)
+            //{
+            //    plts.Add("'" + (string)row["plate"] + "'");
+            //    wells.Add("'" + (string)row["well"] + "'");
+            //}
+
+            //string sql_profile = "select \"Metadata_Plate\",\"Metadata_Well\" from profiles where \"Metadata_Plate\"  in ("
+            //   + string.Join(",", plts)
+            //   + ")" +
+            //   " and \"Metadata_Well\"  in ("
+            //+ string.Join(",", wells)
+            //   + ")";
+     
+            dGV_profiles.DataSource = profiles;
             foreach (DataGridViewRow row in dGV_profiles.Rows)
             {
                 row.HeaderCell.Value = (row.Index + 1).ToString();
@@ -573,8 +598,8 @@ namespace sqlcnet
 
         private void find_gene_Click(object sender, EventArgs e)
         {
-            resultsTable_crisper = new DataTable();
-            resultsTable_cpd = new DataTable();
+            var resultsTable_crisper = new DataTable();
+            var resultsTable_cpd = new DataTable();
             conn.Close();
             if (conn.State == ConnectionState.Closed)
             {
@@ -638,6 +663,9 @@ namespace sqlcnet
             {
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
+            
+            plt_welss = resultsTable_crisper.Copy();
+            plt_welss.Merge(resultsTable_cpd);
 
         }
         // --------------------------------------------------------------

@@ -20,6 +20,8 @@ using MaterialSkin.Controls;
 using MaterialSkin;
 using System.Data.SqlClient;
 using static System.Net.Mime.MediaTypeNames;
+using CefSharp.DevTools.Profiler;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace sqlcnet
 {
@@ -37,6 +39,8 @@ namespace sqlcnet
         public TestForm TF;
         string cmb, cmb2;
         protected DataGridView MyDgv;
+        public DataTable resultsTable_crisper;
+        public DataTable resultsTable_cpd;
         public LoadCpdsForm()
         {
             
@@ -90,6 +94,8 @@ namespace sqlcnet
             cmd.Dispose();
           
         }
+        // -----------------------------------------------------------
+        // tab 1
         private void openToolStripButton_Click(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "CSV Files (*.csv)|*.csv";
@@ -334,103 +340,7 @@ namespace sqlcnet
             }
             comboBox_fields.DataSource = columns_name;
         }
-        private void search_2_Click(object sender, EventArgs e)
-        {
-            string text = searchText.Text;
-            if (conn.FullState == ConnectionState.Closed)
-            {
-                conn.Open();
-            }
-
-
-            // get a list of all tables in the database
-            var tables = conn.GetSchema("Tables").Rows.Cast<DataRow>()
-                .Select(row => row["TABLE_NAME"].ToString())
-                .ToList();
-
-            // create a new DataTable to hold the results
-            var resultsTable = new DataTable();
-            NpgsqlCommand cmd = new NpgsqlCommand
-            {
-                Connection = conn,
-                CommandType = CommandType.Text,
-                //CommandText = "select table_name from information_schema.tables where table_schema='public'"
-            };
-
-
-            List<string> TableNames = new List<string>();
-
-
-            dGV_search.Visible = true;
-
-            // loop over each table and search for the string
-            foreach (var table in tables)
-            {
-                var schemaTable = conn.GetSchema("Columns", new[] { null, null, table });
-
-                // iterate over the rows of the schema table and extract the column names
-                var columnNames = new List<string>();
-                foreach (DataRow row in schemaTable.Rows)
-                {
-                    if (row["DATA_TYPE"].ToString() != "double precision")
-                        columnNames.Add(row["COLUMN_NAME"].ToString());
-                }
-
-
-                foreach (var col in columnNames)
-                {
-
-
-                    // create a new SqlCommand object to search the table for the string
-                    var command = new NpgsqlCommand($"SELECT * FROM {table} WHERE {col} = '{text}'", conn);
-
-                    // create a new SqlDataAdapter object to fill a DataTable with the results of the query
-                    var adapter = new NpgsqlDataAdapter(command);
-                    var tableResults = new DataTable();
-
-                    adapter.Fill(tableResults);
-                    resultsTable.Merge(tableResults);
-
-                }
-
-
-            }
-
-            // bind the results table to a DataGridView
-            dGV_search.DataSource = resultsTable;
-
-            List<string> collist = new List<string>();
-
-            foreach (DataGridViewColumn column in dGV_search.Columns)
-            {
-                bool hasValue = false;
-
-                // check if the column has any non-null values
-                foreach (DataGridViewRow row in dGV_search.Rows)
-                {
-                    if (row.Cells[column.Index].Value.ToString() != "")
-                    {
-                        hasValue = true;
-                        break;
-                    }
-                }
-
-                // if the column has no non-null values, remove it from the DataGridView
-                if (!hasValue)
-                {
-                    //dGV_search.Columns.Remove(column);
-                    collist.Add(column.Name);
-                }
-            }
-            foreach (var item in collist)
-            {
-                dGV_search.Columns.Remove(item);
-            }
-
-        
-
-    }
-
+       
         private void pathwaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string sql2 = "select * from genepath";
@@ -540,7 +450,6 @@ namespace sqlcnet
             //form.Controls.Add(chart);
             fc.Show();
         }
-
         private void plot_results_Click(object sender, EventArgs e)
         {
             // for example X:gene , Y:cpd
@@ -585,9 +494,84 @@ namespace sqlcnet
         {
 
         }
+        private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            List<string> sel = new List<string>();
+            foreach (DataGridViewRow row in dGV_results.Rows)
+            {
+                if (row.Cells[e.ColumnIndex].Value.ToString() != "No result" & row.Cells[e.ColumnIndex].Value.ToString() != "")
+                {
+                    sel.Add(row.Cells[e.ColumnIndex].Value.ToString());
+                }
+
+
+                // do something with the row..
+            }
+            List<string> unique_items = new HashSet<string>(sel).ToList();
+            List<string> columns_name = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
+
+            foreach (string item in unique_items)
+            {
+                //if (columns_name[e.ColumnIndex].Contains("pubchem") | columns_name[e.ColumnIndex].Contains("cas"))
+                if (columns_name[e.ColumnIndex].Contains("kegg") | columns_name[e.ColumnIndex].Contains("pathid")
+                    | columns_name[e.ColumnIndex].Contains("geneid") | columns_name[e.ColumnIndex].Contains("disid"))
+                {
+                    f2 = new GKForm();
+                    ChromiumWebBrowser browser = new ChromiumWebBrowser("https://www.genome.jp/entry/" + item);
+
+                    f2.toolStripContainer1.ContentPanel.Controls.Add(browser);
+                    f2.Show();
+                }
+                else
+                {
+                    f2 = new GKForm();
+                    ChromiumWebBrowser browser = new ChromiumWebBrowser("https://pubchem.ncbi.nlm.nih.gov/compound/" + item);
+                    f2.toolStripContainer1.ContentPanel.Controls.Add(browser);
+                    f2.Show();
+                }
+            }
+
+        }
+        // -----------------------------------------------------------
+        // tab 2
+        private void pltcorr_Click(object sender, EventArgs e)
+        {
+            conn.Close();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            List<string> plts = new List<string>(resultsTable_crisper.Rows.Count);
+            List<string> wells = new List<string>(resultsTable_crisper.Rows.Count);
+            foreach (DataRow row in resultsTable_crisper.Rows)
+            {
+                plts.Add("'"+(string)row["plate"]+"'");
+                wells.Add("'" + (string)row["well"] + "'");
+            }
+
+           
+            string sql_profile = "select * from profiles where \"Metadata_Plate\"  in ("
+               + string.Join(",", plts)
+               + ")";
+            var cmd_profile = new NpgsqlCommand(sql_profile, conn);
+            var adp_profile = new NpgsqlDataAdapter(cmd_profile);
+            var tbl_profile = new DataTable();
+            adp_profile.Fill(tbl_profile);
+            dGV_profiles.DataSource = tbl_profile;
+            foreach (DataGridViewRow row in dGV_profiles.Rows)
+            {
+                row.HeaderCell.Value = (row.Index + 1).ToString();
+            }
+            MessageBox.Show("Done");
+
+
+
+        }
 
         private void find_gene_Click(object sender, EventArgs e)
         {
+            resultsTable_crisper = new DataTable();
+            resultsTable_cpd = new DataTable();
             conn.Close();
             if (conn.State == ConnectionState.Closed)
             {
@@ -596,8 +580,7 @@ namespace sqlcnet
             string gen_nam = textBox_gene.Text;
 
             // create a new DataTable to hold the results
-            var resultsTable_crisper = new DataTable();
-            var resultsTable_cpd = new DataTable();
+           
             var schemaTable = conn.GetSchema("Columns", new[] { null, null, "gene" });
             var columnNames = new List<string>();
             foreach (DataRow row in schemaTable.Rows)
@@ -606,7 +589,7 @@ namespace sqlcnet
                     columnNames.Add(row["COLUMN_NAME"].ToString());
             }
 
-       
+
             foreach (var col in columnNames)
             {
                 string sql_last_line = " where gene. " + col + " LIKE '%" + gen_nam + "%' GROUP BY plate, well,tags,symbol,gene.synonyms,gene.geneid";
@@ -654,44 +637,106 @@ namespace sqlcnet
             }
 
         }
-       
-        private void dGV_results_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        // --------------------------------------------------------------
+        // tab 3
+        private void search_all_db_Click(object sender, EventArgs e)
         {
-            List<string> sel = new List<string>();
-            foreach (DataGridViewRow row in dGV_results.Rows)
+            string text = searchText.Text;
+            if (conn.FullState == ConnectionState.Closed)
             {
-                if (row.Cells[e.ColumnIndex].Value.ToString() != "No result" & row.Cells[e.ColumnIndex].Value.ToString() != "")
-                {
-                    sel.Add(row.Cells[e.ColumnIndex].Value.ToString());
-                }
-
-
-                // do something with the row..
+                conn.Open();
             }
-            List<string> unique_items = new HashSet<string>(sel).ToList();
-            List<string> columns_name = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
 
-            foreach (string item in unique_items)
+
+            // get a list of all tables in the database
+            var tables = conn.GetSchema("Tables").Rows.Cast<DataRow>()
+                .Select(row => row["TABLE_NAME"].ToString())
+                .ToList();
+
+            // create a new DataTable to hold the results
+            var resultsTable = new DataTable();
+            NpgsqlCommand cmd = new NpgsqlCommand
             {
-                //if (columns_name[e.ColumnIndex].Contains("pubchem") | columns_name[e.ColumnIndex].Contains("cas"))
-                if (columns_name[e.ColumnIndex].Contains("kegg") | columns_name[e.ColumnIndex].Contains("pathid")
-                    | columns_name[e.ColumnIndex].Contains("geneid") | columns_name[e.ColumnIndex].Contains("disid"))
-                {
-                    f2 = new GKForm();
-                    ChromiumWebBrowser browser = new ChromiumWebBrowser("https://www.genome.jp/entry/" + item);
+                Connection = conn,
+                CommandType = CommandType.Text,
+                //CommandText = "select table_name from information_schema.tables where table_schema='public'"
+            };
 
-                    f2.toolStripContainer1.ContentPanel.Controls.Add(browser);
-                    f2.Show();
-                }
-                else
+
+            List<string> TableNames = new List<string>();
+
+
+            dGV_search.Visible = true;
+
+            // loop over each table and search for the string
+            foreach (var table in tables)
+            {
+                var schemaTable = conn.GetSchema("Columns", new[] { null, null, table });
+
+                // iterate over the rows of the schema table and extract the column names
+                var columnNames = new List<string>();
+                foreach (DataRow row in schemaTable.Rows)
                 {
-                    f2 = new GKForm();
-                    ChromiumWebBrowser browser = new ChromiumWebBrowser("https://pubchem.ncbi.nlm.nih.gov/compound/" + item);
-                    f2.toolStripContainer1.ContentPanel.Controls.Add(browser);
-                    f2.Show();
+                    if (row["DATA_TYPE"].ToString() != "double precision")
+                        columnNames.Add(row["COLUMN_NAME"].ToString());
+                }
+
+
+                foreach (var col in columnNames)
+                {
+
+
+                    // create a new SqlCommand object to search the table for the string
+                    var command = new NpgsqlCommand($"SELECT * FROM {table} WHERE {col} = '{text}'", conn);
+
+                    // create a new SqlDataAdapter object to fill a DataTable with the results of the query
+                    var adapter = new NpgsqlDataAdapter(command);
+                    var tableResults = new DataTable();
+
+                    adapter.Fill(tableResults);
+                    resultsTable.Merge(tableResults);
+
+                }
+
+
+            }
+
+            // bind the results table to a DataGridView
+            dGV_search.DataSource = resultsTable;
+
+            List<string> collist = new List<string>();
+
+            foreach (DataGridViewColumn column in dGV_search.Columns)
+            {
+                bool hasValue = false;
+
+                // check if the column has any non-null values
+                foreach (DataGridViewRow row in dGV_search.Rows)
+                {
+                    if (row.Cells[column.Index].Value.ToString() != "")
+                    {
+                        hasValue = true;
+                        break;
+                    }
+                }
+
+                // if the column has no non-null values, remove it from the DataGridView
+                if (!hasValue)
+                {
+                    //dGV_search.Columns.Remove(column);
+                    collist.Add(column.Name);
                 }
             }
+            foreach (var item in collist)
+            {
+                dGV_search.Columns.Remove(item);
+            }
+
+
 
         }
+
+
+
     }
 }

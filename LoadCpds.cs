@@ -562,19 +562,20 @@ namespace sqlcnet
 
             foreach (var col in columnNames)
             {
-                string sql_last_line = " where gene. " + col + " LIKE '%" + gen_nam + "%' GROUP BY plate, well,tags,symbol,gene.synonyms,gene.geneid";
+                string sql_last_line = " where gene. " + col + " LIKE '%" + gen_nam+"'";
                 if (equal_radioButton.Checked)
                 {
-                    sql_last_line = " where gene. " + col + "= '" + gen_nam + "' GROUP BY plate, well,tags,symbol,gene.synonyms,gene.geneid";
+                    sql_last_line = " where gene. " + col + "= '" + gen_nam + "'";
                 }
                 if (startswith_radioButton.Checked)
                 {
-                    sql_last_line = " where gene. " + col + " LIKE '" + gen_nam + "%' GROUP BY plate, well,tags,symbol,gene.synonyms,gene.geneid";
+                    sql_last_line = " where gene. " + col + " LIKE '" + gen_nam + "'";
                 }
                 //dGV_crisper
-                string sql_crisper = "select gene.geneid,platemap.plate,platemap.well,platemap.tags,gene.symbol,gene.synonyms from platemap" +
-                                    " inner join crispermeta on crispermeta.batchid=platemap.batchid" +
-                                    " inner join gene on crispermeta.geneid=gene.geneid" + sql_last_line;
+                string sql_crisper = "select profiles.* ,gene.geneid,gene.symbol,gene.synonyms from profiles" +
+                    " inner join crispermeta on profiles.batchid=crispermeta.batchid" +
+                    " inner join gene on gene.geneid=crispermeta.geneid " + sql_last_line;
+
                 var command_1 = new NpgsqlCommand(sql_crisper, conn);
                 var adapter_1 = new NpgsqlDataAdapter(command_1);
                 var tableResults_1 = new DataTable();
@@ -582,57 +583,69 @@ namespace sqlcnet
                 resultsTable_crisper.Merge(tableResults_1);
 
                 //dGV_cpd
-                string sql_cpd = "select gene.geneid,platemap.plate,platemap.well,platemap.tags,gene.symbol,gene.synonyms from platemap" +
-                    " inner join batchs on batchs.batchid=platemap.batchid" +
-                    " inner join cpd on cpd.pubchemid=batchs.pubchemid" +
-                    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
-                    " inner join gene on cpdgene.geneid=gene.geneid" + sql_last_line;
+                string sql_cpd = "select profiles.* ,gene.geneid,gene.symbol,gene.synonyms from profiles" +
+                    " inner join batchs on profiles.batchid=batchs.batchid" +
+                    " inner join cpd on cpd.pubchemid=batchs.pubchemid " +
+                    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid " +
+                    " inner join gene on gene.geneid=cpdgene.geneid " +
+                    sql_last_line;
+     
                 var command_2 = new NpgsqlCommand(sql_cpd, conn);
                 var adapter_2 = new NpgsqlDataAdapter(command_2);
                 var tableResults_2 = new DataTable();
                 adapter_2.Fill(tableResults_2);
                 resultsTable_cpd.Merge(tableResults_2);
             }
+            resultsTable_cpd = resultsTable_cpd.AsEnumerable()
+                .GroupBy(r => new {
+                    plate = r.Field<string>("plate"),
+                    well = r.Field<string>("well") }).
+                    Select(g => g.First()).CopyToDataTable();
+
+            resultsTable_crisper = resultsTable_crisper.AsEnumerable()
+                .GroupBy(r => new {
+                    plate = r.Field<string>("plate"),
+                    well = r.Field<string>("well")
+                }).
+                    Select(g => g.First()).CopyToDataTable();
+
+            resultsTable_crisper.Merge(resultsTable_cpd);
             //dGV_crisper
-            dGV_crisper.DataSource = resultsTable_crisper;
+            DataTable newTable = resultsTable_crisper.DefaultView.ToTable(false, "plate", "well", "geneid", "symbol", "synonyms");
+            dGV_crisper.DataSource = newTable;
             foreach (DataGridViewRow row in dGV_crisper.Rows)
             {
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
-            // dGV_cpd
-            dGV_cpd.DataSource = resultsTable_cpd;
-            foreach (DataGridViewRow row in dGV_cpd.Rows)
-            {
-                row.HeaderCell.Value = (row.Index + 1).ToString();
-            }
-            // concat two table
-            DataTable plt_well_tbl=new DataTable() ;
-            plt_well_tbl = resultsTable_crisper.Copy();
-            plt_well_tbl.Merge(resultsTable_cpd);
-            // concat wells and plates
-            plts_wells_concat = new List<string>(plt_well_tbl.Rows.Count);
-            foreach (DataRow row in plt_well_tbl.Rows)
-            {
-                plts_wells_concat.Add("'" + (string)row["plate"] + (string)row["well"] + "'");
-            }
+            
+            //// concat two table
+            //DataTable plt_well_tbl=new DataTable() ;
+            //plt_well_tbl = resultsTable_crisper.Copy();
+            //plt_well_tbl.Merge(resultsTable_cpd);
+            //// concat wells and plates
+            //plts_wells_concat = new List<string>(plt_well_tbl.Rows.Count);
+            //foreach (DataRow row in plt_well_tbl.Rows)
+            //{
+            //    plts_wells_concat.Add("'" + (string)row["plate"] + (string)row["well"] + "'");
+            //}
 
-            // get profiles
-            tbl_profiles = new DataTable();
-            conn.Close();
-            if (conn.State == ConnectionState.Closed)
-            {
-                conn.Open();
-            }
+            //// get profiles
+            //tbl_profiles = new DataTable();
+            //conn.Close();
+            //if (conn.State == ConnectionState.Closed)
+            //{
+            //    conn.Open();
+            //}
 
-            string sql_profile = "select * from profiles where CONCAT(\"Metadata_Plate\",\"Metadata_Well\")  in ("
-               + string.Join(",", plts_wells_concat)
-               + ")";
+            //string sql_profile = "select * from profiles where CONCAT(\"Metadata_Plate\",\"Metadata_Well\")  in ("
+            //   + string.Join(",", plts_wells_concat)
+            //   + ")";
 
 
-            var cmd_profile = new NpgsqlCommand(sql_profile, conn);
-            var adp_profile = new NpgsqlDataAdapter(cmd_profile);
+            //var cmd_profile = new NpgsqlCommand(sql_profile, conn);
+            //var adp_profile = new NpgsqlDataAdapter(cmd_profile);
 
-            adp_profile.Fill(tbl_profiles);
+            //adp_profile.Fill(tbl_profiles);
             //dGV_profiles.DataSource = tbl_profiles;
             //foreach (DataGridViewRow row in dGV_profiles.Rows)
             //{
@@ -646,7 +659,7 @@ namespace sqlcnet
        private void save_profiles_Click(object sender, EventArgs e)
         {
             //tbl_profiles
-            if (dGV_crisper.Rows.Count+ dGV_cpd.Rows.Count > 0) 
+            if (dGV_crisper.Rows.Count > 0) 
             {
                 SaveFileDialog sfd = new SaveFileDialog();
                 sfd.Filter = "CSV (*.csv)|*.csv";

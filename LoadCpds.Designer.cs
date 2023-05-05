@@ -64,20 +64,18 @@
             this.dGV_cpds = new System.Windows.Forms.DataGridView();
             this.searchtb = new System.Windows.Forms.TabControl();
             this.profiles = new System.Windows.Forms.TabPage();
-            this.formsPlot1 = new ScottPlot.FormsPlot();
+            this.save_profiles = new System.Windows.Forms.Button();
             this.startswith_radioButton = new System.Windows.Forms.RadioButton();
             this.equal_radioButton = new System.Windows.Forms.RadioButton();
             this.contains = new System.Windows.Forms.RadioButton();
             this.dGV_cpd = new System.Windows.Forms.DataGridView();
             this.find_gene = new System.Windows.Forms.Button();
-            this.pltcorr = new System.Windows.Forms.Button();
             this.dGV_crisper = new System.Windows.Forms.DataGridView();
             this.textBox_gene = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dGV_search = new System.Windows.Forms.DataGridView();
             this.searchText = new System.Windows.Forms.TextBox();
             this.search_all_db = new System.Windows.Forms.Button();
-            this.dGV_profiles = new System.Windows.Forms.DataGridView();
             this.toolStrip1.SuspendLayout();
             this.search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
@@ -88,7 +86,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dGV_crisper)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_search)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dGV_profiles)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -434,14 +431,12 @@
             // 
             // profiles
             // 
-            this.profiles.Controls.Add(this.dGV_profiles);
-            this.profiles.Controls.Add(this.formsPlot1);
+            this.profiles.Controls.Add(this.save_profiles);
             this.profiles.Controls.Add(this.startswith_radioButton);
             this.profiles.Controls.Add(this.equal_radioButton);
             this.profiles.Controls.Add(this.contains);
             this.profiles.Controls.Add(this.dGV_cpd);
             this.profiles.Controls.Add(this.find_gene);
-            this.profiles.Controls.Add(this.pltcorr);
             this.profiles.Controls.Add(this.dGV_crisper);
             this.profiles.Controls.Add(this.textBox_gene);
             this.profiles.Location = new System.Drawing.Point(4, 22);
@@ -451,12 +446,15 @@
             this.profiles.Text = "Profiles";
             this.profiles.UseVisualStyleBackColor = true;
             // 
-            // formsPlot1
+            // save_profiles
             // 
-            this.formsPlot1.Location = new System.Drawing.Point(851, 260);
-            this.formsPlot1.Name = "formsPlot1";
-            this.formsPlot1.Size = new System.Drawing.Size(422, 312);
-            this.formsPlot1.TabIndex = 11;
+            this.save_profiles.Location = new System.Drawing.Point(570, 32);
+            this.save_profiles.Name = "save_profiles";
+            this.save_profiles.Size = new System.Drawing.Size(158, 23);
+            this.save_profiles.TabIndex = 13;
+            this.save_profiles.Text = "save profiles";
+            this.save_profiles.UseVisualStyleBackColor = true;
+            this.save_profiles.Click += new System.EventHandler(this.save_profiles_Click);
             // 
             // startswith_radioButton
             // 
@@ -509,16 +507,6 @@
             this.find_gene.Text = "search";
             this.find_gene.UseVisualStyleBackColor = true;
             this.find_gene.Click += new System.EventHandler(this.find_gene_Click);
-            // 
-            // pltcorr
-            // 
-            this.pltcorr.Location = new System.Drawing.Point(160, 563);
-            this.pltcorr.Name = "pltcorr";
-            this.pltcorr.Size = new System.Drawing.Size(158, 23);
-            this.pltcorr.TabIndex = 4;
-            this.pltcorr.Text = "plot heatmap";
-            this.pltcorr.UseVisualStyleBackColor = true;
-            this.pltcorr.Click += new System.EventHandler(this.pltcorr_Click);
             // 
             // dGV_crisper
             // 
@@ -580,14 +568,6 @@
             this.search_all_db.UseVisualStyleBackColor = true;
             this.search_all_db.Click += new System.EventHandler(this.search_all_db_Click);
             // 
-            // dGV_profiles
-            // 
-            this.dGV_profiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_profiles.Location = new System.Drawing.Point(746, 82);
-            this.dGV_profiles.Name = "dGV_profiles";
-            this.dGV_profiles.Size = new System.Drawing.Size(568, 150);
-            this.dGV_profiles.TabIndex = 12;
-            // 
             // LoadCpdsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -611,7 +591,6 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_search)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dGV_profiles)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -654,7 +633,6 @@
         private System.Windows.Forms.TabPage profiles;
         private System.Windows.Forms.DataGridView dGV_crisper;
         private System.Windows.Forms.TextBox textBox_gene;
-        private System.Windows.Forms.Button pltcorr;
         private System.Windows.Forms.TabPage tabPage1;
         public System.Windows.Forms.TextBox searchText;
         public System.Windows.Forms.Button search_all_db;
@@ -664,7 +642,6 @@
         private System.Windows.Forms.RadioButton equal_radioButton;
         private System.Windows.Forms.RadioButton contains;
         private System.Windows.Forms.RadioButton startswith_radioButton;
-        private ScottPlot.FormsPlot formsPlot1;
-        private System.Windows.Forms.DataGridView dGV_profiles;
+        private System.Windows.Forms.Button save_profiles;
     }
 }

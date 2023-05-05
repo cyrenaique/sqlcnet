@@ -26,7 +26,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace sqlcnet
 {
-
+  
     public partial class LoadCpdsForm : MaterialForm
     {
         DataTable dt;
@@ -40,8 +40,9 @@ namespace sqlcnet
         public TestForm TF;
         string cmb, cmb2;
         protected DataGridView MyDgv;
-        public DataTable plt_welss;
-      
+        List<string> plts_wells_concat;
+        public DataTable tbl_profiles;
+
         public LoadCpdsForm()
         {
             
@@ -535,66 +536,7 @@ namespace sqlcnet
         }
         // -----------------------------------------------------------
         // tab 2
-        private void pltcorr_Click(object sender, EventArgs e)
-        {
-            var profiles = new DataTable();
-            conn.Close();
-            if (conn.State == ConnectionState.Closed)
-            {
-                conn.Open();
-            }
-            List<string> plts_wells = new List<string>(plt_welss.Rows.Count);
-            foreach (DataRow row in plt_welss.Rows)
-            {
-                plts_wells.Add("'" + (string)row["plate"]+ (string)row["well"] + "'");
-            }
 
-            string sql_profile = "select \"Metadata_Plate\",\"Metadata_Well\" from profiles where CONCAT(\"Metadata_Plate\",\"Metadata_Well\")  in ("
-               + string.Join(",", plts_wells)
-               + ")";
-
-
-            var cmd_profile = new NpgsqlCommand(sql_profile, conn);
-            var adp_profile = new NpgsqlDataAdapter(cmd_profile);
-            
-            adp_profile.Fill(profiles);
-               
-           
-
-
-
-
-
-            //List<string> plts = new List<string>(resultsTable_crisper.Rows.Count+ resultsTable_cpd.Rows.Count);
-            //List<string> wells = new List<string>(resultsTable_crisper.Rows.Count +resultsTable_cpd.Rows.Count);
-            //foreach (DataRow row in resultsTable_crisper.Rows)
-            //{
-            //    plts.Add("'"+(string)row["plate"]+"'");
-            //    wells.Add("'" + (string)row["well"] + "'");
-            //}
-            //foreach (DataRow row in resultsTable_cpd.Rows)
-            //{
-            //    plts.Add("'" + (string)row["plate"] + "'");
-            //    wells.Add("'" + (string)row["well"] + "'");
-            //}
-
-            //string sql_profile = "select \"Metadata_Plate\",\"Metadata_Well\" from profiles where \"Metadata_Plate\"  in ("
-            //   + string.Join(",", plts)
-            //   + ")" +
-            //   " and \"Metadata_Well\"  in ("
-            //+ string.Join(",", wells)
-            //   + ")";
-     
-            dGV_profiles.DataSource = profiles;
-            foreach (DataGridViewRow row in dGV_profiles.Rows)
-            {
-                row.HeaderCell.Value = (row.Index + 1).ToString();
-            }
-            MessageBox.Show("Done");
-
-
-
-        }
 
         private void find_gene_Click(object sender, EventArgs e)
         {
@@ -663,11 +605,105 @@ namespace sqlcnet
             {
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
-            
-            plt_welss = resultsTable_crisper.Copy();
-            plt_welss.Merge(resultsTable_cpd);
+            // concat two table
+            DataTable plt_well_tbl=new DataTable() ;
+            plt_well_tbl = resultsTable_crisper.Copy();
+            plt_well_tbl.Merge(resultsTable_cpd);
+            // concat wells and plates
+            plts_wells_concat = new List<string>(plt_well_tbl.Rows.Count);
+            foreach (DataRow row in plt_well_tbl.Rows)
+            {
+                plts_wells_concat.Add("'" + (string)row["plate"] + (string)row["well"] + "'");
+            }
+
+            // get profiles
+            tbl_profiles = new DataTable();
+            conn.Close();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+
+            string sql_profile = "select * from profiles where CONCAT(\"Metadata_Plate\",\"Metadata_Well\")  in ("
+               + string.Join(",", plts_wells_concat)
+               + ")";
+
+
+            var cmd_profile = new NpgsqlCommand(sql_profile, conn);
+            var adp_profile = new NpgsqlDataAdapter(cmd_profile);
+
+            adp_profile.Fill(tbl_profiles);
+            //dGV_profiles.DataSource = tbl_profiles;
+            //foreach (DataGridViewRow row in dGV_profiles.Rows)
+            //{
+            //    row.HeaderCell.Value = (row.Index + 1).ToString();
+            //}
+            MessageBox.Show("Done");
+
+
 
         }
+       private void save_profiles_Click(object sender, EventArgs e)
+        {
+            //tbl_profiles
+            if (dGV_crisper.Rows.Count+ dGV_cpd.Rows.Count > 0) 
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "CSV (*.csv)|*.csv";
+                sfd.FileName = "Output.csv";
+                bool fileError = false;
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    if (File.Exists(sfd.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(sfd.FileName);
+                        }
+                        catch (IOException ex)
+                        {
+                            fileError = true;
+                            MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
+                        }
+                    }
+                    if (!fileError)
+                    {
+                        try
+                        {
+                            // tbl_profiles.ToCSV(sfd.FileName);
+                            StringBuilder sb = new StringBuilder();
+
+                            string[] columnNames = tbl_profiles.Columns.Cast<DataColumn>().
+                                                          Select(column => column.ColumnName).
+                                                          ToArray();
+                            sb.AppendLine(string.Join(",", columnNames));
+
+                            foreach (DataRow row in tbl_profiles.Rows)
+                            {
+                                string[] fields = row.ItemArray.Select(field => field.ToString()).
+                                                            ToArray();
+                                sb.AppendLine(string.Join(",", fields));
+                            }
+
+
+                            File.WriteAllText(sfd.FileName, sb.ToString());
+
+                            MessageBox.Show("Data Exported Successfully !!!", "Info");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error :" + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No Record To Export !!!", "Info");
+            }
+
+        }
+
         // --------------------------------------------------------------
         // tab 3
         private void search_all_db_Click(object sender, EventArgs e)

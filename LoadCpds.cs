@@ -40,7 +40,6 @@ namespace sqlcnet
         public TestForm TF;
         string cmb, cmb2;
         protected DataGridView MyDgv;
-      
         public DataTable tbl_profiles;
 
         public LoadCpdsForm()
@@ -538,7 +537,7 @@ namespace sqlcnet
         // tab 2
 
 
-        private void find_gene_Click(object sender, EventArgs e)
+        private void get_profile_Click(object sender, EventArgs e)
         {
          
             conn.Close();
@@ -546,9 +545,9 @@ namespace sqlcnet
             {
                 conn.Open();
             }
-            string gen_nam = textBox_gene.Text;
-            tbl_profiles=new DataTable();
-            // create a new DataTable to hold the results
+            string search_text = textBox_gene.Text;
+            tbl_profiles = new DataTable();
+            
 
             var schemaTable = conn.GetSchema("Columns", new[] { null, null, "gene" });
             var columnNames = new List<string>();
@@ -557,63 +556,138 @@ namespace sqlcnet
                 if (row["DATA_TYPE"].ToString() != "double precision")
                     columnNames.Add(row["COLUMN_NAME"].ToString());
             }
-
-
+            // get gene and batchs
+            var tbl_batchs_gene = new DataTable();
+            string groupby = " group by platemap.plate, platemap.well,platemap.batchid, platemap.tags,gene.geneid,gene.symbol,gene.synonyms";
             foreach (var col in columnNames)
             {
-                string sql_last_line = " where gene. " + col + " LIKE '%" + gen_nam+"'";
+                string sql_last_line = " where gene. " + col + " LIKE '%" + search_text + "%'" + groupby;
                 if (equal_radioButton.Checked)
                 {
-                    sql_last_line = " where gene. " + col + "= '" + gen_nam + "'";
+                    sql_last_line = " where gene. " + col + "= '" + search_text + "' " + groupby;
                 }
                 if (startswith_radioButton.Checked)
                 {
-                    sql_last_line = " where gene. " + col + " LIKE '" + gen_nam + "'";
+                    sql_last_line = " where gene. " + col + " LIKE '" + search_text + "%' " + groupby;
                 }
-                //dGV_crisper
-                string sql_crisper = "select profiles.* ,platemap.tags,gene.geneid,gene.symbol,gene.synonyms from profiles" +
-                    " inner join platemap on profiles.batchid=platemap.batchid" +
-                    " inner join crispermeta on profiles.batchid=crispermeta.batchid" +
-                    " inner join gene on gene.geneid=crispermeta.geneid " + sql_last_line;
+
+                //crisper
+                string sql_crisper = "select platemap.plate, platemap.well,platemap.batchid, platemap.tags,gene.geneid,gene.symbol,gene.synonyms" +
+                    " from platemap " +
+                    "inner join crispermeta on crispermeta.batchid=platemap.batchid " +
+                    "inner join gene on gene.geneid=crispermeta.geneid " + sql_last_line;
 
                 var command_1 = new NpgsqlCommand(sql_crisper, conn);
                 var adapter_1 = new NpgsqlDataAdapter(command_1);
                 var tableResults_1 = new DataTable();
                 adapter_1.Fill(tableResults_1);
-                tbl_profiles.Merge(tableResults_1);
+                tbl_batchs_gene.Merge(tableResults_1);
 
-                //dGV_cpd
-                string sql_cpd = "select profiles.* ,platemap.tags,gene.geneid,gene.geneid,gene.symbol,gene.synonyms from profiles" +
-                    " inner join batchs on profiles.batchid=batchs.batchid" +
-                    " inner join platemap on profiles.batchid=platemap.batchid" +
-                    " inner join cpd on cpd.pubchemid=batchs.pubchemid " +
-                    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid " +
-                    " inner join gene on gene.geneid=cpdgene.geneid " +
-                    sql_last_line;
-     
+                //cpd
+                string sql_cpd = "select  platemap.plate, platemap.well, platemap.batchid, platemap.tags,gene.geneid,gene.symbol,gene.synonyms" +
+                    " from platemap" +
+                    " inner join batchs on batchs.batchid=platemap.batchid" +
+                    " inner join cpd on cpd.pubchemid=batchs.pubchemid" +
+                    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
+                    " inner join gene on cpdgene.geneid=gene.geneid" + sql_last_line;
+
                 var command_2 = new NpgsqlCommand(sql_cpd, conn);
                 var adapter_2 = new NpgsqlDataAdapter(command_2);
                 var tableResults_2 = new DataTable();
                 adapter_2.Fill(tableResults_2);
-                tbl_profiles.Merge(tableResults_2);
+                tbl_batchs_gene.Merge(tableResults_2);
             }
-            tbl_profiles = tbl_profiles.AsEnumerable()
-                .GroupBy(r => new {
-                    plate = r.Field<string>("plate"),
-                    well = r.Field<string>("well") }).
-                    Select(g => g.First()).CopyToDataTable();
 
-           
+            List<string> batchs = new List<string>(tbl_batchs_gene.Rows.Count);
+            foreach (DataRow row in tbl_batchs_gene.Rows)
+            {
+                batchs.Add("'" + (string)row["batchid"] + "'");
+               
+            }
+            // now get profiles
+            string sql_profile = "select * from profiles where profiles.batchid in ("
+              + string.Join(",", batchs)
+              + ")";
+            var cmd_profile = new NpgsqlCommand(sql_profile, conn);
+            var adp_profile = new NpgsqlDataAdapter(cmd_profile);
+            
+            adp_profile.Fill(tbl_profiles);
+            tbl_profiles.Columns.Add("symbol");
+            tbl_profiles.Columns.Add("geneid");
+            tbl_profiles.Columns.Add("tags");
+            tbl_profiles.Columns.Add("plt_2");
+            tbl_profiles.Columns.Add("well_2");
+
+            for (int i = 0; i < tbl_profiles.Rows.Count; i++)
+            {
+                tbl_profiles.Rows[i]["symbol"] = tbl_batchs_gene.Rows[i]["symbol"];
+                tbl_profiles.Rows[i]["geneid"] = tbl_batchs_gene.Rows[i]["geneid"];
+                tbl_profiles.Rows[i]["tags"] = tbl_batchs_gene.Rows[i]["tags"];
+                tbl_profiles.Rows[i]["plt_2"] = tbl_batchs_gene.Rows[i]["plate"];
+                tbl_profiles.Rows[i]["well_2"] = tbl_batchs_gene.Rows[i]["well"];
+
+            }
             //dGV_crisper
-            DataTable newTable = tbl_profiles.DefaultView.ToTable(false, "plate", "well","tags", "geneid", "symbol", "synonyms");
+            DataTable newTable = tbl_profiles.DefaultView.ToTable(false, "plt_2","well_2", "plate", "well", "tags", "geneid", "symbol");
             dGV_crisper.DataSource = newTable;
+            //dGV_crisper.DataSource = tbl_batchs_gene;
             foreach (DataGridViewRow row in dGV_crisper.Rows)
             {
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
+
+
+            MessageBox.Show("Done");
+
+
+
+
+
+            ////crisper
+            //string sql_crisper = "select profiles.* ,platemap.tags,gene.geneid,gene.symbol,gene.synonyms from profiles" +
+            //    " inner join platemap on platemap.batchid=profiles.batchid" +
+            //    " inner join crispermeta on crispermeta.batchid=profiles.batchid" +
+            //    " inner join gene on gene.geneid=crispermeta.geneid " + sql_last_line;
+
+            //var command_1 = new NpgsqlCommand(sql_crisper, conn);
+            //var adapter_1 = new NpgsqlDataAdapter(command_1);
+            //var tableResults_1 = new DataTable();
+            //adapter_1.Fill(tableResults_1);
+            //tbl_profiles.Merge(tableResults_1);
+
+            ////cpd
+            //string sql_cpd = "select profiles.* ,platemap.tags,gene.geneid,gene.geneid,gene.symbol,gene.synonyms from profiles" +
+            //    " inner join batchs on batchs.batchid=profiles.batchid" +
+            //    " inner join platemap on platemap.batchid=profiles.batchid" +
+            //    " inner join cpd on batchs.pubchemid=cpd.pubchemid " +
+            //    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid " +
+            //    " inner join gene on gene.geneid=cpdgene.geneid " +
+            //    sql_last_line;
+
+            //var command_2 = new NpgsqlCommand(sql_cpd, conn);
+            //    var adapter_2 = new NpgsqlDataAdapter(command_2);
+            //    var tableResults_2 = new DataTable();
+            //    adapter_2.Fill(tableResults_2);
+            //    tbl_profiles.Merge(tableResults_2);
+            //}
+            //if (tbl_profiles.Rows.Count > 0 ) 
+            //    tbl_profiles = tbl_profiles.AsEnumerable()
+            //        .GroupBy(r => new {
+            //            plate = r.Field<string>("plate"),
+            //            well = r.Field<string>("well") }).
+            //            Select(g => g.First()).CopyToDataTable();
+
+           
+            ////dGV_crisper
+            //DataTable newTable = tbl_profiles.DefaultView.ToTable(false, "plate", "well","tags", "geneid", "symbol", "synonyms");
+            //dGV_crisper.DataSource = newTable;
+            //foreach (DataGridViewRow row in dGV_crisper.Rows)
+            //{
+            //    row.HeaderCell.Value = (row.Index + 1).ToString();
+            //}
             
      
-            MessageBox.Show("Done");
+            //MessageBox.Show("Done");
 
 
 

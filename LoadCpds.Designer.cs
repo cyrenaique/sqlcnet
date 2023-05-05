@@ -68,7 +68,7 @@
             this.startswith_radioButton = new System.Windows.Forms.RadioButton();
             this.equal_radioButton = new System.Windows.Forms.RadioButton();
             this.contains = new System.Windows.Forms.RadioButton();
-            this.find_gene = new System.Windows.Forms.Button();
+            this.get_profile = new System.Windows.Forms.Button();
             this.dGV_crisper = new System.Windows.Forms.DataGridView();
             this.textBox_gene = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -433,7 +433,7 @@
             this.profiles.Controls.Add(this.startswith_radioButton);
             this.profiles.Controls.Add(this.equal_radioButton);
             this.profiles.Controls.Add(this.contains);
-            this.profiles.Controls.Add(this.find_gene);
+            this.profiles.Controls.Add(this.get_profile);
             this.profiles.Controls.Add(this.dGV_crisper);
             this.profiles.Controls.Add(this.textBox_gene);
             this.profiles.Location = new System.Drawing.Point(4, 22);
@@ -486,15 +486,15 @@
             this.contains.Text = "contains";
             this.contains.UseVisualStyleBackColor = true;
             // 
-            // find_gene
+            // get_profile
             // 
-            this.find_gene.Location = new System.Drawing.Point(394, 32);
-            this.find_gene.Name = "find_gene";
-            this.find_gene.Size = new System.Drawing.Size(75, 23);
-            this.find_gene.TabIndex = 6;
-            this.find_gene.Text = "search";
-            this.find_gene.UseVisualStyleBackColor = true;
-            this.find_gene.Click += new System.EventHandler(this.find_gene_Click);
+            this.get_profile.Location = new System.Drawing.Point(394, 32);
+            this.get_profile.Name = "get_profile";
+            this.get_profile.Size = new System.Drawing.Size(75, 23);
+            this.get_profile.TabIndex = 6;
+            this.get_profile.Text = "search";
+            this.get_profile.UseVisualStyleBackColor = true;
+            this.get_profile.Click += new System.EventHandler(this.get_profile_Click);
             // 
             // dGV_crisper
             // 
@@ -624,7 +624,7 @@
         public System.Windows.Forms.TextBox searchText;
         public System.Windows.Forms.Button search_all_db;
         public System.Windows.Forms.DataGridView dGV_search;
-        private System.Windows.Forms.Button find_gene;
+        private System.Windows.Forms.Button get_profile;
         private System.Windows.Forms.RadioButton equal_radioButton;
         private System.Windows.Forms.RadioButton contains;
         private System.Windows.Forms.RadioButton startswith_radioButton;

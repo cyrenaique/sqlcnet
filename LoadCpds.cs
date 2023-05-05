@@ -537,28 +537,28 @@ namespace sqlcnet
         // tab 2
         private void pltcorr_Click(object sender, EventArgs e)
         {
+            var profiles = new DataTable();
             conn.Close();
             if (conn.State == ConnectionState.Closed)
             {
                 conn.Open();
             }
-
-            var profiles = new DataTable();
+            List<string> plts_wells = new List<string>(plt_welss.Rows.Count);
             foreach (DataRow row in plt_welss.Rows)
             {
-                string plt_name = (string)row["plate"] ;
-                string well_name = (string)row["well"] ;
-                string plt_wel = "'" + plt_name + well_name + "'";
-                string sql_profile = "select \"Metadata_Plate\",\"Metadata_Well\" from profiles " +
-                    "where CONCAT(\"Metadata_Plate\",\"Metadata_Well\")  =" + plt_wel;
-
-
-                var cmd_profile = new NpgsqlCommand(sql_profile, conn);
-                var adp_profile = new NpgsqlDataAdapter(cmd_profile);
-                var tbl_profile = new DataTable();
-                adp_profile.Fill(tbl_profile);
-                profiles.Merge(tbl_profile);
+                plts_wells.Add("'" + (string)row["plate"]+ (string)row["well"] + "'");
             }
+
+            string sql_profile = "select \"Metadata_Plate\",\"Metadata_Well\" from profiles where CONCAT(\"Metadata_Plate\",\"Metadata_Well\")  in ("
+               + string.Join(",", plts_wells)
+               + ")";
+
+
+            var cmd_profile = new NpgsqlCommand(sql_profile, conn);
+            var adp_profile = new NpgsqlDataAdapter(cmd_profile);
+            
+            adp_profile.Fill(profiles);
+               
            
 
 

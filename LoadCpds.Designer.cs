@@ -502,7 +502,7 @@
             this.dGV_crisper.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_crisper.Location = new System.Drawing.Point(14, 82);
             this.dGV_crisper.Name = "dGV_crisper";
-            this.dGV_crisper.Size = new System.Drawing.Size(495, 394);
+            this.dGV_crisper.Size = new System.Drawing.Size(714, 442);
             this.dGV_crisper.TabIndex = 2;
             this.dGV_crisper.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 

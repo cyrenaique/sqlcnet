@@ -549,9 +549,12 @@ namespace sqlcnet
                 wells.Add("'" + (string)row["well"] + "'");
             }
 
-           
-            string sql_profile = "select * from profiles where \"Metadata_Plate\"  in ("
+
+            string sql_profile = "select \"Metadata_Plate\",\"Metadata_Well\" from profiles where \"Metadata_Plate\"  in ("
                + string.Join(",", plts)
+               + ")" +
+               " and \"Metadata_Well\"  in ("
+            + string.Join(",", wells)
                + ")";
             var cmd_profile = new NpgsqlCommand(sql_profile, conn);
             var adp_profile = new NpgsqlDataAdapter(cmd_profile);

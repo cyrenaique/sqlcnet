@@ -801,7 +801,7 @@ namespace sqlcnet
            
 
             TestForm TF = new TestForm();
-            var plt = TF.formsPlot1.Plot;
+            //var plt = TF.formsPlot1.Plot;
 
 
             // Loop through the rows of the DataGridView and add them to the plot

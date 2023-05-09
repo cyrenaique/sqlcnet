@@ -839,13 +839,20 @@ namespace sqlcnet
                 {
                     if (groupedDataTable.Columns[j].ColumnName != "batchid" && IsNumericType(groupedDataTable.Columns[j].DataType))
                     {
+                        
                         double.TryParse(groupedDataTable.Rows[i][j].ToString(), out values[j]);
                     }
 
                 }
                 var sp = TF.formsPlot1.Plot.AddSignal(values,label: groupedDataTable.Rows[i]["batchid"].ToString());
+                TF.checkedListBox_Signal.Items.Add(groupedDataTable.Rows[i]["batchid"].ToString());
+                
                 sp.Smooth = true;
 
+            }
+            for (int i = 0; i < TF.checkedListBox_Signal.Items.Count; i++)
+            {
+                TF.checkedListBox_Signal.SetItemChecked(i, true);
             }
             //TF.formsPlot1.Plot.XAxis.SetBoundary(0, tbl_profiles.Columns.Count-4);
 

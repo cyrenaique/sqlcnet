@@ -30,6 +30,7 @@
         {
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.formsPlot1 = new ScottPlot.FormsPlot();
+            this.checkedListBox_Signal = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // webBrowser1
@@ -38,7 +39,7 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(800, 450);
+            this.webBrowser1.Size = new System.Drawing.Size(997, 515);
             this.webBrowser1.TabIndex = 0;
             // 
             // formsPlot1
@@ -48,14 +49,24 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.formsPlot1.Location = new System.Drawing.Point(12, 22);
             this.formsPlot1.Name = "formsPlot1";
-            this.formsPlot1.Size = new System.Drawing.Size(753, 405);
+            this.formsPlot1.Size = new System.Drawing.Size(744, 436);
             this.formsPlot1.TabIndex = 1;
+            // 
+            // checkedListBox_Signal
+            // 
+            this.checkedListBox_Signal.FormattingEnabled = true;
+            this.checkedListBox_Signal.Location = new System.Drawing.Point(831, 34);
+            this.checkedListBox_Signal.Name = "checkedListBox_Signal";
+            this.checkedListBox_Signal.Size = new System.Drawing.Size(138, 34);
+            this.checkedListBox_Signal.TabIndex = 2;
+            this.checkedListBox_Signal.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_Signal_ItemCheck);
             // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(997, 515);
+            this.Controls.Add(this.checkedListBox_Signal);
             this.Controls.Add(this.formsPlot1);
             this.Controls.Add(this.webBrowser1);
             this.Name = "TestForm";
@@ -68,5 +79,6 @@
 
         public System.Windows.Forms.WebBrowser webBrowser1;
         public ScottPlot.FormsPlot formsPlot1;
+        public System.Windows.Forms.CheckedListBox checkedListBox_Signal;
     }
 }

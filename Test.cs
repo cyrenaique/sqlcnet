@@ -16,5 +16,10 @@ namespace sqlcnet
         {
             InitializeComponent();
         }
+
+        private void checkedListBox_Signal_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+
+        }
     }
 }

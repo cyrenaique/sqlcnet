@@ -64,6 +64,7 @@
             this.dGV_cpds = new System.Windows.Forms.DataGridView();
             this.searchtb = new System.Windows.Forms.TabControl();
             this.profiles = new System.Windows.Forms.TabPage();
+            this.plot_prof = new System.Windows.Forms.Button();
             this.save_profiles = new System.Windows.Forms.Button();
             this.startswith_radioButton = new System.Windows.Forms.RadioButton();
             this.equal_radioButton = new System.Windows.Forms.RadioButton();
@@ -75,7 +76,6 @@
             this.dGV_search = new System.Windows.Forms.DataGridView();
             this.searchText = new System.Windows.Forms.TextBox();
             this.search_all_db = new System.Windows.Forms.Button();
-            this.plot_prof = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
@@ -445,6 +445,16 @@
             this.profiles.Text = "Profiles";
             this.profiles.UseVisualStyleBackColor = true;
             // 
+            // plot_prof
+            // 
+            this.plot_prof.Location = new System.Drawing.Point(795, 35);
+            this.plot_prof.Name = "plot_prof";
+            this.plot_prof.Size = new System.Drawing.Size(75, 23);
+            this.plot_prof.TabIndex = 14;
+            this.plot_prof.Text = "Plot Profiles";
+            this.plot_prof.UseVisualStyleBackColor = true;
+            this.plot_prof.Click += new System.EventHandler(this.plot_prof_Click);
+            // 
             // save_profiles
             // 
             this.save_profiles.Location = new System.Drawing.Point(570, 32);
@@ -558,16 +568,6 @@
             this.search_all_db.UseVisualStyleBackColor = true;
             this.search_all_db.Click += new System.EventHandler(this.search_all_db_Click);
             // 
-            // plot_prof
-            // 
-            this.plot_prof.Location = new System.Drawing.Point(795, 35);
-            this.plot_prof.Name = "plot_prof";
-            this.plot_prof.Size = new System.Drawing.Size(75, 23);
-            this.plot_prof.TabIndex = 14;
-            this.plot_prof.Text = "Plot Profiles";
-            this.plot_prof.UseVisualStyleBackColor = true;
-            this.plot_prof.Click += new System.EventHandler(this.plot_prof_Click);
-            // 
             // LoadCpdsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -628,7 +628,6 @@
         private System.Windows.Forms.DataGridView dGV_results;
         private System.Windows.Forms.ComboBox comboBox_tables;
         public System.Windows.Forms.DataGridView dGV_cpds;
-        private System.Windows.Forms.TabControl searchtb;
         private System.Windows.Forms.TabPage profiles;
         private System.Windows.Forms.DataGridView dGV_crisper;
         private System.Windows.Forms.TextBox textBox_gene;
@@ -642,5 +641,6 @@
         private System.Windows.Forms.RadioButton startswith_radioButton;
         private System.Windows.Forms.Button save_profiles;
         private System.Windows.Forms.Button plot_prof;
+        public System.Windows.Forms.TabControl searchtb;
     }
 }

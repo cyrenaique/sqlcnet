@@ -67,6 +67,6 @@
         #endregion
 
         public System.Windows.Forms.WebBrowser webBrowser1;
-        private ScottPlot.FormsPlot formsPlot1;
+        public ScottPlot.FormsPlot formsPlot1;
     }
 }

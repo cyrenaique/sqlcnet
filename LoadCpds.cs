@@ -23,6 +23,7 @@ using static System.Net.Mime.MediaTypeNames;
 using CefSharp.DevTools.Profiler;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using ScottPlot;
 
 namespace sqlcnet
 {
@@ -793,6 +794,32 @@ namespace sqlcnet
                 MessageBox.Show("No Record To Export !!!", "Info");
             }
 
+        }
+
+        private void plot_prof_Click(object sender, EventArgs e)
+        {
+           
+
+            TestForm TF = new TestForm();
+            
+
+            // Loop through the rows of the DataGridView and add them to the plot
+            for (int i = 0; i < tbl_profiles.Rows.Count; i++)
+            {
+                double[] values = new double[tbl_profiles.Columns.Count];
+                for (int j = 0; j < tbl_profiles.Columns.Count; j++)
+                {
+                    double.TryParse(tbl_profiles.Rows[i][j].ToString(), out values[j]);
+                }
+                var sp = TF.formsPlot1.Plot.AddSignal(values,label:);
+                sp.Smooth = true;
+                
+            }
+
+            // Display the plot in a new form
+            
+            //form.Controls.Add(plt);
+            TF.Show();
         }
 
         // --------------------------------------------------------------

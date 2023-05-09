@@ -811,7 +811,7 @@ namespace sqlcnet
                 {
                     double.TryParse(tbl_profiles.Rows[i][j].ToString(), out values[j]);
                 }
-                var sp = TF.formsPlot1.Plot.AddSignal(values,label:);
+                var sp = TF.formsPlot1.Plot.AddSignal(values,label:"tit");
                 sp.Smooth = true;
                 
             }

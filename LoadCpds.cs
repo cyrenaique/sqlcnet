@@ -810,7 +810,11 @@ namespace sqlcnet
                 double[] values = new double[tbl_profiles.Columns.Count];
                 for (int j = 0; j < tbl_profiles.Columns.Count; j++)
                 {
-                    double.TryParse(tbl_profiles.Rows[i][j].ToString(), out values[j]);
+                    if (tbl_profiles.Columns[j].ColumnName != "plate")
+                    {
+                        double.TryParse(tbl_profiles.Rows[i][j].ToString(), out values[j]);
+                    }
+                    
                 }
                 var sp = TF.formsPlot1.Plot.AddSignal(values,label:"tit");
                 sp.Smooth = true;

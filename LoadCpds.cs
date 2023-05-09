@@ -843,12 +843,14 @@ namespace sqlcnet
                     }
 
                 }
-                var sp = TF.formsPlot1.Plot.AddSignal(values);
+                var sp = TF.formsPlot1.Plot.AddSignal(values,label: groupedDataTable.Rows[i]["batchid"].ToString());
                 sp.Smooth = true;
 
             }
             //TF.formsPlot1.Plot.XAxis.SetBoundary(0, tbl_profiles.Columns.Count-4);
+
             TF.formsPlot1.Plot.AxisAuto();
+            TF.formsPlot1.Plot.Legend();
             TF.formsPlot1.Refresh();
             // Display the plot in a new form
 

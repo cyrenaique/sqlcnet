@@ -814,15 +814,15 @@ namespace sqlcnet
             //var plt = TF.formsPlot1.Plot;
 
             DataTable groupedDataTable = tbl_profiles.AsEnumerable()
-                                        .GroupBy(row => row.Field<string>("plate"))
+                                        .GroupBy(row => row.Field<string>("batchid"))
                                         .Select(group =>
                                         {
                                             DataRow newRow = tbl_profiles.NewRow();
-                                            newRow["plate"] = group.Key;
+                                            newRow["batchid"] = group.Key;
 
                                             foreach (DataColumn column in tbl_profiles.Columns)
                                             {
-                                                if (column.ColumnName != "plate" && IsNumericType(column.DataType))
+                                                if (column.ColumnName != "batchid" && IsNumericType(column.DataType))
                                                 {
                                                     newRow[column.ColumnName] = group.Average(row => row.Field<double>(column.ColumnName));
                                                 }
@@ -837,7 +837,7 @@ namespace sqlcnet
                 double[] values = new double[groupedDataTable.Columns.Count];
                 for (int j = 0; j < groupedDataTable.Columns.Count; j++)
                 {
-                    if (groupedDataTable.Columns[j].ColumnName != "plate" && IsNumericType(groupedDataTable.Columns[j].DataType))
+                    if (groupedDataTable.Columns[j].ColumnName != "batchid" && IsNumericType(groupedDataTable.Columns[j].DataType))
                     {
                         double.TryParse(groupedDataTable.Rows[i][j].ToString(), out values[j]);
                     }

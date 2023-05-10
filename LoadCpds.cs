@@ -42,8 +42,8 @@ namespace sqlcnet
         public TestForm TF;
         string cmb, cmb2;
         protected DataGridView MyDgv;
-        public DataTable tbl_profiles;
-        //public DataTable tbl_profiles { get; set; } = new DataTable();
+        //public DataTable tbl_profiles;
+        public DataTable tbl_profiles { get; } = new DataTable();
 
         public LoadCpdsForm()
         {
@@ -811,7 +811,7 @@ namespace sqlcnet
         {
 
 
-           
+            TestForm TF = new TestForm();
             //var plt = TF.formsPlot1.Plot;
 
             DataTable groupedDataTable = tbl_profiles.AsEnumerable()
@@ -832,8 +832,6 @@ namespace sqlcnet
                                             return newRow;
                                         })
                                         .CopyToDataTable();
-
-            TestForm TF = new TestForm(groupedDataTable);
             // Loop through the rows of the DataGridView and add them to the plot
             for (int i = 0; i < groupedDataTable.Rows.Count; i++)
             {
@@ -853,7 +851,6 @@ namespace sqlcnet
                 sp.Smooth = true;
 
             }
-
             for (int i = 0; i < TF.checkedListBox_Signal.Items.Count; i++)
             {
                 TF.checkedListBox_Signal.SetItemChecked(i, true);

@@ -60,9 +60,10 @@
             this.checkedListBox_Signal.FormattingEnabled = true;
             this.checkedListBox_Signal.Location = new System.Drawing.Point(831, 34);
             this.checkedListBox_Signal.Name = "checkedListBox_Signal";
-            this.checkedListBox_Signal.Size = new System.Drawing.Size(138, 34);
+            this.checkedListBox_Signal.Size = new System.Drawing.Size(138, 64);
             this.checkedListBox_Signal.TabIndex = 2;
-            this.checkedListBox_Signal.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_Signal_ItemCheck);
+            
+            this.checkedListBox_Signal.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Signal_SelectedIndexChanged);
             // 
             // dg_test
             // 

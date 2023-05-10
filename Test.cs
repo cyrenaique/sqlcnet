@@ -137,13 +137,13 @@ namespace sqlcnet
             //// ...
 
             //// Create a new chart control
-            //Chart chart = new Chart();
-            //chart.Dock = DockStyle.Fill;
+            Chart chart = new Chart();
+            chart.Dock = DockStyle.Fill;
 
             //// Set the chart type to heatmap
-            //chart.ChartAreas.Add("ChartArea1");
-            //chart.Series.Add("Series1");
-            //chart.Series["Series1"].ChartType = SeriesChartType.HeatMap;
+            chart.ChartAreas.Add("ChartArea1");
+            chart.Series.Add("Series1");
+            chart.Series["Series1"].ChartType = SeriesChartType.;
 
             //// Add some data to the chart
             //chart.Series["Series1"].Points.AddXY(0, 0, 1);

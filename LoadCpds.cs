@@ -43,7 +43,7 @@ namespace sqlcnet
         string cmb, cmb2;
         protected DataGridView MyDgv;
         //public DataTable tbl_profiles;
-        public DataTable tbl_profiles { get; } = new DataTable();
+        public DataTable tbl_profiles;
 
         public LoadCpdsForm()
         {

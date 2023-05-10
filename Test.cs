@@ -27,7 +27,7 @@ namespace sqlcnet
         {
             LoadCpdsForm LC = new LoadCpdsForm();
             TestForm TF = new TestForm();
-            var dataTable = ((LoadCpdsForm.)Application.OpenForms["profiles"]).DataTable;
+            //var dataTable = ((LoadCpdsForm.)Application.OpenForms["profiles"]).DataTable;
 
             DataTable groupedDataTable = LC.tbl_profiles.AsEnumerable()
                                        .GroupBy(row => row.Field<string>("batchid"))

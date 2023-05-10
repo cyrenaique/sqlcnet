@@ -42,8 +42,8 @@ namespace sqlcnet
         public TestForm TF;
         string cmb, cmb2;
         protected DataGridView MyDgv;
-        //public DataTable tbl_profiles;
-        public DataTable tbl_profiles { get; } = new DataTable();
+        public DataTable tbl_profiles;
+        //public DataTable tbl_profiles { get; } = new DataTable();
 
         public LoadCpdsForm()
         {
@@ -845,23 +845,24 @@ namespace sqlcnet
                     }
 
                 }
-                var sp = TF.formsPlot1.Plot.AddSignal(values,label: groupedDataTable.Rows[i]["batchid"].ToString());
+                //var sp = TF.formsPlot1.Plot.AddSignal(values,label: groupedDataTable.Rows[i]["batchid"].ToString());
                 TF.checkedListBox_Signal.Items.Add(groupedDataTable.Rows[i]["batchid"].ToString());
                 
-                sp.Smooth = true;
+                //sp.Smooth = true;
 
             }
-            for (int i = 0; i < TF.checkedListBox_Signal.Items.Count; i++)
-            {
-                TF.checkedListBox_Signal.SetItemChecked(i, true);
-            }
+            //for (int i = 0; i < TF.checkedListBox_Signal.Items.Count; i++)
+            //{
+            //    TF.checkedListBox_Signal.SetItemChecked(i, true);
+            //}
             //TF.formsPlot1.Plot.XAxis.SetBoundary(0, tbl_profiles.Columns.Count-4);
 
             TF.formsPlot1.Plot.AxisAuto();
             TF.formsPlot1.Plot.Legend();
             TF.formsPlot1.Refresh();
             // Display the plot in a new form
-
+            TF.dg_test.AutoGenerateColumns = false;
+            TF.dg_test.DataSource = groupedDataTable;
             //form.Controls.Add(plt);
             TF.Show();
         }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace sqlcnet
 {
@@ -128,6 +129,42 @@ namespace sqlcnet
             formsPlot1.Plot.Clear();
             formsPlot1.Plot.AddHeatmap(data);
             formsPlot1.Refresh();
+
+
+            //using System.Drawing;
+            //using System.Windows.Forms.DataVisualization.Charting;
+
+            //// ...
+
+            //// Create a new chart control
+            //Chart chart = new Chart();
+            //chart.Dock = DockStyle.Fill;
+
+            //// Set the chart type to heatmap
+            //chart.ChartAreas.Add("ChartArea1");
+            //chart.Series.Add("Series1");
+            //chart.Series["Series1"].ChartType = SeriesChartType.HeatMap;
+
+            //// Add some data to the chart
+            //chart.Series["Series1"].Points.AddXY(0, 0, 1);
+            //chart.Series["Series1"].Points.AddXY(1, 0, 2);
+            //chart.Series["Series1"].Points.AddXY(2, 0, 3);
+            //chart.Series["Series1"].Points.AddXY(0, 1, 4);
+            //chart.Series["Series1"].Points.AddXY(1, 1, 5);
+            //chart.Series["Series1"].Points.AddXY(2, 1, 6);
+            //chart.Series["Series1"].Points.AddXY(0, 2, 7);
+            //chart.Series["Series1"].Points.AddXY(1, 2, 8);
+            //chart.Series["Series1"].Points.AddXY(2, 2, 9);
+
+            //// Set the color scale for the heatmap
+            //chart.Series["Series1"]["Palette"] = "HeatMap";
+
+            //// Add a legend to the chart
+            //chart.Legends.Add("Legend1");
+
+            //// Add the chart to a form
+            //this.Controls.Add(chart);
+
 
         }
     }

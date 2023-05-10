@@ -12,11 +12,11 @@ namespace sqlcnet
 {
     public partial class TestForm : Form
     {
-        private DataTable _tabName;
-        public TestForm(DataTable tabName)
+        //private DataTable _tabName;
+        public TestForm()
         {
             InitializeComponent();
-            _tabName = tabName;
+            //_tabName = tabName;
         }
 
         private static bool IsNumericType(Type type)
@@ -27,21 +27,20 @@ namespace sqlcnet
 
         private void checkedListBox_Signal_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            LoadCpdsForm LC = new LoadCpdsForm();
-            
-           
-            string tabname = LC.searchtb.SelectedTab.Text;
-            TestForm TF = new TestForm(tabname);
-            var dataTable = ((LoadCpdsForm)Application.OpenForms["profiles"]);
 
-            DataTable groupedDataTable = LC.tbl_profiles.AsEnumerable()
+
+            DataTable tab_test = (DataTable)dg_test.DataSource ;
+           
+            
+
+            DataTable groupedDataTable = tab_test.AsEnumerable()
                                        .GroupBy(row => row.Field<string>("batchid"))
                                        .Select(group =>
                                        {
-                                           DataRow newRow = LC.tbl_profiles.NewRow();
+                                           DataRow newRow = tab_test.NewRow();
                                            newRow["batchid"] = group.Key;
 
-                                           foreach (DataColumn column in LC.tbl_profiles.Columns)
+                                           foreach (DataColumn column in tab_test.Columns)
                                            {
                                                if (column.ColumnName != "batchid" && IsNumericType(column.DataType) )
                                                {
@@ -65,28 +64,26 @@ namespace sqlcnet
                     }
 
                 }
-
-                if (TF.checkedListBox_Signal.GetItemCheckState(i).ToString()== groupedDataTable.Rows[i]["batchid"].ToString())
-                {
-
-                }
-                var sp = TF.formsPlot1.Plot.AddSignal(values, label: groupedDataTable.Rows[i]["batchid"].ToString());
-                TF.checkedListBox_Signal.Items.Add(groupedDataTable.Rows[i]["batchid"].ToString());
-
+                var sp = formsPlot1.Plot.AddSignal(values, label: groupedDataTable.Rows[i]["batchid"].ToString());
                 sp.Smooth = true;
+                if (checkedListBox_Signal.GetItemCheckState(i).ToString()!="Checked")
+                {
+                    formsPlot1.Plot.Remove(sp);
+                }
+               
 
             }
            
 
                 //TF.formsPlot1.Plot.XAxis.SetBoundary(0, tbl_profiles.Columns.Count-4);
 
-                TF.formsPlot1.Plot.AxisAuto();
-            TF.formsPlot1.Plot.Legend();
-            TF.formsPlot1.Refresh();
+                formsPlot1.Plot.AxisAuto();
+            formsPlot1.Plot.Legend();
+            formsPlot1.Refresh();
             // Display the plot in a new form
 
             //form.Controls.Add(plt);
-            TF.Show();
+            //Show();
         }
     }
 }

@@ -31,6 +31,8 @@
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.formsPlot1 = new ScottPlot.FormsPlot();
             this.checkedListBox_Signal = new System.Windows.Forms.CheckedListBox();
+            this.dg_test = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dg_test)).BeginInit();
             this.SuspendLayout();
             // 
             // webBrowser1
@@ -54,6 +56,7 @@
             // 
             // checkedListBox_Signal
             // 
+            this.checkedListBox_Signal.CheckOnClick = true;
             this.checkedListBox_Signal.FormattingEnabled = true;
             this.checkedListBox_Signal.Location = new System.Drawing.Point(831, 34);
             this.checkedListBox_Signal.Name = "checkedListBox_Signal";
@@ -61,16 +64,28 @@
             this.checkedListBox_Signal.TabIndex = 2;
             this.checkedListBox_Signal.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_Signal_ItemCheck);
             // 
+            // dg_test
+            // 
+            this.dg_test.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dg_test.Location = new System.Drawing.Point(757, 334);
+            this.dg_test.Name = "dg_test";
+            this.dg_test.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dg_test.Size = new System.Drawing.Size(240, 150);
+            this.dg_test.TabIndex = 3;
+            this.dg_test.Visible = false;
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 515);
+            this.Controls.Add(this.dg_test);
             this.Controls.Add(this.checkedListBox_Signal);
             this.Controls.Add(this.formsPlot1);
             this.Controls.Add(this.webBrowser1);
             this.Name = "TestForm";
             this.Text = "Test";
+            ((System.ComponentModel.ISupportInitialize)(this.dg_test)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -80,5 +95,6 @@
         public System.Windows.Forms.WebBrowser webBrowser1;
         public ScottPlot.FormsPlot formsPlot1;
         public System.Windows.Forms.CheckedListBox checkedListBox_Signal;
+        public System.Windows.Forms.DataGridView dg_test;
     }
 }

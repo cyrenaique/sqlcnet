@@ -63,10 +63,11 @@ namespace sqlcnet
                 }
 
             }
+            var bnColor = System.Drawing.ColorTranslator.FromHtml("#2e3440");
+            formsPlot1.Plot.Style(figureBackground: bnColor, dataBackground: bnColor);
 
-            
             //formsPlot1.Plot.XAxis2.Label("Cosine Distance: " + dist.ToString());
-            //formsPlot1.Refresh();
+            formsPlot1.Refresh();
         }
 
         public static double Distance(List<double> l1, List<double> l2)

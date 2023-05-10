@@ -32,6 +32,7 @@
             this.formsPlot1 = new ScottPlot.FormsPlot();
             this.checkedListBox_Signal = new System.Windows.Forms.CheckedListBox();
             this.dg_test = new System.Windows.Forms.DataGridView();
+            this.button_disp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dg_test)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +63,6 @@
             this.checkedListBox_Signal.Name = "checkedListBox_Signal";
             this.checkedListBox_Signal.Size = new System.Drawing.Size(138, 64);
             this.checkedListBox_Signal.TabIndex = 2;
-            
             this.checkedListBox_Signal.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Signal_SelectedIndexChanged);
             // 
             // dg_test
@@ -75,11 +75,22 @@
             this.dg_test.TabIndex = 3;
             this.dg_test.Visible = false;
             // 
+            // button_disp
+            // 
+            this.button_disp.Location = new System.Drawing.Point(852, 215);
+            this.button_disp.Name = "button_disp";
+            this.button_disp.Size = new System.Drawing.Size(75, 23);
+            this.button_disp.TabIndex = 4;
+            this.button_disp.Text = "button1";
+            this.button_disp.UseVisualStyleBackColor = true;
+            this.button_disp.Click += new System.EventHandler(this.button_disp_Click);
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 515);
+            this.Controls.Add(this.button_disp);
             this.Controls.Add(this.dg_test);
             this.Controls.Add(this.checkedListBox_Signal);
             this.Controls.Add(this.formsPlot1);
@@ -97,5 +108,6 @@
         public ScottPlot.FormsPlot formsPlot1;
         public System.Windows.Forms.CheckedListBox checkedListBox_Signal;
         public System.Windows.Forms.DataGridView dg_test;
+        private System.Windows.Forms.Button button_disp;
     }
 }

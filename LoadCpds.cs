@@ -856,10 +856,10 @@ namespace sqlcnet
             //    TF.checkedListBox_Signal.SetItemChecked(i, true);
             //}
             //TF.formsPlot1.Plot.XAxis.SetBoundary(0, tbl_profiles.Columns.Count-4);
-
-            TF.formsPlot1.Plot.AxisAuto();
-            TF.formsPlot1.Plot.Legend();
-            TF.formsPlot1.Refresh();
+            
+            //TF.formsPlot1.Plot.AxisAuto();
+            //TF.formsPlot1.Plot.Legend();
+            //TF.formsPlot1.Refresh();
             // Display the plot in a new form
             TF.dg_test.AutoGenerateColumns = false;
             TF.dg_test.DataSource = groupedDataTable;

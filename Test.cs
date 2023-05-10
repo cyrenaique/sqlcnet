@@ -34,6 +34,7 @@ namespace sqlcnet
             //checkedListBox_Signal.Size = new Size(150, checkedListBox_Signal.Items.Count * checkedListBox_Signal.ItemHeight);
             ScottPlot.Plottable.SignalPlot sp = new ScottPlot.Plottable.SignalPlot();
             formsPlot1.Plot.Clear();
+            formsPlot1.Plot.Palette = ScottPlot.Palette.OneHalfDark;
             List<double[]> list_pro = new List<double[]>();
             double dist = 0.0;
             for (int i = 0; i < groupedDataTable.Rows.Count; i++)
@@ -54,6 +55,8 @@ namespace sqlcnet
 
                     sp = formsPlot1.Plot.AddSignal(values, label: groupedDataTable.Rows[i]["batchid"].ToString());
                     sp.Smooth = true;
+                   
+
                     formsPlot1.Plot.AxisAuto();
                     formsPlot1.Plot.Legend();
                     formsPlot1.Refresh();
@@ -61,9 +64,9 @@ namespace sqlcnet
 
             }
 
-
-            formsPlot1.Plot.XAxis2.Label("Cosine Distance: " + dist.ToString());
-            formsPlot1.Refresh();
+            
+            //formsPlot1.Plot.XAxis2.Label("Cosine Distance: " + dist.ToString());
+            //formsPlot1.Refresh();
         }
 
         public static double Distance(List<double> l1, List<double> l2)
@@ -118,16 +121,28 @@ namespace sqlcnet
             //    }
             //}
             double[,] data = new double[list_pro.Count, list_pro.Count];
+            double[] positions = new double[list_pro.Count];
+            double[] positionsy = new double[list_pro.Count];
+            string[] labels = new string[list_pro.Count];
             for (int i = 0; i < list_pro.Count; i++)
             {
                 for (int j = 0; j < list_pro.Count; j++)
                 {
                     data[i, j] = Distance(list_pro[i].ToList(), list_pro[j].ToList());
                 }
+                positions[i] = i;
+                positionsy[list_pro.Count - 1 - i] = i;
+                labels[i] = dt.Rows[i][2].ToString();
 
             }
             formsPlot1.Plot.Clear();
-            formsPlot1.Plot.AddHeatmap(data);
+            var hm = formsPlot1.Plot.AddHeatmap(data, lockScales: false);
+            formsPlot1.Plot.AddColorbar(hm);
+            formsPlot1.Plot.YAxis.TickLabelStyle(rotation: 45);
+            formsPlot1.Plot.XAxis.TickLabelStyle(rotation: 45);            
+            formsPlot1.Plot.YAxis.ManualTickSpacing(1);
+            formsPlot1.Plot.XAxis.ManualTickPositions(positions, labels);
+            formsPlot1.Plot.YAxis.ManualTickPositions(positionsy, labels);
             formsPlot1.Refresh();
 
 
@@ -137,34 +152,22 @@ namespace sqlcnet
             //// ...
 
             //// Create a new chart control
-            Chart chart = new Chart();
-            chart.Dock = DockStyle.Fill;
+            //Chart chart = new Chart();
+            //chart.Dock = DockStyle.Fill;
 
-            //// Set the chart type to heatmap
-            chart.ChartAreas.Add("ChartArea1");
-            chart.Series.Add("Series1");
-            chart.Series["Series1"].ChartType = SeriesChartType.;
+            //// Add a chart area and set its properties
+            //ChartArea chartArea = chart.ChartAreas.Add("ChartArea1");
+            //chartArea.AxisX.Interval = 1;
+            //chartArea.AxisY.Interval = 1;
+            //chartArea.AxisX.MajorGrid.Enabled = false;
+            //chartArea.AxisY.MajorGrid.Enabled = false;
 
-            //// Add some data to the chart
-            //chart.Series["Series1"].Points.AddXY(0, 0, 1);
-            //chart.Series["Series1"].Points.AddXY(1, 0, 2);
-            //chart.Series["Series1"].Points.AddXY(2, 0, 3);
-            //chart.Series["Series1"].Points.AddXY(0, 1, 4);
-            //chart.Series["Series1"].Points.AddXY(1, 1, 5);
-            //chart.Series["Series1"].Points.AddXY(2, 1, 6);
-            //chart.Series["Series1"].Points.AddXY(0, 2, 7);
-            //chart.Series["Series1"].Points.AddXY(1, 2, 8);
-            //chart.Series["Series1"].Points.AddXY(2, 2, 9);
-
-            //// Set the color scale for the heatmap
-            //chart.Series["Series1"]["Palette"] = "HeatMap";
-
-            //// Add a legend to the chart
-            //chart.Legends.Add("Legend1");
-
-            //// Add the chart to a form
+            //// Add a series to the chart and set its properties
+            //Series series = chart.Series.Add("Series1");
+            //series.ChartType = SeriesChartType.Bubble;
+            //series.MarkerStyle = MarkerStyle.Square;
+            //series.MarkerSize = 30;
             //this.Controls.Add(chart);
-
 
         }
     }

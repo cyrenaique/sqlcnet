@@ -314,7 +314,7 @@ namespace sqlcnet
                 {
                     row.HeaderCell.Value = (row.Index + 1).ToString();
                 }
-                MessageBox.Show("Done");
+                //MessageBox.Show("Done");
                 // add col to x_combo and y_combo
                 foreach (DataGridViewColumn col in dGV_results.Columns)
                 {
@@ -686,7 +686,7 @@ namespace sqlcnet
 
 
 
-            MessageBox.Show("Done");
+            //MessageBox.Show("Done");
 
 
 

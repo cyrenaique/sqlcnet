@@ -42,7 +42,7 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(997, 515);
+            this.webBrowser1.Size = new System.Drawing.Size(999, 523);
             this.webBrowser1.TabIndex = 0;
             // 
             // formsPlot1
@@ -50,13 +50,15 @@
             this.formsPlot1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.formsPlot1.Location = new System.Drawing.Point(12, 22);
+            this.formsPlot1.AutoSize = true;
+            this.formsPlot1.Location = new System.Drawing.Point(28, 22);
             this.formsPlot1.Name = "formsPlot1";
-            this.formsPlot1.Size = new System.Drawing.Size(744, 436);
+            this.formsPlot1.Size = new System.Drawing.Size(730, 444);
             this.formsPlot1.TabIndex = 1;
             // 
             // checkedListBox_Signal
             // 
+            this.checkedListBox_Signal.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.checkedListBox_Signal.CheckOnClick = true;
             this.checkedListBox_Signal.FormattingEnabled = true;
             this.checkedListBox_Signal.Location = new System.Drawing.Point(831, 34);
@@ -77,11 +79,12 @@
             // 
             // button_disp
             // 
-            this.button_disp.Location = new System.Drawing.Point(852, 215);
+            this.button_disp.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.button_disp.Location = new System.Drawing.Point(894, 219);
             this.button_disp.Name = "button_disp";
             this.button_disp.Size = new System.Drawing.Size(75, 23);
             this.button_disp.TabIndex = 4;
-            this.button_disp.Text = "button1";
+            this.button_disp.Text = "HeatMap";
             this.button_disp.UseVisualStyleBackColor = true;
             this.button_disp.Click += new System.EventHandler(this.button_disp_Click);
             // 
@@ -89,7 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(997, 515);
+            this.ClientSize = new System.Drawing.Size(999, 523);
             this.Controls.Add(this.button_disp);
             this.Controls.Add(this.dg_test);
             this.Controls.Add(this.checkedListBox_Signal);
@@ -99,6 +102,7 @@
             this.Text = "Test";
             ((System.ComponentModel.ISupportInitialize)(this.dg_test)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

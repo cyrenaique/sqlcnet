@@ -29,29 +29,30 @@ namespace sqlcnet
         {
 
 
-            DataTable tab_test = (DataTable)dg_test.DataSource ;
-           
-            
+            DataTable groupedDataTable = (DataTable)dg_test.DataSource ;
 
-            DataTable groupedDataTable = tab_test.AsEnumerable()
-                                       .GroupBy(row => row.Field<string>("batchid"))
-                                       .Select(group =>
-                                       {
-                                           DataRow newRow = tab_test.NewRow();
-                                           newRow["batchid"] = group.Key;
 
-                                           foreach (DataColumn column in tab_test.Columns)
-                                           {
-                                               if (column.ColumnName != "batchid" && IsNumericType(column.DataType) )
-                                               {
-                                                   newRow[column.ColumnName] = group.Average(row => row.Field<double>(column.ColumnName));
-                                               }
-                                           }
 
-                                           return newRow;
-                                       })
-                                       .CopyToDataTable();
+            //DataTable groupedDataTable = tab_test.AsEnumerable()
+            //                           .GroupBy(row => row.Field<string>("batchid"))
+            //                           .Select(group =>
+            //                           {
+            //                               DataRow newRow = tab_test.NewRow();
+            //                               newRow["batchid"] = group.Key;
+
+            //                               foreach (DataColumn column in tab_test.Columns)
+            //                               {
+            //                                   if (column.ColumnName != "batchid" && IsNumericType(column.DataType) )
+            //                                   {
+            //                                       newRow[column.ColumnName] = group.Average(row => row.Field<double>(column.ColumnName));
+            //                                   }
+            //                               }
+
+            //                               return newRow;
+            //                           })
+            //                           .CopyToDataTable();
             // Loop through the rows of the DataGridView and add them to the plot
+            var sp= formsPlot1.Plot;
             for (int i = 0; i < groupedDataTable.Rows.Count; i++)
             {
                 double[] values = new double[groupedDataTable.Columns.Count];
@@ -64,8 +65,12 @@ namespace sqlcnet
                     }
 
                 }
-                var sp = formsPlot1.Plot.AddSignal(values, label: groupedDataTable.Rows[i]["batchid"].ToString());
-                sp.Smooth = true;
+               
+                if (checkedListBox_Signal.GetItemCheckState(i).ToString() == "Checked")
+                {
+                    sp = formsPlot1.Plot.AddSignal(values, label: groupedDataTable.Rows[i]["batchid"].ToString());
+                    sp.Smooth = true;
+                }
                 if (checkedListBox_Signal.GetItemCheckState(i).ToString()!="Checked")
                 {
                     formsPlot1.Plot.Remove(sp);

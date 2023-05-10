@@ -52,7 +52,7 @@ namespace sqlcnet
             //                           })
             //                           .CopyToDataTable();
             // Loop through the rows of the DataGridView and add them to the plot
-            var sp= formsPlot1.Plot;
+            var sp= new ScottPlot.Plot();
             for (int i = 0; i < groupedDataTable.Rows.Count; i++)
             {
                 double[] values = new double[groupedDataTable.Columns.Count];
@@ -68,8 +68,8 @@ namespace sqlcnet
                
                 if (checkedListBox_Signal.GetItemCheckState(i).ToString() == "Checked")
                 {
-                    sp = formsPlot1.Plot.AddSignal(values, label: groupedDataTable.Rows[i]["batchid"].ToString());
-                    sp.Smooth = true;
+                    var sp2 = formsPlot1.Plot.AddSignal(values, label: groupedDataTable.Rows[i]["batchid"].ToString());
+                    sp2.Smooth = true;
                 }
                 if (checkedListBox_Signal.GetItemCheckState(i).ToString()!="Checked")
                 {

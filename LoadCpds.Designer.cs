@@ -628,7 +628,6 @@
         private System.Windows.Forms.DataGridView dGV_results;
         private System.Windows.Forms.ComboBox comboBox_tables;
         public System.Windows.Forms.DataGridView dGV_cpds;
-        private System.Windows.Forms.TabPage profiles;
         private System.Windows.Forms.DataGridView dGV_crisper;
         private System.Windows.Forms.TextBox textBox_gene;
         private System.Windows.Forms.TabPage tabPage1;
@@ -642,5 +641,6 @@
         private System.Windows.Forms.Button save_profiles;
         private System.Windows.Forms.Button plot_prof;
         public System.Windows.Forms.TabControl searchtb;
+        public System.Windows.Forms.TabPage profiles;
     }
 }

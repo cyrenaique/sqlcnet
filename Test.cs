@@ -12,9 +12,11 @@ namespace sqlcnet
 {
     public partial class TestForm : Form
     {
-        public TestForm()
+        private DataTable _tabName;
+        public TestForm(DataTable tabName)
         {
             InitializeComponent();
+            _tabName = tabName;
         }
 
         private static bool IsNumericType(Type type)
@@ -26,8 +28,11 @@ namespace sqlcnet
         private void checkedListBox_Signal_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             LoadCpdsForm LC = new LoadCpdsForm();
-            TestForm TF = new TestForm();
-            //var dataTable = ((LoadCpdsForm.)Application.OpenForms["profiles"]).DataTable;
+            
+           
+            string tabname = LC.searchtb.SelectedTab.Text;
+            TestForm TF = new TestForm(tabname);
+            var dataTable = ((LoadCpdsForm)Application.OpenForms["profiles"]);
 
             DataTable groupedDataTable = LC.tbl_profiles.AsEnumerable()
                                        .GroupBy(row => row.Field<string>("batchid"))

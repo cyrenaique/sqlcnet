@@ -599,81 +599,86 @@ namespace sqlcnet
                 adapter_2.Fill(tableResults_2);
                 tbl_batchs_gene.Merge(tableResults_2);
             }
-            tbl_batchs_gene = tbl_batchs_gene.DefaultView.ToTable(true, "synonyms", "symbol", "batchid", "geneid");
-            dGV_crisper.DataSource = tbl_batchs_gene;
-            foreach (DataGridViewRow row in dGV_crisper.Rows)
-            {
-                row.HeaderCell.Value = (row.Index + 1).ToString();
-            }
-
-            List<string> batch_list = new List<string>(tbl_batchs_gene.Rows.Count);
-            foreach (DataRow row in tbl_batchs_gene.Rows)
-            {
-                batch_list.Add("'" + (string)row["batchid"] + "'");
-            }
-            conn_meta.Close();
-            // get profiles
-
-            conn_profile = new NpgsqlConnection(cs_profile);
-            if (conn_profile.State == ConnectionState.Closed)
-            {
-                conn_profile.Open();
-            }
-            if (batch_list.Count > 0)
-            {
-                string sql_profile = "select * from aggprofiles where batchid  in ("
-                   + string.Join(",", batch_list)
-                   + ")";
-                var cmd_profile = new NpgsqlCommand(sql_profile, conn_profile);
-                var adp_profile = new NpgsqlDataAdapter(cmd_profile);
-                adp_profile.Fill(tbl_profiles);
-
-                // add gene info
-                DataTable distinctTable = tbl_batchs_gene.DefaultView.ToTable(true, "symbol", "batchid");
-                Dictionary<string, List<string>> batchGeneDict = new Dictionary<string, List<string>>();
-
-                foreach (DataRow row in distinctTable.Rows)
+            
+            if (tbl_batchs_gene.Rows.Count>0) { 
+                List<string> batch_list = new List<string>(tbl_batchs_gene.Rows.Count);
+                foreach (DataRow row in tbl_batchs_gene.Rows)
                 {
-                    string batchid = row["batchid"].ToString();
-                    string symbol = row["symbol"].ToString();
-
-                    if (batchGeneDict.ContainsKey(batchid))
-                    {
-                        batchGeneDict[batchid].Add(symbol);
-                    }
-                    else
-                    {
-                        batchGeneDict.Add(batchid, new List<string> { symbol });
-                    }
+                    batch_list.Add("'" + (string)row["batchid"] + "'");
                 }
+                conn_meta.Close();
+                // get profiles
 
-                tbl_profiles.Columns.Add("symbol");
-                foreach (DataRow row in tbl_profiles.Rows)
+                conn_profile = new NpgsqlConnection(cs_profile);
+                if (conn_profile.State == ConnectionState.Closed)
                 {
-                    string batchid = row.Field<string>("batchid");
-                    if (batchGeneDict.ContainsKey(batchid))
+                    conn_profile.Open();
+                }
+                if (batch_list.Count > 0)
+                {
+                    string sql_profile = "select * from aggprofiles where batchid  in ("
+                       + string.Join(",", batch_list)
+                       + ")";
+                    var cmd_profile = new NpgsqlCommand(sql_profile, conn_profile);
+                    var adp_profile = new NpgsqlDataAdapter(cmd_profile);
+                    adp_profile.Fill(tbl_profiles);
+
+                    // add gene info
+                    DataTable distinctTable = tbl_batchs_gene.DefaultView.ToTable(true, "symbol", "batchid");
+                    Dictionary<string, List<string>> batchGeneDict = new Dictionary<string, List<string>>();
+
+                    foreach (DataRow row in distinctTable.Rows)
                     {
-                        List<string> symbol = batchGeneDict[batchid];
-                        if (symbol.Count == 1)
+                        string batchid = row["batchid"].ToString();
+                        string symbol = row["symbol"].ToString();
+
+                        if (batchGeneDict.ContainsKey(batchid))
                         {
-                            row.SetField("symbol", symbol[0]);
+                            batchGeneDict[batchid].Add(symbol);
                         }
                         else
                         {
-                            // Handle multiple "geneid" values for "batchid"
+                            batchGeneDict.Add(batchid, new List<string> { symbol });
                         }
+                    }
 
+                    tbl_profiles.Columns.Add("symbol");
+                    foreach (DataRow row in tbl_profiles.Rows)
+                    {
+                        string batchid = row.Field<string>("batchid");
+                        if (batchGeneDict.ContainsKey(batchid))
+                        {
+                            List<string> symbol = batchGeneDict[batchid];
+                            if (symbol.Count == 1)
+                            {
+                                row.SetField("symbol", symbol[0]);
+                            }
+                            else
+                            {
+                                // Handle multiple "geneid" values for "batchid"
+                            }
+
+
+                        }
 
                     }
 
+
                 }
-
-
+                tbl_batchs_gene = tbl_profiles.DefaultView.ToTable(true, "source", "symbol", "batchid");
+                dGV_crisper.DataSource = tbl_batchs_gene;
+                foreach (DataGridViewRow row in dGV_crisper.Rows)
+                {
+                    row.HeaderCell.Value = (row.Index + 1).ToString();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Record Not Found");
             }
 
 
-
-            //MessageBox.Show("Done");
+            //
 
 
 

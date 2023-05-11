@@ -831,7 +831,7 @@ namespace sqlcnet
             for (int i = 0; i < groupedDataTable.Rows.Count; i++)
             {
 
-                TF.checkedListBox_Signal.Items.Add(groupedDataTable.Rows[i]["batchid"].ToString());
+                TF.checkedListBox_Signal.Items.Add(groupedDataTable.Rows[i]["batchid"].ToString()+"+"+ groupedDataTable.Rows[i]["source"].ToString());
 
             }
 

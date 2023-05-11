@@ -64,8 +64,8 @@ namespace sqlcnet
                 }
 
             }
-            var bnColor = System.Drawing.ColorTranslator.FromHtml("#2e3440");
-            formsPlot1.Plot.Style(figureBackground: bnColor, dataBackground: bnColor);
+            //var bnColor = System.Drawing.ColorTranslator.FromHtml("#2e3440");
+            //formsPlot1.Plot.Style(figureBackground: bnColor, dataBackground: bnColor);
 
             //formsPlot1.Plot.XAxis2.Label("Cosine Distance: " + dist.ToString());
             formsPlot1.Refresh();
@@ -111,7 +111,7 @@ namespace sqlcnet
                 list_pro.Add(values);
 
             }
-         
+
             double[,] data = new double[list_pro.Count, list_pro.Count];
             double[] positions = new double[list_pro.Count];
             double[] positionsy = new double[list_pro.Count];
@@ -157,8 +157,9 @@ namespace sqlcnet
 
 
             DataTable tbl_all_prof = new DataTable();
-            
-            string sql_profile = "select * from aggprofiles where source="+source_list[0];
+            string batchid = checkedListBox_Signal.SelectedItem.ToString().Split('+')[0];
+            string source_cpd = checkedListBox_Signal.SelectedItem.ToString().Split('+')[1];
+            string sql_profile = "select * from aggprofiles where source=" + "'" + source_cpd + "'";
             NpgsqlCommand cmd_profile = new NpgsqlCommand(sql_profile, conn);
             Npgsql.NpgsqlDataReader Resource = cmd_profile.ExecuteReader();
 
@@ -173,27 +174,35 @@ namespace sqlcnet
                 }
 
             }
+            int cpt = 0;
 
+            double[] values = new double[list_col.Count];
             for (int i = 0; i < groupedDataTable.Rows.Count; i++)
             {
-
-                double[] values = new double[list_col.Count];
-                for (int j = 0; j < list_col.Count; j++)
+                cpt = 0;
+                if (groupedDataTable.Rows[i]["source"].ToString()==source_cpd && groupedDataTable.Rows[i]["batchid"].ToString() == batchid)
                 {
-                    if (groupedDataTable.Columns[j].ColumnName != "batchid" && IsNumericType(groupedDataTable.Columns[j].DataType))
+                    
+                    foreach (string item in list_col)
                     {
 
-                        double.TryParse(groupedDataTable.Rows[i][j].ToString(), out values[j]);
+                        double.TryParse(groupedDataTable.Rows[i][item].ToString(), out values[cpt]);
+                        cpt++;
                     }
-
+                    //list_pro.Add(values);
                 }
-                list_pro.Add(values);
+                
+
+                
 
             }
             //int a = 0;
 
-            
+
             List<double> list_dist = new List<double>();
+            List<string> list_sim = new List<string>();
+            double sim = 0.0;
+
             while (Resource.Read())
             {
                 //string columnName = Resource.GetString(0);
@@ -201,18 +210,14 @@ namespace sqlcnet
                 List<double> list_data = new List<double>();
                 for (int i = 2; i < Resource.FieldCount; i++)
                 {
+                    list_data.Add(Resource.GetDouble(i));
 
-                 
-                        list_data.Add(Resource.GetDouble(i));
-
-                   
-                        
-                   
                 }
-                list_dist.Add(Distance(list_pro[0].ToList(), list_data));
+                sim = Distance(values.ToList(), list_data);
+                list_dist.Add(sim);
 
             }
-
+            formsPlot1.Plot.Clear();
             ScottPlot.Statistics.Histogram hist = new ScottPlot.Statistics.Histogram(min: -1, max: 1, binCount: 100);
             hist.AddRange(list_dist);
             double[] probabilities = hist.GetProbability();
@@ -227,10 +232,10 @@ namespace sqlcnet
             // customize the plot style
             formsPlot1.Plot.Title("Similarity Distribution");
             formsPlot1.Plot.YAxis.Label("Probability");
-            formsPlot1.Plot.XAxis.Label("Cosine Similarity");
+            formsPlot1.Plot.XAxis.Label("Cosine Similarity of " + source_cpd);
             formsPlot1.Plot.SetAxisLimits(yMin: 0);
 
-            
+
             formsPlot1.Refresh();
 
             MessageBox.Show("Done");

@@ -34,7 +34,10 @@
             this.dg_test = new System.Windows.Forms.DataGridView();
             this.button_disp = new System.Windows.Forms.Button();
             this.button_stat = new System.Windows.Forms.Button();
+            this.numericUpDown_sim = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dg_test)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sim)).BeginInit();
             this.SuspendLayout();
             // 
             // webBrowser1
@@ -62,9 +65,9 @@
             this.checkedListBox_Signal.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.checkedListBox_Signal.CheckOnClick = true;
             this.checkedListBox_Signal.FormattingEnabled = true;
-            this.checkedListBox_Signal.Location = new System.Drawing.Point(831, 34);
+            this.checkedListBox_Signal.Location = new System.Drawing.Point(696, 34);
             this.checkedListBox_Signal.Name = "checkedListBox_Signal";
-            this.checkedListBox_Signal.Size = new System.Drawing.Size(138, 64);
+            this.checkedListBox_Signal.Size = new System.Drawing.Size(273, 49);
             this.checkedListBox_Signal.TabIndex = 2;
             this.checkedListBox_Signal.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Signal_SelectedIndexChanged);
             // 
@@ -99,11 +102,40 @@
             this.button_stat.UseVisualStyleBackColor = true;
             this.button_stat.Click += new System.EventHandler(this.button_stat_Click);
             // 
+            // numericUpDown_sim
+            // 
+            this.numericUpDown_sim.DecimalPlaces = 2;
+            this.numericUpDown_sim.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
+            this.numericUpDown_sim.Location = new System.Drawing.Point(828, 156);
+            this.numericUpDown_sim.Name = "numericUpDown_sim";
+            this.numericUpDown_sim.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown_sim.TabIndex = 6;
+            this.numericUpDown_sim.Value = new decimal(new int[] {
+            75,
+            0,
+            0,
+            131072});
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(838, 135);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(93, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "threshold Similarity";
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(999, 523);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.numericUpDown_sim);
             this.Controls.Add(this.button_stat);
             this.Controls.Add(this.button_disp);
             this.Controls.Add(this.dg_test);
@@ -113,6 +145,7 @@
             this.Name = "TestForm";
             this.Text = "Test";
             ((System.ComponentModel.ISupportInitialize)(this.dg_test)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sim)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -126,5 +159,7 @@
         public System.Windows.Forms.DataGridView dg_test;
         private System.Windows.Forms.Button button_disp;
         private System.Windows.Forms.Button button_stat;
+        private System.Windows.Forms.NumericUpDown numericUpDown_sim;
+        private System.Windows.Forms.Label label1;
     }
 }

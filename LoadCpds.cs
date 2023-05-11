@@ -769,7 +769,7 @@ namespace sqlcnet
             {
                 MessageBox.Show("Record Not Found");
             }
-
+            plot_prof.Visible= true;
 
             //
 

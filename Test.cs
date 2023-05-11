@@ -36,6 +36,7 @@ namespace sqlcnet
             //checkedListBox_Signal.Size = new Size(150, checkedListBox_Signal.Items.Count * checkedListBox_Signal.ItemHeight);
             ScottPlot.Plottable.SignalPlot sp = new ScottPlot.Plottable.SignalPlot();
             formsPlot1.Plot.Clear();
+            formsPlot1.Plot.Style(Style.Black);
             formsPlot1.Plot.Palette = ScottPlot.Palette.OneHalfDark;
             List<double[]> list_pro = new List<double[]>();
             double dist = 0.0;
@@ -276,20 +277,23 @@ namespace sqlcnet
             }
 
             formsPlot1.Plot.Clear();
-            ScottPlot.Statistics.Histogram hist = new ScottPlot.Statistics.Histogram(min: -1, max: 1, binCount: 100);
+            ScottPlot.Statistics.Histogram hist = new ScottPlot.Statistics.Histogram(min: -1, max: 1, binCount: 500);
             hist.AddRange(list_dist);
             double[] probabilities = hist.GetProbability();
-            var bar = formsPlot1.Plot.AddBar(values: probabilities, positions: hist.Bins);
-            bar.BarWidth = 0.01;
+            //var bar = formsPlot1.Plot.AddBar(values: probabilities, positions: hist.Bins);
+            var bar = formsPlot1.Plot.AddBar(values: hist.Counts, positions: hist.Bins);
+            bar.BarWidth = 0.002;
             bar.FillColor = ColorTranslator.FromHtml("#9bc3eb");
             bar.BorderColor = ColorTranslator.FromHtml("#82add9");
-
+            
             // display histogram probability curve as a line plot
-            formsPlot1.Plot.AddFunction(hist.GetProbabilityCurve(list_dist.ToArray(), true), Color.Black, 2, LineStyle.Dash);
+            formsPlot1.Plot.AddFunction(hist.GetProbabilityCurve(list_dist.ToArray(), true), Color.DarkGreen, 2, LineStyle.Dash);
+            formsPlot1.Plot.AddVerticalLine(x: (double)numericUpDown_sim.Value, color: Color.Magenta, width: 2, style: LineStyle.Dot);
 
             // customize the plot style
             formsPlot1.Plot.Title("Similarity Distribution");
-            formsPlot1.Plot.YAxis.Label("Probability");
+            //formsPlot1.Plot.YAxis.Label("Probability");
+            formsPlot1.Plot.YAxis.Label("Count (#)");
             formsPlot1.Plot.XAxis.Label("Cosine Similarity of " + source_cpd);
             formsPlot1.Plot.SetAxisLimits(yMin: 0);
 

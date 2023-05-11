@@ -62,12 +62,12 @@
             // 
             // checkedListBox_Signal
             // 
-            this.checkedListBox_Signal.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.checkedListBox_Signal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBox_Signal.CheckOnClick = true;
             this.checkedListBox_Signal.FormattingEnabled = true;
-            this.checkedListBox_Signal.Location = new System.Drawing.Point(696, 34);
+            this.checkedListBox_Signal.Location = new System.Drawing.Point(757, 22);
             this.checkedListBox_Signal.Name = "checkedListBox_Signal";
-            this.checkedListBox_Signal.Size = new System.Drawing.Size(273, 49);
+            this.checkedListBox_Signal.Size = new System.Drawing.Size(230, 184);
             this.checkedListBox_Signal.TabIndex = 2;
             this.checkedListBox_Signal.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Signal_SelectedIndexChanged);
             // 
@@ -84,7 +84,7 @@
             // button_disp
             // 
             this.button_disp.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button_disp.Location = new System.Drawing.Point(894, 219);
+            this.button_disp.Location = new System.Drawing.Point(894, 264);
             this.button_disp.Name = "button_disp";
             this.button_disp.Size = new System.Drawing.Size(75, 23);
             this.button_disp.TabIndex = 4;
@@ -94,7 +94,8 @@
             // 
             // button_stat
             // 
-            this.button_stat.Location = new System.Drawing.Point(894, 270);
+            this.button_stat.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.button_stat.Location = new System.Drawing.Point(894, 293);
             this.button_stat.Name = "button_stat";
             this.button_stat.Size = new System.Drawing.Size(75, 23);
             this.button_stat.TabIndex = 5;
@@ -104,13 +105,14 @@
             // 
             // numericUpDown_sim
             // 
+            this.numericUpDown_sim.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.numericUpDown_sim.DecimalPlaces = 2;
             this.numericUpDown_sim.Increment = new decimal(new int[] {
             5,
             0,
             0,
             131072});
-            this.numericUpDown_sim.Location = new System.Drawing.Point(828, 156);
+            this.numericUpDown_sim.Location = new System.Drawing.Point(849, 238);
             this.numericUpDown_sim.Name = "numericUpDown_sim";
             this.numericUpDown_sim.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown_sim.TabIndex = 6;
@@ -122,8 +124,9 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(838, 135);
+            this.label1.Location = new System.Drawing.Point(876, 222);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 7;

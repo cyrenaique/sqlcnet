@@ -475,7 +475,6 @@
             this.equal_radioButton.TabStop = true;
             this.equal_radioButton.Text = "equal";
             this.equal_radioButton.UseVisualStyleBackColor = true;
-     
             // 
             // startswith_radioButton
             // 
@@ -541,6 +540,7 @@
             this.plot_prof.TabIndex = 14;
             this.plot_prof.Text = "Plot Profiles";
             this.plot_prof.UseVisualStyleBackColor = false;
+            this.plot_prof.Visible = false;
             this.plot_prof.Click += new System.EventHandler(this.plot_prof_Click);
             // 
             // save_profiles

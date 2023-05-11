@@ -73,6 +73,9 @@
             // 
             // dg_test
             // 
+            this.dg_test.AllowUserToAddRows = false;
+            this.dg_test.AllowUserToDeleteRows = false;
+            this.dg_test.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.dg_test.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_test.Location = new System.Drawing.Point(757, 334);
             this.dg_test.Name = "dg_test";

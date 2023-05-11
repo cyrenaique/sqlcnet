@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using ScottPlot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,7 +19,7 @@ namespace sqlcnet
     public partial class TestForm : Form
     {
         //private DataTable _tabName;
-        
+        int flag = 0;
         public TestForm()
         {
             InitializeComponent();
@@ -143,11 +144,11 @@ namespace sqlcnet
 
         }
 
-        private void save_same_profiles(List<string> sim_prof,string batch)
+        private void save_same_profiles(List<string> sim_prof, string batch)
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "CSV (*.csv)|*.csv";
-            sfd.FileName = batch+"_Sim_profiles.csv";
+            sfd.FileName = batch + "_Sim_profiles.csv";
             bool fileError = false;
             if (sfd.ShowDialog() == DialogResult.OK)
             {
@@ -256,8 +257,13 @@ namespace sqlcnet
 
 
             List<double> list_dist = new List<double>();
-            List<string> list_sim = new List<string>();
+            List<string> list_batch = new List<string>();
             double sim = 0.0;
+            DataTable dataTable = new DataTable();
+
+            // add columns to the DataTable
+            dataTable.Columns.Add("batchid", typeof(string));
+            dataTable.Columns.Add("Similarity", typeof(double));
 
             while (Resource.Read())
             {
@@ -271,13 +277,28 @@ namespace sqlcnet
                 }
                 sim = Distance(values.ToList(), list_data);
                 list_dist.Add(sim);
-                if (sim > (double)numericUpDown_sim.Value)
-                {
-                    list_sim.Add(Resource.GetString(1));
-                }
+                //if (sim > (double)numericUpDown_sim.Value)
+                //{
+                list_batch.Add(Resource.GetString(1));
+                //}
 
             }
-
+            for (int i = 0; i < list_batch.Count; i++)
+            {
+                if (list_dist[i] > (double)numericUpDown_sim.Value)
+                {
+                    DataRow row = dataTable.NewRow();
+                    row["batchid"] = list_batch[i];
+                    row["Similarity"] = list_dist[i];
+                    dataTable.Rows.Add(row);
+                }
+                
+            }
+            dg_test.DataSource = dataTable;
+            dg_test.AutoGenerateColumns = true;
+            dg_test.Refresh();
+            dg_test.Visible = true;
+            flag = 1;
             formsPlot1.Plot.Clear();
             ScottPlot.Statistics.Histogram hist = new ScottPlot.Statistics.Histogram(min: -1, max: 1, binCount: 500);
             hist.AddRange(list_dist);
@@ -287,12 +308,12 @@ namespace sqlcnet
             bar.BarWidth = 0.002;
             bar.FillColor = ColorTranslator.FromHtml("#9bc3eb");
             bar.BorderColor = ColorTranslator.FromHtml("#82add9");
-            
+
             // display histogram probability curve as a line plot
             formsPlot1.Plot.AddFunction(hist.GetProbabilityCurve(list_dist.ToArray(), true), Color.DarkGreen, 2, LineStyle.Dash);
             var vLine = formsPlot1.Plot.AddVerticalLine(x: (double)numericUpDown_sim.Value, color: Color.Magenta, width: 2, style: LineStyle.Dot);
             vLine.DragEnabled = true;
-            numericUpDown_sim.Value =(decimal) vLine.X;
+            numericUpDown_sim.Value = (decimal)vLine.X;
             // customize the plot style
             formsPlot1.Plot.Title("Similarity Distribution");
             //formsPlot1.Plot.YAxis.Label("Probability");
@@ -304,19 +325,43 @@ namespace sqlcnet
             formsPlot1.Refresh();
 
             MessageBox.Show("Done");
-            save_same_profiles(list_sim, batchid);
+            save_same_profiles(list_batch, batchid);
 
 
         }
-        
+
 
         private void numericUpDown_sim_ValueChanged(object sender, EventArgs e)
         {
-           
+            if (flag==1)
+            {
+                
+                DataTable dt = (DataTable)dg_test.DataSource;
+                DataTable dt_new = new DataTable();
+                dt_new.Columns.Add("batchid", typeof(string));
+                dt_new.Columns.Add("Similarity", typeof(double));
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    if ((double)dt.Rows[i]["Similarity"] > (double)numericUpDown_sim.Value)
+                    {
+                        DataRow row = dt_new.NewRow();
+                        row["batchid"] = dt.Rows[i]["batchid"];
+                        row["Similarity"] = dt.Rows[i]["Similarity"];
+                        dt_new.Rows.Add(row);
+                    }
+                }
+                dg_test.DataSource = dt_new;
+                dg_test.AutoGenerateColumns = true;
+                dg_test.Refresh();
+
+            }
+
             var vLine = formsPlot1.Plot.AddVerticalLine(x: (double)numericUpDown_sim.Value, color: Color.DarkRed, width: 2, style: LineStyle.Dot);
             formsPlot1.Refresh();
-            formsPlot1.Plot.Remove(vLine);
             
+
+            formsPlot1.Plot.Remove(vLine);
+
         }
     }
 }

@@ -77,6 +77,7 @@
             this.searchText = new System.Windows.Forms.TextBox();
             this.search_all_db = new System.Windows.Forms.Button();
             this.compunds = new System.Windows.Forms.TabPage();
+            
             this.toolStrip1.SuspendLayout();
             this.search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
@@ -432,6 +433,7 @@
             // 
             // profiles
             // 
+           
             this.profiles.Controls.Add(this.plot_prof);
             this.profiles.Controls.Add(this.save_profiles);
             this.profiles.Controls.Add(this.startswith_radioButton);
@@ -449,19 +451,21 @@
             // 
             // plot_prof
             // 
-            this.plot_prof.Location = new System.Drawing.Point(795, 35);
+            this.plot_prof.BackColor = System.Drawing.Color.RosyBrown;
+            this.plot_prof.ForeColor = System.Drawing.Color.Black;
+            this.plot_prof.Location = new System.Drawing.Point(532, 32);
             this.plot_prof.Name = "plot_prof";
             this.plot_prof.Size = new System.Drawing.Size(75, 23);
             this.plot_prof.TabIndex = 14;
             this.plot_prof.Text = "Plot Profiles";
-            this.plot_prof.UseVisualStyleBackColor = true;
+            this.plot_prof.UseVisualStyleBackColor = false;
             this.plot_prof.Click += new System.EventHandler(this.plot_prof_Click);
             // 
             // save_profiles
             // 
-            this.save_profiles.Location = new System.Drawing.Point(570, 32);
+            this.save_profiles.Location = new System.Drawing.Point(395, 53);
             this.save_profiles.Name = "save_profiles";
-            this.save_profiles.Size = new System.Drawing.Size(158, 23);
+            this.save_profiles.Size = new System.Drawing.Size(75, 23);
             this.save_profiles.TabIndex = 13;
             this.save_profiles.Text = "save profiles";
             this.save_profiles.UseVisualStyleBackColor = true;
@@ -502,7 +506,7 @@
             // 
             // get_profile
             // 
-            this.get_profile.Location = new System.Drawing.Point(394, 32);
+            this.get_profile.Location = new System.Drawing.Point(395, 9);
             this.get_profile.Name = "get_profile";
             this.get_profile.Size = new System.Drawing.Size(75, 23);
             this.get_profile.TabIndex = 6;
@@ -517,7 +521,7 @@
             this.dGV_crisper.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_crisper.Location = new System.Drawing.Point(14, 82);
             this.dGV_crisper.Name = "dGV_crisper";
-            this.dGV_crisper.Size = new System.Drawing.Size(714, 496);
+            this.dGV_crisper.Size = new System.Drawing.Size(603, 446);
             this.dGV_crisper.TabIndex = 2;
             this.dGV_crisper.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -580,6 +584,9 @@
             this.compunds.Text = "compunds";
             this.compunds.UseVisualStyleBackColor = true;
             // 
+            // materialButton1
+            // 
+          
             // LoadCpdsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -655,5 +662,6 @@
         public System.Windows.Forms.TabControl searchtb;
         public System.Windows.Forms.TabPage profiles;
         private System.Windows.Forms.TabPage compunds;
+        
     }
 }

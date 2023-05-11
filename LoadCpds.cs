@@ -750,6 +750,8 @@ namespace sqlcnet
             return type == typeof(decimal) || type == typeof(double) || type == typeof(float) || type == typeof(int) || type == typeof(long) || type == typeof(short);
         }
 
+       
+
         private void plot_prof_Click(object sender, EventArgs e)
         {
 

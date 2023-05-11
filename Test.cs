@@ -111,17 +111,7 @@ namespace sqlcnet
                 list_pro.Add(values);
 
             }
-            //for (int i = 0; i < dt.Rows.Count; i++)
-            //{
-            //    for (int j = 0; j < dt.Columns.Count; j++)
-            //    {
-            //        if (IsNumericType(dt.Columns[j].DataType))
-            //        {
-
-            //            double.TryParse(dt.Rows[i][j].ToString(), out data[i, j]);
-            //        }
-            //    }
-            //}
+         
             double[,] data = new double[list_pro.Count, list_pro.Count];
             double[] positions = new double[list_pro.Count];
             double[] positionsy = new double[list_pro.Count];
@@ -153,10 +143,10 @@ namespace sqlcnet
         {
             DataTable tbl_prof = new DataTable();
             DataTable groupedDataTable = (DataTable)dg_test.DataSource;
-            List<string> batch_list = new List<string>(groupedDataTable.Rows.Count);
+            List<string> source_list = new List<string>(groupedDataTable.Rows.Count);
             foreach (DataRow row in groupedDataTable.Rows)
             {
-                batch_list.Add("'" + (string)row["batchid"] + "'");
+                source_list.Add("'" + (string)row["source"] + "'");
             }
 
             NpgsqlConnection conn;
@@ -167,7 +157,8 @@ namespace sqlcnet
 
 
             DataTable tbl_all_prof = new DataTable();
-            string sql_profile = "select * from aggprofiles";
+            
+            string sql_profile = "select * from aggprofiles where source="+source_list[0];
             NpgsqlCommand cmd_profile = new NpgsqlCommand(sql_profile, conn);
             Npgsql.NpgsqlDataReader Resource = cmd_profile.ExecuteReader();
 
@@ -186,8 +177,8 @@ namespace sqlcnet
             for (int i = 0; i < groupedDataTable.Rows.Count; i++)
             {
 
-                double[] values = new double[groupedDataTable.Columns.Count];
-                for (int j = 0; j < groupedDataTable.Columns.Count; j++)
+                double[] values = new double[list_col.Count];
+                for (int j = 0; j < list_col.Count; j++)
                 {
                     if (groupedDataTable.Columns[j].ColumnName != "batchid" && IsNumericType(groupedDataTable.Columns[j].DataType))
                     {
@@ -199,15 +190,48 @@ namespace sqlcnet
                 list_pro.Add(values);
 
             }
-            int a = 0;
+            //int a = 0;
 
+            
+            List<double> list_dist = new List<double>();
             while (Resource.Read())
             {
-                a++;
+                //string columnName = Resource.GetString(0);
+
+                List<double> list_data = new List<double>();
+                for (int i = 2; i < Resource.FieldCount; i++)
+                {
+
+                 
+                        list_data.Add(Resource.GetDouble(i));
+
+                   
+                        
+                   
+                }
+                list_dist.Add(Distance(list_pro[0].ToList(), list_data));
 
             }
 
+            ScottPlot.Statistics.Histogram hist = new ScottPlot.Statistics.Histogram(min: -1, max: 1, binCount: 100);
+            hist.AddRange(list_dist);
+            double[] probabilities = hist.GetProbability();
+            var bar = formsPlot1.Plot.AddBar(values: probabilities, positions: hist.Bins);
+            bar.BarWidth = 0.01;
+            bar.FillColor = ColorTranslator.FromHtml("#9bc3eb");
+            bar.BorderColor = ColorTranslator.FromHtml("#82add9");
 
+            // display histogram probability curve as a line plot
+            formsPlot1.Plot.AddFunction(hist.GetProbabilityCurve(list_dist.ToArray(), true), Color.Black, 2, LineStyle.Dash);
+
+            // customize the plot style
+            formsPlot1.Plot.Title("Similarity Distribution");
+            formsPlot1.Plot.YAxis.Label("Probability");
+            formsPlot1.Plot.XAxis.Label("Cosine Similarity");
+            formsPlot1.Plot.SetAxisLimits(yMin: 0);
+
+            
+            formsPlot1.Refresh();
 
             MessageBox.Show("Done");
 

@@ -215,6 +215,10 @@ namespace sqlcnet
                 }
                 sim = Distance(values.ToList(), list_data);
                 list_dist.Add(sim);
+                if (sim>(double)numericUpDown_sim.Value)
+                {
+                    list_sim.Add(Resource.GetString(1));
+                }
 
             }
             formsPlot1.Plot.Clear();

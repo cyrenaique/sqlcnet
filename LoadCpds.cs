@@ -565,14 +565,14 @@ namespace sqlcnet
             var tbl_batchs_gene = new DataTable();
             foreach (var col in columnNames)
             {
-                string sql_last_line = " where gene. " + col + " LIKE '%" + search_text + "%' ";
+                string sql_last_line = " where gene. " + col + " LIKE UPPER('%" + search_text + "%') ";
                 if (equal_radioButton.Checked)
                 {
-                    sql_last_line = " where gene. " + col + "= '" + search_text + "' ";
+                    sql_last_line = " where gene. " + col + "= UPPER('" + search_text + "') ";
                 }
                 if (startswith_radioButton.Checked)
                 {
-                    sql_last_line = " where gene. " + col + " LIKE '" + search_text + "%' ";
+                    sql_last_line = " where gene. " + col + " LIKE UPPER('" + search_text + "%') ";
                 }
 
                 //crisper

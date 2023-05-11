@@ -35,8 +35,9 @@ namespace sqlcnet
         CachedCsvReader csv;
 
         public HelpForm HelpF;
-        public NpgsqlConnection conn;
-        readonly string cs = "Server=192.168.2.131;Port=5432;User Id=arno; Database=ksi_cpds; Password=12345";
+        public NpgsqlConnection conn_meta,conn_profile;
+        readonly string cs_meta = "Server=192.168.2.131;Port=5432;User Id=arno; Database=ksi_cpds; Password=12345";
+        readonly string cs_profile = "Server=192.168.2.131;Port=5432;User Id=arno; Database=ksilink_cpds; Password=12345";
         public GKForm f2;
         public LoadCpdsForm f_cpds;
         public TestForm TF;
@@ -57,15 +58,15 @@ namespace sqlcnet
             dGV_results.Visible = false;
 
             //comboBox_tables----------------------------------------------
-            conn = new NpgsqlConnection(cs);
-            if (conn.State == ConnectionState.Closed)
+            conn_meta = new NpgsqlConnection(cs_meta);
+            if (conn_meta.State == ConnectionState.Closed)
             {
-                conn.Open();
+                conn_meta.Open();
             }
 
             NpgsqlCommand cmd = new NpgsqlCommand
             {
-                Connection = conn,
+                Connection = conn_meta,
                 CommandType = CommandType.Text,
                 CommandText = "select table_name from information_schema.tables where table_schema='public'"
             };
@@ -227,15 +228,15 @@ namespace sqlcnet
         private void comboBox_tables_DropDownClosed(object sender, EventArgs e)
         {
             cmb = comboBox_tables.GetItemText(this.comboBox_tables.SelectedItem);
-            conn.Close();
-            if (conn.State == ConnectionState.Closed)
+            conn_meta.Close();
+            if (conn_meta.State == ConnectionState.Closed)
             {
-                conn.Open();
+                conn_meta.Open();
             }
 
             string sql2 = "select * from " + cmb; ;
 
-            NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn);
+            NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn_meta);
             Npgsql.NpgsqlDataReader Resource = command2.ExecuteReader();
             List<string> col_list = new List<string>();
             while (Resource.Read())
@@ -296,10 +297,10 @@ namespace sqlcnet
                 sql += ")";
 
 
-                conn.Close();
-                conn.Open();
+                conn_meta.Close();
+                conn_meta.Open();
                 dt = new DataTable();
-                NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+                NpgsqlCommand command = new NpgsqlCommand(sql, conn_meta);
                 // Execute the query and retrieve the results
                 //if (conn.State == ConnectionState.Closed)
                 //{
@@ -348,11 +349,11 @@ namespace sqlcnet
         private void pathwaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string sql2 = "select * from genepath";
-            NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn);
-            conn.Close();
-            if (conn.State == ConnectionState.Closed)
+            NpgsqlCommand command2 = new NpgsqlCommand(sql2, conn_meta);
+            conn_meta.Close();
+            if (conn_meta.State == ConnectionState.Closed)
             {
-                conn.Open();
+                conn_meta.Open();
             }
             Npgsql.NpgsqlDataReader Resource = command2.ExecuteReader();
             HashSet<string> path_list = new HashSet<string>();
@@ -365,15 +366,15 @@ namespace sqlcnet
                 }
                 //break;
             }
-            conn.Close();
+            conn_meta.Close();
             Dictionary<string, HashSet<string>> unique_pathways = new Dictionary<string, HashSet<string>>();
             foreach (var item in path_list)
             {
                 unique_pathways.Add(item, new HashSet<string>());
             }
-            if (conn.State == ConnectionState.Closed)
+            if (conn_meta.State == ConnectionState.Closed)
             {
-                conn.Open();
+                conn_meta.Open();
             }
             Npgsql.NpgsqlDataReader Resource2 = command2.ExecuteReader();
 
@@ -543,64 +544,62 @@ namespace sqlcnet
         private void get_profile_Click(object sender, EventArgs e)
         {
 
-            conn.Close();
-            if (conn.State == ConnectionState.Closed)
+            conn_meta.Close();
+            if (conn_meta.State == ConnectionState.Closed)
             {
-                conn.Open();
+                conn_meta.Open();
             }
             string search_text = textBox_gene.Text;
             tbl_profiles = new DataTable();
 
 
-            var schemaTable = conn.GetSchema("Columns", new[] { null, null, "gene" });
+            var schemaTable = conn_meta.GetSchema("Columns", new[] { null, null, "gene" });
             var columnNames = new List<string>();
             foreach (DataRow row in schemaTable.Rows)
             {
                 if (row["DATA_TYPE"].ToString() != "double precision")
                     columnNames.Add(row["COLUMN_NAME"].ToString());
             }
-            // get gene and batchs
+            // get  and batchs
             var tbl_batchs_gene = new DataTable();
-            string groupby = " group by platemap.plate, platemap.well,platemap.batchid, platemap.tags,gene.geneid,gene.symbol,gene.synonyms";
-            foreach (var col in columnNames)
+              foreach (var col in columnNames)
             {
-                string sql_last_line = " where gene. " + col + " LIKE '%" + search_text + "%'" + groupby;
+                string sql_last_line = " where gene. " + col + " LIKE '%" + search_text + "%' " ;
                 if (equal_radioButton.Checked)
                 {
-                    sql_last_line = " where gene. " + col + "= '" + search_text + "' " + groupby;
+                    sql_last_line = " where gene. " + col + "= '" + search_text + "' " ;
                 }
                 if (startswith_radioButton.Checked)
                 {
-                    sql_last_line = " where gene. " + col + " LIKE '" + search_text + "%' " + groupby;
+                    sql_last_line = " where gene. " + col + " LIKE '" + search_text + "%' ";
                 }
 
                 //crisper
-                string sql_crisper = "select platemap.plate, platemap.well,platemap.batchid, platemap.tags,gene.geneid,gene.symbol,gene.synonyms" +
-                    " from platemap " +
-                    "inner join crispermeta on crispermeta.batchid=platemap.batchid " +
-                    "inner join gene on gene.geneid=crispermeta.geneid " + sql_last_line;
+                string sql_crisper = "select crispermeta.batchid,gene.geneid,gene.symbol,gene.synonyms" +
+                    " from crispermeta " +
+                    "inner join gene on crispermeta.geneid=gene.geneid " + sql_last_line+"" +
+                    " GROUP BY crispermeta.batchid,gene.geneid,gene.symbol,gene.synonyms";
 
-                var command_1 = new NpgsqlCommand(sql_crisper, conn);
+                var command_1 = new NpgsqlCommand(sql_crisper, conn_meta);
                 var adapter_1 = new NpgsqlDataAdapter(command_1);
                 var tableResults_1 = new DataTable();
                 adapter_1.Fill(tableResults_1);
                 tbl_batchs_gene.Merge(tableResults_1);
 
                 //cpd
-                string sql_cpd = "select  platemap.plate, platemap.well, platemap.batchid, platemap.tags,gene.geneid,gene.symbol,gene.synonyms" +
-                    " from platemap" +
-                    " inner join batchs on batchs.batchid=platemap.batchid" +
-                    " inner join cpd on cpd.pubchemid=batchs.pubchemid" +
-                    " inner join cpdgene on cpdgene.pubchemid=cpd.pubchemid" +
-                    " inner join gene on cpdgene.geneid=gene.geneid" + sql_last_line;
+                string sql_cpd = "select  batchs.batchid, gene.geneid,gene.symbol,gene.synonyms" +
+                    " from batchs" +
+                    " inner join cpdgene on cpdgene.pubchemid=batchs.pubchemid" +
+                    " inner join gene on cpdgene.geneid=gene.geneid" + sql_last_line  +
+                    " GROUP BY batchs.batchid, gene.geneid,gene.symbol,gene.synonyms";
 
-                var command_2 = new NpgsqlCommand(sql_cpd, conn);
+                var command_2 = new NpgsqlCommand(sql_cpd, conn_meta);
                 var adapter_2 = new NpgsqlDataAdapter(command_2);
                 var tableResults_2 = new DataTable();
                 adapter_2.Fill(tableResults_2);
                 tbl_batchs_gene.Merge(tableResults_2);
             }
-            tbl_batchs_gene = tbl_batchs_gene.DefaultView.ToTable(true, "plate", "well", "symbol", "batchid", "geneid");
+            tbl_batchs_gene = tbl_batchs_gene.DefaultView.ToTable(true, "synonyms", "symbol", "batchid", "geneid");
             dGV_crisper.DataSource = tbl_batchs_gene;
             foreach (DataGridViewRow row in dGV_crisper.Rows)
             {
@@ -610,30 +609,26 @@ namespace sqlcnet
             List<string> batch_list = new List<string>(tbl_batchs_gene.Rows.Count);
             foreach (DataRow row in tbl_batchs_gene.Rows)
             {
-                //plts_wells.Add("'" + (string)row["plate"] + (string)row["well"] + "'");
                 batch_list.Add("'" + (string)row["batchid"] + "'");
             }
+            conn_meta.Close();
+            // get profiles
 
-            // now get profiles
-            //string sql_profile = "select * from profiles where CONCAT(\"plate\",\"well\")  in ("
-            //  + string.Join(",", batch_list)
-            //  + ")";
+            conn_profile = new NpgsqlConnection(cs_profile);
+            if (conn_profile.State == ConnectionState.Closed)
+            {
+                conn_profile.Open();
+            }
             if (batch_list.Count > 0)
             {
-
-
                 string sql_profile = "select * from profiles where batchid  in ("
                    + string.Join(",", batch_list)
                    + ")";
-                var cmd_profile = new NpgsqlCommand(sql_profile, conn);
+                var cmd_profile = new NpgsqlCommand(sql_profile, conn_profile);
                 var adp_profile = new NpgsqlDataAdapter(cmd_profile);
-
                 adp_profile.Fill(tbl_profiles);
 
-
-
                 // add gene info
-
                 DataTable distinctTable = tbl_batchs_gene.DefaultView.ToTable(true, "symbol", "batchid");
                 Dictionary<string, List<string>> batchGeneDict = new Dictionary<string, List<string>>();
 
@@ -872,14 +867,14 @@ namespace sqlcnet
         private void search_all_db_Click(object sender, EventArgs e)
         {
             string text = searchText.Text;
-            if (conn.FullState == ConnectionState.Closed)
+            if (conn_meta.FullState == ConnectionState.Closed)
             {
-                conn.Open();
+                conn_meta.Open();
             }
 
 
             // get a list of all tables in the database
-            var tables = conn.GetSchema("Tables").Rows.Cast<DataRow>()
+            var tables = conn_meta.GetSchema("Tables").Rows.Cast<DataRow>()
                 .Select(row => row["TABLE_NAME"].ToString())
                 .ToList();
 
@@ -887,7 +882,7 @@ namespace sqlcnet
             var resultsTable = new DataTable();
             NpgsqlCommand cmd = new NpgsqlCommand
             {
-                Connection = conn,
+                Connection = conn_meta,
                 CommandType = CommandType.Text,
                 //CommandText = "select table_name from information_schema.tables where table_schema='public'"
             };
@@ -901,7 +896,7 @@ namespace sqlcnet
             // loop over each table and search for the string
             foreach (var table in tables)
             {
-                var schemaTable = conn.GetSchema("Columns", new[] { null, null, table });
+                var schemaTable = conn_meta.GetSchema("Columns", new[] { null, null, table });
 
                 // iterate over the rows of the schema table and extract the column names
                 var columnNames = new List<string>();
@@ -917,7 +912,7 @@ namespace sqlcnet
 
 
                     // create a new SqlCommand object to search the table for the string
-                    var command = new NpgsqlCommand($"SELECT * FROM {table} WHERE {col} = '{text}'", conn);
+                    var command = new NpgsqlCommand($"SELECT * FROM {table} WHERE {col} = '{text}'", conn_meta);
 
                     // create a new SqlDataAdapter object to fill a DataTable with the results of the query
                     var adapter = new NpgsqlDataAdapter(command);

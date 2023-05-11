@@ -108,13 +108,14 @@ namespace sqlcnet
             {
 
                 this.Text = openFileDialog1.FileName;
-                FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-
-                System.IO.StreamReader sr = new System.IO.StreamReader(fs);
-                csv = new CachedCsvReader(sr, true);
-
+                using (FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    System.IO.StreamReader sr = new System.IO.StreamReader(fs);
+                    csv = new CachedCsvReader(sr, true);
+                    dGV_cpds.DataSource = csv;
+                }
             }
-            dGV_cpds.DataSource = csv;
+            
             dGV_cpds.Visible = true;
             List<string> columns_name = new List<string>();
             for (var i = 0; i < dGV_cpds.ColumnCount; i++)

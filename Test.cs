@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -139,6 +140,58 @@ namespace sqlcnet
 
         }
 
+        private void save_same_profiles(List<string> sim_prof,string batch)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "CSV (*.csv)|*.csv";
+            sfd.FileName = batch+"_Sim_profiles.csv";
+            bool fileError = false;
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(sfd.FileName))
+                {
+                    try
+                    {
+                        File.Delete(sfd.FileName);
+                    }
+                    catch (IOException ex)
+                    {
+                        fileError = true;
+                        MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
+                    }
+                }
+                if (!fileError)
+                {
+                    try
+                    {
+                        // tbl_profiles.ToCSV(sfd.FileName);
+                        StringBuilder sb = new StringBuilder();
+
+                        string columnName = "batchid";
+                        sb.AppendLine(columnName);
+
+                        foreach (string item in sim_prof)
+                        {
+
+                            sb.AppendLine(item);
+                        }
+
+
+                        File.WriteAllText(sfd.FileName, sb.ToString());
+
+                        MessageBox.Show("Data Exported Successfully !!!", "Info");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error :" + ex.Message);
+                    }
+                }
+
+
+
+            }
+        }
+
         private void button_stat_Click(object sender, EventArgs e)
         {
             DataTable tbl_prof = new DataTable();
@@ -180,9 +233,9 @@ namespace sqlcnet
             for (int i = 0; i < groupedDataTable.Rows.Count; i++)
             {
                 cpt = 0;
-                if (groupedDataTable.Rows[i]["source"].ToString()==source_cpd && groupedDataTable.Rows[i]["batchid"].ToString() == batchid)
+                if (groupedDataTable.Rows[i]["source"].ToString() == source_cpd && groupedDataTable.Rows[i]["batchid"].ToString() == batchid)
                 {
-                    
+
                     foreach (string item in list_col)
                     {
 
@@ -191,9 +244,9 @@ namespace sqlcnet
                     }
                     //list_pro.Add(values);
                 }
-                
 
-                
+
+
 
             }
             //int a = 0;
@@ -215,12 +268,13 @@ namespace sqlcnet
                 }
                 sim = Distance(values.ToList(), list_data);
                 list_dist.Add(sim);
-                if (sim>(double)numericUpDown_sim.Value)
+                if (sim > (double)numericUpDown_sim.Value)
                 {
                     list_sim.Add(Resource.GetString(1));
                 }
 
             }
+
             formsPlot1.Plot.Clear();
             ScottPlot.Statistics.Histogram hist = new ScottPlot.Statistics.Histogram(min: -1, max: 1, binCount: 100);
             hist.AddRange(list_dist);
@@ -243,6 +297,7 @@ namespace sqlcnet
             formsPlot1.Refresh();
 
             MessageBox.Show("Done");
+            save_same_profiles(list_sim, batchid);
 
 
         }

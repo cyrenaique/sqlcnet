@@ -33,6 +33,7 @@
             this.checkedListBox_Signal = new System.Windows.Forms.CheckedListBox();
             this.dg_test = new System.Windows.Forms.DataGridView();
             this.button_disp = new System.Windows.Forms.Button();
+            this.button_stat = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dg_test)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,11 +89,22 @@
             this.button_disp.UseVisualStyleBackColor = true;
             this.button_disp.Click += new System.EventHandler(this.button_disp_Click);
             // 
+            // button_stat
+            // 
+            this.button_stat.Location = new System.Drawing.Point(894, 270);
+            this.button_stat.Name = "button_stat";
+            this.button_stat.Size = new System.Drawing.Size(75, 23);
+            this.button_stat.TabIndex = 5;
+            this.button_stat.Text = "Sim Profiles";
+            this.button_stat.UseVisualStyleBackColor = true;
+            this.button_stat.Click += new System.EventHandler(this.button_stat_Click);
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(999, 523);
+            this.Controls.Add(this.button_stat);
             this.Controls.Add(this.button_disp);
             this.Controls.Add(this.dg_test);
             this.Controls.Add(this.checkedListBox_Signal);
@@ -113,5 +125,6 @@
         public System.Windows.Forms.CheckedListBox checkedListBox_Signal;
         public System.Windows.Forms.DataGridView dg_test;
         private System.Windows.Forms.Button button_disp;
+        private System.Windows.Forms.Button button_stat;
     }
 }

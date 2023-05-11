@@ -1,4 +1,5 @@
-﻿using ScottPlot;
+﻿using Npgsql;
+using ScottPlot;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,7 +56,7 @@ namespace sqlcnet
 
                     sp = formsPlot1.Plot.AddSignal(values, label: groupedDataTable.Rows[i]["batchid"].ToString());
                     sp.Smooth = true;
-                   
+
 
                     formsPlot1.Plot.AxisAuto();
                     formsPlot1.Plot.Legend();
@@ -140,7 +141,7 @@ namespace sqlcnet
             var hm = formsPlot1.Plot.AddHeatmap(data, lockScales: false);
             formsPlot1.Plot.AddColorbar(hm);
             formsPlot1.Plot.YAxis.TickLabelStyle(rotation: 45);
-            formsPlot1.Plot.XAxis.TickLabelStyle(rotation: 45);            
+            formsPlot1.Plot.XAxis.TickLabelStyle(rotation: 45);
             formsPlot1.Plot.YAxis.ManualTickSpacing(1);
             formsPlot1.Plot.XAxis.ManualTickPositions(positions, labels);
             formsPlot1.Plot.YAxis.ManualTickPositions(positionsy, labels);
@@ -170,6 +171,21 @@ namespace sqlcnet
             //series.MarkerSize = 30;
             //this.Controls.Add(chart);
 
+        }
+
+        private void button_stat_Click(object sender, EventArgs e)
+        {
+            DataTable tbl_prof = new DataTable();
+            NpgsqlConnection conn;
+            string cs = "Server=192.168.2.131;Port=5432;User Id=arno; Database=ksi_cpds; Password=12345";
+            conn = new NpgsqlConnection(cs);
+            string sql_profile = "select * from profiles where batchid  in ("
+                  + string.Join(",", batch_list)
+                  + ")";
+            var cmd_profile = new NpgsqlCommand(sql_profile, conn);
+            var adp_profile = new NpgsqlDataAdapter(cmd_profile);
+
+            adp_profile.Fill(tbl_prof);
         }
     }
 }

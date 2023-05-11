@@ -147,30 +147,6 @@ namespace sqlcnet
             formsPlot1.Plot.YAxis.ManualTickPositions(positionsy, labels);
             formsPlot1.Refresh();
 
-
-            //using System.Drawing;
-            //using System.Windows.Forms.DataVisualization.Charting;
-
-            //// ...
-
-            //// Create a new chart control
-            //Chart chart = new Chart();
-            //chart.Dock = DockStyle.Fill;
-
-            //// Add a chart area and set its properties
-            //ChartArea chartArea = chart.ChartAreas.Add("ChartArea1");
-            //chartArea.AxisX.Interval = 1;
-            //chartArea.AxisY.Interval = 1;
-            //chartArea.AxisX.MajorGrid.Enabled = false;
-            //chartArea.AxisY.MajorGrid.Enabled = false;
-
-            //// Add a series to the chart and set its properties
-            //Series series = chart.Series.Add("Series1");
-            //series.ChartType = SeriesChartType.Bubble;
-            //series.MarkerStyle = MarkerStyle.Square;
-            //series.MarkerSize = 30;
-            //this.Controls.Add(chart);
-
         }
 
         private void button_stat_Click(object sender, EventArgs e)
@@ -188,14 +164,24 @@ namespace sqlcnet
             conn = new NpgsqlConnection(cs_profile);
             conn.Open();
 
-           
+
 
             DataTable tbl_all_prof = new DataTable();
-            string sql_profile = "select * from profiles";
+            string sql_profile = "select * from aggprofiles";
             NpgsqlCommand cmd_profile = new NpgsqlCommand(sql_profile, conn);
             Npgsql.NpgsqlDataReader Resource = cmd_profile.ExecuteReader();
-           
+
             List<double[]> list_pro = new List<double[]>();
+            List<string> list_col = new List<string>();
+            for (int j = 0; j < groupedDataTable.Columns.Count; j++)
+            {
+                if (IsNumericType(groupedDataTable.Columns[j].DataType))
+                {
+
+                    list_col.Add(groupedDataTable.Columns[j].ColumnName);
+                }
+
+            }
 
             for (int i = 0; i < groupedDataTable.Rows.Count; i++)
             {
@@ -213,15 +199,16 @@ namespace sqlcnet
                 list_pro.Add(values);
 
             }
+            int a = 0;
 
             while (Resource.Read())
             {
-                
-             
+                a++;
+
             }
 
 
-           
+
             MessageBox.Show("Done");
 
 

@@ -511,6 +511,7 @@
             // dGV_crisper
             // 
             this.dGV_crisper.AllowUserToAddRows = false;
+            this.dGV_crisper.AllowUserToDeleteRows = false;
             this.dGV_crisper.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_crisper.Location = new System.Drawing.Point(14, 82);
             this.dGV_crisper.Name = "dGV_crisper";

@@ -621,7 +621,7 @@ namespace sqlcnet
             }
             if (batch_list.Count > 0)
             {
-                string sql_profile = "select * from profiles where batchid  in ("
+                string sql_profile = "select * from aggprofiles where batchid  in ("
                    + string.Join(",", batch_list)
                    + ")";
                 var cmd_profile = new NpgsqlCommand(sql_profile, conn_profile);
@@ -808,54 +808,92 @@ namespace sqlcnet
 
             TestForm TF = new TestForm();
             //var plt = TF.formsPlot1.Plot;
-
-            DataTable groupedDataTable = tbl_profiles.AsEnumerable()
-                                        .GroupBy(row => row.Field<string>("batchid"))
-                                        .Select(group =>
-                                        {
-                                            DataRow newRow = tbl_profiles.NewRow();
-                                            newRow["batchid"] = group.Key;
-
-                                            foreach (DataColumn column in tbl_profiles.Columns)
-                                            {
-                                                if (column.ColumnName != "batchid" && IsNumericType(column.DataType))
-                                                {
-                                                    newRow[column.ColumnName] = group.Average(row => row.Field<double>(column.ColumnName));
-                                                }
-                                            }
-
-                                            return newRow;
-                                        })
-                                        .CopyToDataTable();
-            // Loop through the rows of the DataGridView and add them to the plot
-            for (int i = 0; i < groupedDataTable.Rows.Count; i++)
+            DataTable groupedDataTable = tbl_profiles;
+            List<string> batch_list = new List<string>(tbl_profiles.Rows.Count);
+            foreach (DataRow row in tbl_profiles.Rows)
             {
-                double[] values = new double[groupedDataTable.Columns.Count];
-                for (int j = 0; j < groupedDataTable.Columns.Count; j++)
-                {
-                    if (groupedDataTable.Columns[j].ColumnName != "batchid" && IsNumericType(groupedDataTable.Columns[j].DataType))
-                    {
-                        
-                        double.TryParse(groupedDataTable.Rows[i][j].ToString(), out values[j]);
-                    }
-
-                }
-                //var sp = TF.formsPlot1.Plot.AddSignal(values,label: groupedDataTable.Rows[i]["batchid"].ToString());
-                TF.checkedListBox_Signal.Items.Add(groupedDataTable.Rows[i]["batchid"].ToString());
-                
-                //sp.Smooth = true;
-
+                batch_list.Add("'" + (string)row["batchid"] + "'");
             }
+            /*
+            //string sql_profile = "select * from profiles where batchid  in ("
+            //       + string.Join(",", batch_list)
+            //       + ")";
+            //var cmd_profile = new NpgsqlCommand(sql_profile, conn_profile);
+            //var adp_profile = new NpgsqlDataAdapter(cmd_profile);
+            //adp_profile.Fill(groupedDataTable);
+
+            //DataTable groupedDataTable = tbl_profiles.AsEnumerable()
+            //                            .GroupBy(row => row.Field<string>("batchid"))
+            //                            .Select(group =>
+            //                            {
+            //                                DataRow newRow = tbl_profiles.NewRow();
+            //                                newRow["batchid"] = group.Key;
+
+            //                                foreach (DataColumn column in tbl_profiles.Columns)
+            //                                {
+            //                                    if (column.ColumnName != "batchid" && IsNumericType(column.DataType))
+            //                                    {
+            //                                        newRow[column.ColumnName] = group.Average(row => row.Field<double>(column.ColumnName));
+            //                                    }
+            //                                }
+
+            //                                return newRow;
+            //                            })
+            //                            .CopyToDataTable();
+            //for (int i = groupedDataTable.Columns.Count - 1; i >= 0; i--)
+            //{
+            //    bool allZero = true;
+            //    for (int j = 0; j < groupedDataTable.Rows.Count; j++)
+            //    {
+            //        if (Convert.ToDouble(groupedDataTable.Rows[j][i]) != 0)
+            //        {
+            //            allZero = false;
+            //            break;
+            //        }
+            //    }
+            //    if (allZero)
+            //    {
+            //        groupedDataTable.Columns.RemoveAt(i);
+            //    }
+            //}
+            // Loop through the rows of the DataGridView and add them to the plot
+            //for (int i = 0; i < groupedDataTable.Rows.Count; i++)
+            //{
+            //    double[] values = new double[groupedDataTable.Columns.Count];
+            //    for (int j = 0; j < groupedDataTable.Columns.Count; j++)
+            //    {
+            //        if (groupedDataTable.Columns[j].ColumnName != "batchid" && IsNumericType(groupedDataTable.Columns[j].DataType))
+            //        {
+
+            //            double.TryParse(groupedDataTable.Rows[i][j].ToString(), out values[j]);
+            //        }
+
+            //    }
+            //    //var sp = TF.formsPlot1.Plot.AddSignal(values,label: groupedDataTable.Rows[i]["batchid"].ToString());
+            //    TF.checkedListBox_Signal.Items.Add(groupedDataTable.Rows[i]["batchid"].ToString());
+
+            //    //sp.Smooth = true;
+
+            //}
             //for (int i = 0; i < TF.checkedListBox_Signal.Items.Count; i++)
             //{
             //    TF.checkedListBox_Signal.SetItemChecked(i, true);
             //}
             //TF.formsPlot1.Plot.XAxis.SetBoundary(0, tbl_profiles.Columns.Count-4);
-            
+
             //TF.formsPlot1.Plot.AxisAuto();
             //TF.formsPlot1.Plot.Legend();
             //TF.formsPlot1.Refresh();
+            */
             // Display the plot in a new form
+            for (int i = 0; i < groupedDataTable.Rows.Count; i++)
+            {               
+              
+                TF.checkedListBox_Signal.Items.Add(groupedDataTable.Rows[i]["batchid"].ToString());             
+
+            }
+
+
             TF.dg_test.AutoGenerateColumns = false;
             TF.dg_test.DataSource = groupedDataTable;
             //form.Controls.Add(plt);

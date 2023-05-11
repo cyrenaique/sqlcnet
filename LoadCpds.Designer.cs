@@ -72,10 +72,11 @@
             this.get_profile = new System.Windows.Forms.Button();
             this.dGV_crisper = new System.Windows.Forms.DataGridView();
             this.textBox_gene = new System.Windows.Forms.TextBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.search_tab = new System.Windows.Forms.TabPage();
             this.dGV_search = new System.Windows.Forms.DataGridView();
             this.searchText = new System.Windows.Forms.TextBox();
             this.search_all_db = new System.Windows.Forms.Button();
+            this.compunds = new System.Windows.Forms.TabPage();
             this.toolStrip1.SuspendLayout();
             this.search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
@@ -83,7 +84,7 @@
             this.searchtb.SuspendLayout();
             this.profiles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_crisper)).BeginInit();
-            this.tabPage1.SuspendLayout();
+            this.search_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_search)).BeginInit();
             this.SuspendLayout();
             // 
@@ -421,7 +422,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.searchtb.Controls.Add(this.search);
             this.searchtb.Controls.Add(this.profiles);
-            this.searchtb.Controls.Add(this.tabPage1);
+            this.searchtb.Controls.Add(this.search_tab);
+            this.searchtb.Controls.Add(this.compunds);
             this.searchtb.Location = new System.Drawing.Point(17, 92);
             this.searchtb.Name = "searchtb";
             this.searchtb.SelectedIndex = 0;
@@ -526,18 +528,18 @@
             this.textBox_gene.Size = new System.Drawing.Size(195, 20);
             this.textBox_gene.TabIndex = 1;
             // 
-            // tabPage1
+            // search_tab
             // 
-            this.tabPage1.Controls.Add(this.dGV_search);
-            this.tabPage1.Controls.Add(this.searchText);
-            this.tabPage1.Controls.Add(this.search_all_db);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1382, 623);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "search";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.search_tab.Controls.Add(this.dGV_search);
+            this.search_tab.Controls.Add(this.searchText);
+            this.search_tab.Controls.Add(this.search_all_db);
+            this.search_tab.Location = new System.Drawing.Point(4, 22);
+            this.search_tab.Name = "search_tab";
+            this.search_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.search_tab.Size = new System.Drawing.Size(1382, 623);
+            this.search_tab.TabIndex = 2;
+            this.search_tab.Text = "search";
+            this.search_tab.UseVisualStyleBackColor = true;
             // 
             // dGV_search
             // 
@@ -569,6 +571,15 @@
             this.search_all_db.UseVisualStyleBackColor = true;
             this.search_all_db.Click += new System.EventHandler(this.search_all_db_Click);
             // 
+            // compunds
+            // 
+            this.compunds.Location = new System.Drawing.Point(4, 22);
+            this.compunds.Name = "compunds";
+            this.compunds.Size = new System.Drawing.Size(1382, 623);
+            this.compunds.TabIndex = 3;
+            this.compunds.Text = "compunds";
+            this.compunds.UseVisualStyleBackColor = true;
+            // 
             // LoadCpdsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -588,8 +599,8 @@
             this.profiles.ResumeLayout(false);
             this.profiles.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_crisper)).EndInit();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.search_tab.ResumeLayout(false);
+            this.search_tab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_search)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -631,7 +642,7 @@
         public System.Windows.Forms.DataGridView dGV_cpds;
         private System.Windows.Forms.DataGridView dGV_crisper;
         private System.Windows.Forms.TextBox textBox_gene;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage search_tab;
         public System.Windows.Forms.TextBox searchText;
         public System.Windows.Forms.Button search_all_db;
         public System.Windows.Forms.DataGridView dGV_search;
@@ -643,5 +654,6 @@
         private System.Windows.Forms.Button plot_prof;
         public System.Windows.Forms.TabControl searchtb;
         public System.Windows.Forms.TabPage profiles;
+        private System.Windows.Forms.TabPage compunds;
     }
 }

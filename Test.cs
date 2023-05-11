@@ -176,16 +176,55 @@ namespace sqlcnet
         private void button_stat_Click(object sender, EventArgs e)
         {
             DataTable tbl_prof = new DataTable();
-            NpgsqlConnection conn;
-            string cs = "Server=192.168.2.131;Port=5432;User Id=arno; Database=ksi_cpds; Password=12345";
-            conn = new NpgsqlConnection(cs);
-            string sql_profile = "select * from profiles where batchid  in ("
-                  + string.Join(",", batch_list)
-                  + ")";
-            var cmd_profile = new NpgsqlCommand(sql_profile, conn);
-            var adp_profile = new NpgsqlDataAdapter(cmd_profile);
+            DataTable groupedDataTable = (DataTable)dg_test.DataSource;
+            List<string> batch_list = new List<string>(groupedDataTable.Rows.Count);
+            foreach (DataRow row in groupedDataTable.Rows)
+            {
+                batch_list.Add("'" + (string)row["batchid"] + "'");
+            }
 
-            adp_profile.Fill(tbl_prof);
+            NpgsqlConnection conn;
+            string cs_profile = "Server=192.168.2.131;Port=5432;User Id=arno; Database=ksilink_cpds; Password=12345";
+            conn = new NpgsqlConnection(cs_profile);
+            conn.Open();
+
+           
+
+            DataTable tbl_all_prof = new DataTable();
+            string sql_profile = "select * from profiles";
+            NpgsqlCommand cmd_profile = new NpgsqlCommand(sql_profile, conn);
+            Npgsql.NpgsqlDataReader Resource = cmd_profile.ExecuteReader();
+           
+            List<double[]> list_pro = new List<double[]>();
+
+            for (int i = 0; i < groupedDataTable.Rows.Count; i++)
+            {
+
+                double[] values = new double[groupedDataTable.Columns.Count];
+                for (int j = 0; j < groupedDataTable.Columns.Count; j++)
+                {
+                    if (groupedDataTable.Columns[j].ColumnName != "batchid" && IsNumericType(groupedDataTable.Columns[j].DataType))
+                    {
+
+                        double.TryParse(groupedDataTable.Rows[i][j].ToString(), out values[j]);
+                    }
+
+                }
+                list_pro.Add(values);
+
+            }
+
+            while (Resource.Read())
+            {
+                
+             
+            }
+
+
+           
+            MessageBox.Show("Done");
+
+
         }
     }
 }

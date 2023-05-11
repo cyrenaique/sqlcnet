@@ -11,12 +11,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using static Plotly.NET.StyleParam.LinearAxisId;
 
 namespace sqlcnet
 {
     public partial class TestForm : Form
     {
         //private DataTable _tabName;
+        
         public TestForm()
         {
             InitializeComponent();
@@ -288,8 +290,9 @@ namespace sqlcnet
             
             // display histogram probability curve as a line plot
             formsPlot1.Plot.AddFunction(hist.GetProbabilityCurve(list_dist.ToArray(), true), Color.DarkGreen, 2, LineStyle.Dash);
-            formsPlot1.Plot.AddVerticalLine(x: (double)numericUpDown_sim.Value, color: Color.Magenta, width: 2, style: LineStyle.Dot);
-
+            var vLine = formsPlot1.Plot.AddVerticalLine(x: (double)numericUpDown_sim.Value, color: Color.Magenta, width: 2, style: LineStyle.Dot);
+            vLine.DragEnabled = true;
+            numericUpDown_sim.Value =(decimal) vLine.X;
             // customize the plot style
             formsPlot1.Plot.Title("Similarity Distribution");
             //formsPlot1.Plot.YAxis.Label("Probability");
@@ -304,6 +307,16 @@ namespace sqlcnet
             save_same_profiles(list_sim, batchid);
 
 
+        }
+        
+
+        private void numericUpDown_sim_ValueChanged(object sender, EventArgs e)
+        {
+           
+            var vLine = formsPlot1.Plot.AddVerticalLine(x: (double)numericUpDown_sim.Value, color: Color.DarkRed, width: 2, style: LineStyle.Dot);
+            formsPlot1.Refresh();
+            formsPlot1.Plot.Remove(vLine);
+            
         }
     }
 }

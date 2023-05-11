@@ -113,6 +113,16 @@
             0,
             131072});
             this.numericUpDown_sim.Location = new System.Drawing.Point(849, 238);
+            this.numericUpDown_sim.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            65536});
+            this.numericUpDown_sim.Minimum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            -2147418112});
             this.numericUpDown_sim.Name = "numericUpDown_sim";
             this.numericUpDown_sim.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown_sim.TabIndex = 6;
@@ -121,6 +131,7 @@
             0,
             0,
             131072});
+            this.numericUpDown_sim.ValueChanged += new System.EventHandler(this.numericUpDown_sim_ValueChanged);
             // 
             // label1
             // 

@@ -37,6 +37,7 @@
             this.numericUpDown_sim = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.dgv_sim = new System.Windows.Forms.DataGridView();
+            this.checkBoxSave = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dg_test)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sim)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_sim)).BeginInit();
@@ -69,7 +70,7 @@
             this.checkedListBox_Signal.FormattingEnabled = true;
             this.checkedListBox_Signal.Location = new System.Drawing.Point(757, 22);
             this.checkedListBox_Signal.Name = "checkedListBox_Signal";
-            this.checkedListBox_Signal.Size = new System.Drawing.Size(230, 184);
+            this.checkedListBox_Signal.Size = new System.Drawing.Size(230, 169);
             this.checkedListBox_Signal.TabIndex = 2;
             this.checkedListBox_Signal.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_Signal_SelectedIndexChanged);
             // 
@@ -132,7 +133,7 @@
             this.numericUpDown_sim.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown_sim.TabIndex = 6;
             this.numericUpDown_sim.Value = new decimal(new int[] {
-            75,
+            45,
             0,
             0,
             131072});
@@ -160,11 +161,23 @@
             this.dgv_sim.TabIndex = 8;
             this.dgv_sim.Visible = false;
             // 
+            // checkBoxSave
+            // 
+            this.checkBoxSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxSave.AutoSize = true;
+            this.checkBoxSave.Location = new System.Drawing.Point(918, 202);
+            this.checkBoxSave.Name = "checkBoxSave";
+            this.checkBoxSave.Size = new System.Drawing.Size(51, 17);
+            this.checkBoxSave.TabIndex = 9;
+            this.checkBoxSave.Text = "Save";
+            this.checkBoxSave.UseVisualStyleBackColor = true;
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(999, 523);
+            this.Controls.Add(this.checkBoxSave);
             this.Controls.Add(this.dgv_sim);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown_sim);
@@ -195,5 +208,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDown_sim;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgv_sim;
+        private System.Windows.Forms.CheckBox checkBoxSave;
     }
 }

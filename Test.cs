@@ -21,6 +21,7 @@ namespace sqlcnet
         //private DataTable _tabName;
         int flag = 0;
         string batchid;
+        DataTable dataTable = new DataTable();
         public TestForm()
         {
             InitializeComponent();
@@ -263,7 +264,7 @@ namespace sqlcnet
             List<double> list_dist = new List<double>();
             List<string> list_batch = new List<string>();
             double sim = 0.0;
-            DataTable dataTable = new DataTable();
+            
 
             // add columns to the DataTable
             dataTable.Columns.Add("batchid", typeof(string));
@@ -334,7 +335,10 @@ namespace sqlcnet
             formsPlot1.Refresh();
 
             MessageBox.Show("Done");
-            save_same_profiles(list_batch_thre, batchid);
+            if (checkBoxSave.Checked)
+            {
+                save_same_profiles(list_batch_thre, batchid);
+            }
 
 
         }
@@ -345,7 +349,7 @@ namespace sqlcnet
             if (flag==1)
             {
                 
-                DataTable dt = (DataTable)dgv_sim.DataSource;
+                DataTable dt = dataTable;
                 List<string> list_batch_thre = new List<string>();
                 DataTable dt_new = new DataTable();
                 dt_new.Columns.Add("batchid", typeof(string));
@@ -364,7 +368,11 @@ namespace sqlcnet
                 dgv_sim.DataSource = dt_new;
                 dgv_sim.AutoGenerateColumns = true;
                 dgv_sim.Refresh();
-                save_same_profiles(list_batch_thre, batchid);
+                if (checkBoxSave.Checked)
+                {
+                    save_same_profiles(list_batch_thre, batchid);
+                }
+                
 
             }
 

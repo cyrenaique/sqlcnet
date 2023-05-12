@@ -36,8 +36,10 @@
             this.button_stat = new System.Windows.Forms.Button();
             this.numericUpDown_sim = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.dgv_sim = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dg_test)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sim)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_sim)).BeginInit();
             this.SuspendLayout();
             // 
             // webBrowser1
@@ -77,7 +79,7 @@
             this.dg_test.AllowUserToDeleteRows = false;
             this.dg_test.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.dg_test.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dg_test.Location = new System.Drawing.Point(757, 334);
+            this.dg_test.Location = new System.Drawing.Point(315, 316);
             this.dg_test.Name = "dg_test";
             this.dg_test.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dg_test.Size = new System.Drawing.Size(240, 150);
@@ -86,7 +88,7 @@
             // 
             // button_disp
             // 
-            this.button_disp.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.button_disp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_disp.Location = new System.Drawing.Point(894, 264);
             this.button_disp.Name = "button_disp";
             this.button_disp.Size = new System.Drawing.Size(75, 23);
@@ -97,7 +99,7 @@
             // 
             // button_stat
             // 
-            this.button_stat.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.button_stat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_stat.Location = new System.Drawing.Point(894, 293);
             this.button_stat.Name = "button_stat";
             this.button_stat.Size = new System.Drawing.Size(75, 23);
@@ -108,7 +110,7 @@
             // 
             // numericUpDown_sim
             // 
-            this.numericUpDown_sim.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.numericUpDown_sim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown_sim.DecimalPlaces = 2;
             this.numericUpDown_sim.Increment = new decimal(new int[] {
             5,
@@ -138,7 +140,7 @@
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(876, 222);
             this.label1.Name = "label1";
@@ -146,11 +148,24 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "threshold Similarity";
             // 
+            // dgv_sim
+            // 
+            this.dgv_sim.AllowUserToDeleteRows = false;
+            this.dgv_sim.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgv_sim.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_sim.Location = new System.Drawing.Point(765, 316);
+            this.dgv_sim.Name = "dgv_sim";
+            this.dgv_sim.Size = new System.Drawing.Size(204, 150);
+            this.dgv_sim.TabIndex = 8;
+            this.dgv_sim.Visible = false;
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(999, 523);
+            this.Controls.Add(this.dgv_sim);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown_sim);
             this.Controls.Add(this.button_stat);
@@ -163,6 +178,7 @@
             this.Text = "Test";
             ((System.ComponentModel.ISupportInitialize)(this.dg_test)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sim)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_sim)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,5 +194,6 @@
         private System.Windows.Forms.Button button_stat;
         private System.Windows.Forms.NumericUpDown numericUpDown_sim;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dgv_sim;
     }
 }

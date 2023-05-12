@@ -294,10 +294,10 @@ namespace sqlcnet
                 }
                 
             }
-            dg_test.DataSource = dataTable;
-            dg_test.AutoGenerateColumns = true;
-            dg_test.Refresh();
-            dg_test.Visible = true;
+            dgv_sim.DataSource = dataTable;
+            dgv_sim.AutoGenerateColumns = true;
+            dgv_sim.Refresh();
+            dgv_sim.Visible = true;
             flag = 1;
             formsPlot1.Plot.Clear();
             ScottPlot.Statistics.Histogram hist = new ScottPlot.Statistics.Histogram(min: -1, max: 1, binCount: 500);
@@ -336,7 +336,7 @@ namespace sqlcnet
             if (flag==1)
             {
                 
-                DataTable dt = (DataTable)dg_test.DataSource;
+                DataTable dt = (DataTable)dgv_sim.DataSource;
                 DataTable dt_new = new DataTable();
                 dt_new.Columns.Add("batchid", typeof(string));
                 dt_new.Columns.Add("Similarity", typeof(double));
@@ -350,9 +350,9 @@ namespace sqlcnet
                         dt_new.Rows.Add(row);
                     }
                 }
-                dg_test.DataSource = dt_new;
-                dg_test.AutoGenerateColumns = true;
-                dg_test.Refresh();
+                dgv_sim.DataSource = dt_new;
+                dgv_sim.AutoGenerateColumns = true;
+                dgv_sim.Refresh();
 
             }
 

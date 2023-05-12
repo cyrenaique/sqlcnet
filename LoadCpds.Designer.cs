@@ -576,6 +576,7 @@
             // 
             // textBox_gene
             // 
+            this.textBox_gene.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBox_gene.Location = new System.Drawing.Point(14, 32);
             this.textBox_gene.Name = "textBox_gene";
             this.textBox_gene.Size = new System.Drawing.Size(166, 20);

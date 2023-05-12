@@ -70,6 +70,9 @@ namespace sqlcnet
                 }
 
             }
+            formsPlot1.Plot.Title("Profiles");
+            //formsPlot1.Plot.YAxis.Label("Probability");           
+            
             //var bnColor = System.Drawing.ColorTranslator.FromHtml("#2e3440");
             //formsPlot1.Plot.Style(figureBackground: bnColor, dataBackground: bnColor);
 

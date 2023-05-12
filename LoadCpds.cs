@@ -26,6 +26,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using ScottPlot;
 using ScottPlot.Palettes;
 using System.Net.NetworkInformation;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace sqlcnet
 {
@@ -645,6 +646,7 @@ namespace sqlcnet
                 tbl_batchs_gene.Merge(tableResults_2);
                 conn_meta.Close();
             }
+            
 
             //get profiles
             if (tbl_batchs_gene.Rows.Count > 0)

@@ -275,7 +275,7 @@ namespace sqlcnet
                         "from genedis" +
                         " inner join disease on genedis.disid=disease.disid" +
                         "  inner join gene on genedis.geneid=gene.geneid " +
-                        " WHERE  cpdpath." + cmb2 + " IN (";
+                        " WHERE  genedis." + cmb2 + " IN (";
                 }
                 else if  (cmb == "cpdgene")
                     {
@@ -283,7 +283,7 @@ namespace sqlcnet
                         "  from cpdgene" +
                         "  inner join cpd on cpdgene.pubchemid=cpd.pubchemid" +
                         "  inner join gene on cpdgene.geneid=gene.geneid "+
-                        " WHERE  cpdpath." + cmb2 + " IN (";
+                        " WHERE  cpdgene." + cmb2 + " IN (";
                 }
                 else if (cmb == "cpdpath")
                 {

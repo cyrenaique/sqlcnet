@@ -269,7 +269,7 @@ namespace sqlcnet
                 string sql = "SELECT * FROM " + cmb + " WHERE " + cmb2 + " IN (";
 
 
-                if (cmb == "cpdgene"  || cmb == "genedis")
+                if ( cmb == "genedis")
                 {
                     sql = "select  disease.name as disease_Name, gene.symbol as Gene_symbol ,genedis.* " +
                         "from genedis" +

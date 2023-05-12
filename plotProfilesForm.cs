@@ -18,13 +18,13 @@ using static Plotly.NET.StyleParam.LinearAxisId;
 
 namespace sqlcnet
 {
-    public partial class plotForm : MaterialForm
+    public partial class plotProfilesForm : MaterialForm
     {
         //private DataTable _tabName;
         int flag = 0;
         string batchid;
         DataTable dataTable = new DataTable();
-        public plotForm()
+        public plotProfilesForm()
         {
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;

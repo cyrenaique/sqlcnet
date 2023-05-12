@@ -63,34 +63,34 @@
             this.dGV_cpds = new System.Windows.Forms.DataGridView();
             this.searchtb = new System.Windows.Forms.TabControl();
             this.profiles = new System.Windows.Forms.TabPage();
-            this.groupBox_way = new System.Windows.Forms.GroupBox();
-            this.equal_radioButton = new System.Windows.Forms.RadioButton();
-            this.startswith_radioButton = new System.Windows.Forms.RadioButton();
-            this.contains = new System.Windows.Forms.RadioButton();
-            this.groupBoxGeneBatch = new System.Windows.Forms.GroupBox();
-            this.radioButton_cpd = new System.Windows.Forms.RadioButton();
-            this.radioButton_gene = new System.Windows.Forms.RadioButton();
             this.plot_prof = new MaterialSkin.Controls.MaterialButton();
             this.save_profiles = new MaterialSkin.Controls.MaterialButton();
             this.get_profile = new MaterialSkin.Controls.MaterialButton();
             this.dGV_crisper = new System.Windows.Forms.DataGridView();
             this.search_tab = new System.Windows.Forms.TabPage();
             this.dGV_search = new System.Windows.Forms.DataGridView();
-            this.searchText = new System.Windows.Forms.TextBox();
             this.search_all_db = new MaterialSkin.Controls.MaterialButton();
             this.compunds = new System.Windows.Forms.TabPage();
             this.textBox_gene = new MaterialSkin.Controls.MaterialTextBox();
+            this.groupBoxGeneBatch = new System.Windows.Forms.GroupBox();
+            this.radioButton_gene = new MaterialSkin.Controls.MaterialRadioButton();
+            this.radioButton_cpd = new MaterialSkin.Controls.MaterialRadioButton();
+            this.groupBox_way = new System.Windows.Forms.GroupBox();
+            this.equal_radioButton = new MaterialSkin.Controls.MaterialRadioButton();
+            this.startswith_radioButton = new MaterialSkin.Controls.MaterialRadioButton();
+            this.contains = new MaterialSkin.Controls.MaterialRadioButton();
+            this.searchText = new MaterialSkin.Controls.MaterialTextBox();
             this.toolStrip1.SuspendLayout();
             this.search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).BeginInit();
             this.searchtb.SuspendLayout();
             this.profiles.SuspendLayout();
-            this.groupBox_way.SuspendLayout();
-            this.groupBoxGeneBatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_crisper)).BeginInit();
             this.search_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_search)).BeginInit();
+            this.groupBoxGeneBatch.SuspendLayout();
+            this.groupBox_way.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -109,7 +109,7 @@
             this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(3, 64);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1445, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1280, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -226,7 +226,7 @@
             this.swap.Depth = 0;
             this.swap.HighEmphasis = true;
             this.swap.Icon = null;
-            this.swap.Location = new System.Drawing.Point(674, 247);
+            this.swap.Location = new System.Drawing.Point(564, 216);
             this.swap.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.swap.MouseState = MaterialSkin.MouseState.HOVER;
             this.swap.Name = "swap";
@@ -260,7 +260,7 @@
             this.search.Location = new System.Drawing.Point(4, 22);
             this.search.Name = "search";
             this.search.Padding = new System.Windows.Forms.Padding(3);
-            this.search.Size = new System.Drawing.Size(1382, 623);
+            this.search.Size = new System.Drawing.Size(1217, 544);
             this.search.TabIndex = 0;
             this.search.Text = "Meta Data";
             this.search.UseVisualStyleBackColor = true;
@@ -272,7 +272,7 @@
             this.save.Depth = 0;
             this.save.HighEmphasis = true;
             this.save.Icon = null;
-            this.save.Location = new System.Drawing.Point(1079, 572);
+            this.save.Location = new System.Drawing.Point(872, 458);
             this.save.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.save.MouseState = MaterialSkin.MouseState.HOVER;
             this.save.Name = "save";
@@ -347,7 +347,7 @@
             this.plot_results.Depth = 0;
             this.plot_results.HighEmphasis = true;
             this.plot_results.Icon = null;
-            this.plot_results.Location = new System.Drawing.Point(469, 572);
+            this.plot_results.Location = new System.Drawing.Point(461, 464);
             this.plot_results.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.plot_results.MouseState = MaterialSkin.MouseState.HOVER;
             this.plot_results.Name = "plot_results";
@@ -365,7 +365,7 @@
             this.materialLabel5.AutoSize = true;
             this.materialLabel5.Depth = 0;
             this.materialLabel5.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel5.Location = new System.Drawing.Point(269, 570);
+            this.materialLabel5.Location = new System.Drawing.Point(261, 462);
             this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel5.Name = "materialLabel5";
             this.materialLabel5.Size = new System.Drawing.Size(11, 19);
@@ -386,7 +386,7 @@
             this.y_combo.FormattingEnabled = true;
             this.y_combo.IntegralHeight = false;
             this.y_combo.ItemHeight = 43;
-            this.y_combo.Location = new System.Drawing.Point(286, 566);
+            this.y_combo.Location = new System.Drawing.Point(278, 458);
             this.y_combo.MaxDropDownItems = 4;
             this.y_combo.MouseState = MaterialSkin.MouseState.OUT;
             this.y_combo.Name = "y_combo";
@@ -399,7 +399,7 @@
             this.materialLabel4.AutoSize = true;
             this.materialLabel4.Depth = 0;
             this.materialLabel4.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel4.Location = new System.Drawing.Point(58, 572);
+            this.materialLabel4.Location = new System.Drawing.Point(50, 464);
             this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel4.Name = "materialLabel4";
             this.materialLabel4.Size = new System.Drawing.Size(11, 19);
@@ -432,7 +432,7 @@
             this.x_combo.FormattingEnabled = true;
             this.x_combo.IntegralHeight = false;
             this.x_combo.ItemHeight = 43;
-            this.x_combo.Location = new System.Drawing.Point(75, 566);
+            this.x_combo.Location = new System.Drawing.Point(67, 458);
             this.x_combo.MaxDropDownItems = 4;
             this.x_combo.MouseState = MaterialSkin.MouseState.OUT;
             this.x_combo.Name = "x_combo";
@@ -464,9 +464,9 @@
             this.dGV_results.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dGV_results.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dGV_results.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_results.Location = new System.Drawing.Point(774, 83);
+            this.dGV_results.Location = new System.Drawing.Point(652, 83);
             this.dGV_results.Name = "dGV_results";
-            this.dGV_results.Size = new System.Drawing.Size(584, 414);
+            this.dGV_results.Size = new System.Drawing.Size(486, 346);
             this.dGV_results.TabIndex = 0;
             this.dGV_results.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_results_CellDoubleClick);
             this.dGV_results.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dGV_results_ColumnHeaderMouseDoubleClick);
@@ -504,7 +504,7 @@
             this.dGV_cpds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_cpds.Location = new System.Drawing.Point(9, 83);
             this.dGV_cpds.Name = "dGV_cpds";
-            this.dGV_cpds.Size = new System.Drawing.Size(659, 414);
+            this.dGV_cpds.Size = new System.Drawing.Size(548, 352);
             this.dGV_cpds.TabIndex = 0;
             // 
             // searchtb
@@ -519,14 +519,14 @@
             this.searchtb.Location = new System.Drawing.Point(17, 92);
             this.searchtb.Name = "searchtb";
             this.searchtb.SelectedIndex = 0;
-            this.searchtb.Size = new System.Drawing.Size(1390, 649);
+            this.searchtb.Size = new System.Drawing.Size(1225, 570);
             this.searchtb.TabIndex = 28;
             // 
             // profiles
             // 
-            this.profiles.Controls.Add(this.textBox_gene);
             this.profiles.Controls.Add(this.groupBox_way);
             this.profiles.Controls.Add(this.groupBoxGeneBatch);
+            this.profiles.Controls.Add(this.textBox_gene);
             this.profiles.Controls.Add(this.plot_prof);
             this.profiles.Controls.Add(this.save_profiles);
             this.profiles.Controls.Add(this.get_profile);
@@ -538,84 +538,6 @@
             this.profiles.Text = "Profiles";
             this.profiles.UseVisualStyleBackColor = true;
             // 
-            // groupBox_way
-            // 
-            this.groupBox_way.Controls.Add(this.equal_radioButton);
-            this.groupBox_way.Controls.Add(this.startswith_radioButton);
-            this.groupBox_way.Controls.Add(this.contains);
-            this.groupBox_way.Location = new System.Drawing.Point(321, 9);
-            this.groupBox_way.Name = "groupBox_way";
-            this.groupBox_way.Size = new System.Drawing.Size(147, 80);
-            this.groupBox_way.TabIndex = 16;
-            this.groupBox_way.TabStop = false;
-            this.groupBox_way.Text = "How search";
-            // 
-            // equal_radioButton
-            // 
-            this.equal_radioButton.AutoSize = true;
-            this.equal_radioButton.Checked = true;
-            this.equal_radioButton.Location = new System.Drawing.Point(6, 17);
-            this.equal_radioButton.Name = "equal_radioButton";
-            this.equal_radioButton.Size = new System.Drawing.Size(51, 17);
-            this.equal_radioButton.TabIndex = 9;
-            this.equal_radioButton.TabStop = true;
-            this.equal_radioButton.Text = "equal";
-            this.equal_radioButton.UseVisualStyleBackColor = true;
-            // 
-            // startswith_radioButton
-            // 
-            this.startswith_radioButton.AutoSize = true;
-            this.startswith_radioButton.Location = new System.Drawing.Point(6, 37);
-            this.startswith_radioButton.Name = "startswith_radioButton";
-            this.startswith_radioButton.Size = new System.Drawing.Size(50, 17);
-            this.startswith_radioButton.TabIndex = 10;
-            this.startswith_radioButton.Text = "starts";
-            this.startswith_radioButton.UseVisualStyleBackColor = true;
-            // 
-            // contains
-            // 
-            this.contains.AutoSize = true;
-            this.contains.Location = new System.Drawing.Point(6, 57);
-            this.contains.Name = "contains";
-            this.contains.Size = new System.Drawing.Size(65, 17);
-            this.contains.TabIndex = 8;
-            this.contains.Text = "contains";
-            this.contains.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxGeneBatch
-            // 
-            this.groupBoxGeneBatch.Controls.Add(this.radioButton_cpd);
-            this.groupBoxGeneBatch.Controls.Add(this.radioButton_gene);
-            this.groupBoxGeneBatch.Location = new System.Drawing.Point(186, 16);
-            this.groupBoxGeneBatch.Name = "groupBoxGeneBatch";
-            this.groupBoxGeneBatch.Size = new System.Drawing.Size(129, 73);
-            this.groupBoxGeneBatch.TabIndex = 15;
-            this.groupBoxGeneBatch.TabStop = false;
-            this.groupBoxGeneBatch.Text = "Search in";
-            // 
-            // radioButton_cpd
-            // 
-            this.radioButton_cpd.AutoSize = true;
-            this.radioButton_cpd.Location = new System.Drawing.Point(6, 40);
-            this.radioButton_cpd.Name = "radioButton_cpd";
-            this.radioButton_cpd.Size = new System.Drawing.Size(80, 17);
-            this.radioButton_cpd.TabIndex = 1;
-            this.radioButton_cpd.TabStop = true;
-            this.radioButton_cpd.Text = "compounds";
-            this.radioButton_cpd.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_gene
-            // 
-            this.radioButton_gene.AutoSize = true;
-            this.radioButton_gene.Checked = true;
-            this.radioButton_gene.Location = new System.Drawing.Point(6, 17);
-            this.radioButton_gene.Name = "radioButton_gene";
-            this.radioButton_gene.Size = new System.Drawing.Size(51, 17);
-            this.radioButton_gene.TabIndex = 0;
-            this.radioButton_gene.TabStop = true;
-            this.radioButton_gene.Text = "Gene";
-            this.radioButton_gene.UseVisualStyleBackColor = true;
-            // 
             // plot_prof
             // 
             this.plot_prof.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -625,7 +547,7 @@
             this.plot_prof.ForeColor = System.Drawing.Color.Black;
             this.plot_prof.HighEmphasis = true;
             this.plot_prof.Icon = null;
-            this.plot_prof.Location = new System.Drawing.Point(281, 150);
+            this.plot_prof.Location = new System.Drawing.Point(423, 283);
             this.plot_prof.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.plot_prof.MouseState = MaterialSkin.MouseState.HOVER;
             this.plot_prof.Name = "plot_prof";
@@ -646,7 +568,7 @@
             this.save_profiles.Depth = 0;
             this.save_profiles.HighEmphasis = true;
             this.save_profiles.Icon = null;
-            this.save_profiles.Location = new System.Drawing.Point(91, 150);
+            this.save_profiles.Location = new System.Drawing.Point(260, 283);
             this.save_profiles.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.save_profiles.MouseState = MaterialSkin.MouseState.HOVER;
             this.save_profiles.Name = "save_profiles";
@@ -666,7 +588,7 @@
             this.get_profile.Depth = 0;
             this.get_profile.HighEmphasis = true;
             this.get_profile.Icon = null;
-            this.get_profile.Location = new System.Drawing.Point(495, 37);
+            this.get_profile.Location = new System.Drawing.Point(496, 146);
             this.get_profile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.get_profile.MouseState = MaterialSkin.MouseState.HOVER;
             this.get_profile.Name = "get_profile";
@@ -692,8 +614,8 @@
             // 
             // search_tab
             // 
-            this.search_tab.Controls.Add(this.dGV_search);
             this.search_tab.Controls.Add(this.searchText);
+            this.search_tab.Controls.Add(this.dGV_search);
             this.search_tab.Controls.Add(this.search_all_db);
             this.search_tab.Location = new System.Drawing.Point(4, 22);
             this.search_tab.Name = "search_tab";
@@ -716,13 +638,6 @@
             this.dGV_search.Size = new System.Drawing.Size(976, 542);
             this.dGV_search.TabIndex = 2;
             // 
-            // searchText
-            // 
-            this.searchText.Location = new System.Drawing.Point(74, 49);
-            this.searchText.Name = "searchText";
-            this.searchText.Size = new System.Drawing.Size(100, 20);
-            this.searchText.TabIndex = 1;
-            // 
             // search_all_db
             // 
             this.search_all_db.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -730,14 +645,14 @@
             this.search_all_db.Depth = 0;
             this.search_all_db.HighEmphasis = true;
             this.search_all_db.Icon = null;
-            this.search_all_db.Location = new System.Drawing.Point(220, 44);
+            this.search_all_db.Location = new System.Drawing.Point(134, 148);
             this.search_all_db.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.search_all_db.MouseState = MaterialSkin.MouseState.HOVER;
             this.search_all_db.Name = "search_all_db";
             this.search_all_db.NoAccentTextColor = System.Drawing.Color.Empty;
             this.search_all_db.Size = new System.Drawing.Size(97, 36);
             this.search_all_db.TabIndex = 0;
-            this.search_all_db.Text = "SearchDB";
+            this.search_all_db.Text = "Search in DB";
             this.search_all_db.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.search_all_db.UseAccentColor = false;
             this.search_all_db.UseVisualStyleBackColor = true;
@@ -759,21 +674,143 @@
             this.textBox_gene.Depth = 0;
             this.textBox_gene.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.textBox_gene.LeadingIcon = null;
-            this.textBox_gene.Location = new System.Drawing.Point(14, 31);
+            this.textBox_gene.Location = new System.Drawing.Point(48, 23);
             this.textBox_gene.MaxLength = 50;
             this.textBox_gene.MouseState = MaterialSkin.MouseState.OUT;
             this.textBox_gene.Multiline = false;
             this.textBox_gene.Name = "textBox_gene";
-            this.textBox_gene.Size = new System.Drawing.Size(166, 50);
+            this.textBox_gene.Size = new System.Drawing.Size(313, 50);
             this.textBox_gene.TabIndex = 17;
             this.textBox_gene.Text = "";
             this.textBox_gene.TrailingIcon = null;
+            // 
+            // groupBoxGeneBatch
+            // 
+            this.groupBoxGeneBatch.Controls.Add(this.radioButton_cpd);
+            this.groupBoxGeneBatch.Controls.Add(this.radioButton_gene);
+            this.groupBoxGeneBatch.Location = new System.Drawing.Point(14, 108);
+            this.groupBoxGeneBatch.Name = "groupBoxGeneBatch";
+            this.groupBoxGeneBatch.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxGeneBatch.TabIndex = 18;
+            this.groupBoxGeneBatch.TabStop = false;
+            this.groupBoxGeneBatch.Text = "search in";
+            // 
+            // radioButton_gene
+            // 
+            this.radioButton_gene.AutoSize = true;
+            this.radioButton_gene.Checked = true;
+            this.radioButton_gene.Depth = 0;
+            this.radioButton_gene.Location = new System.Drawing.Point(3, 16);
+            this.radioButton_gene.Margin = new System.Windows.Forms.Padding(0);
+            this.radioButton_gene.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.radioButton_gene.MouseState = MaterialSkin.MouseState.HOVER;
+            this.radioButton_gene.Name = "radioButton_gene";
+            this.radioButton_gene.Ripple = true;
+            this.radioButton_gene.Size = new System.Drawing.Size(71, 37);
+            this.radioButton_gene.TabIndex = 0;
+            this.radioButton_gene.TabStop = true;
+            this.radioButton_gene.Text = "Gene";
+            this.radioButton_gene.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_cpd
+            // 
+            this.radioButton_cpd.AutoSize = true;
+            this.radioButton_cpd.Depth = 0;
+            this.radioButton_cpd.Location = new System.Drawing.Point(3, 63);
+            this.radioButton_cpd.Margin = new System.Windows.Forms.Padding(0);
+            this.radioButton_cpd.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.radioButton_cpd.MouseState = MaterialSkin.MouseState.HOVER;
+            this.radioButton_cpd.Name = "radioButton_cpd";
+            this.radioButton_cpd.Ripple = true;
+            this.radioButton_cpd.Size = new System.Drawing.Size(119, 37);
+            this.radioButton_cpd.TabIndex = 1;
+            this.radioButton_cpd.TabStop = true;
+            this.radioButton_cpd.Text = "compounds";
+            this.radioButton_cpd.UseVisualStyleBackColor = true;
+            // 
+            // groupBox_way
+            // 
+            this.groupBox_way.Controls.Add(this.contains);
+            this.groupBox_way.Controls.Add(this.startswith_radioButton);
+            this.groupBox_way.Controls.Add(this.equal_radioButton);
+            this.groupBox_way.Location = new System.Drawing.Point(260, 88);
+            this.groupBox_way.Name = "groupBox_way";
+            this.groupBox_way.Size = new System.Drawing.Size(200, 142);
+            this.groupBox_way.TabIndex = 19;
+            this.groupBox_way.TabStop = false;
+            this.groupBox_way.Text = "How search";
+            // 
+            // equal_radioButton
+            // 
+            this.equal_radioButton.AutoSize = true;
+            this.equal_radioButton.Checked = true;
+            this.equal_radioButton.Depth = 0;
+            this.equal_radioButton.Location = new System.Drawing.Point(3, 16);
+            this.equal_radioButton.Margin = new System.Windows.Forms.Padding(0);
+            this.equal_radioButton.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.equal_radioButton.MouseState = MaterialSkin.MouseState.HOVER;
+            this.equal_radioButton.Name = "equal_radioButton";
+            this.equal_radioButton.Ripple = true;
+            this.equal_radioButton.Size = new System.Drawing.Size(74, 37);
+            this.equal_radioButton.TabIndex = 0;
+            this.equal_radioButton.TabStop = true;
+            this.equal_radioButton.Text = "equal";
+            this.equal_radioButton.UseVisualStyleBackColor = true;
+            // 
+            // startswith_radioButton
+            // 
+            this.startswith_radioButton.AutoSize = true;
+            this.startswith_radioButton.Depth = 0;
+            this.startswith_radioButton.Location = new System.Drawing.Point(3, 58);
+            this.startswith_radioButton.Margin = new System.Windows.Forms.Padding(0);
+            this.startswith_radioButton.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.startswith_radioButton.MouseState = MaterialSkin.MouseState.HOVER;
+            this.startswith_radioButton.Name = "startswith_radioButton";
+            this.startswith_radioButton.Ripple = true;
+            this.startswith_radioButton.Size = new System.Drawing.Size(109, 37);
+            this.startswith_radioButton.TabIndex = 1;
+            this.startswith_radioButton.TabStop = true;
+            this.startswith_radioButton.Text = "starts with";
+            this.startswith_radioButton.UseVisualStyleBackColor = true;
+            // 
+            // contains
+            // 
+            this.contains.AutoSize = true;
+            this.contains.Depth = 0;
+            this.contains.Location = new System.Drawing.Point(3, 102);
+            this.contains.Margin = new System.Windows.Forms.Padding(0);
+            this.contains.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.contains.MouseState = MaterialSkin.MouseState.HOVER;
+            this.contains.Name = "contains";
+            this.contains.Ripple = true;
+            this.contains.Size = new System.Drawing.Size(96, 37);
+            this.contains.TabIndex = 2;
+            this.contains.TabStop = true;
+            this.contains.Text = "contains";
+            this.contains.UseVisualStyleBackColor = true;
+            // 
+            // searchText
+            // 
+            this.searchText.AnimateReadOnly = false;
+            this.searchText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.searchText.Depth = 0;
+            this.searchText.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.searchText.LeadingIcon = null;
+            this.searchText.Location = new System.Drawing.Point(42, 76);
+            this.searchText.MaxLength = 50;
+            this.searchText.MouseState = MaterialSkin.MouseState.OUT;
+            this.searchText.Multiline = false;
+            this.searchText.Name = "searchText";
+            this.searchText.Size = new System.Drawing.Size(274, 50);
+            this.searchText.TabIndex = 3;
+            this.searchText.Text = "";
+            this.searchText.TrailingIcon = null;
             // 
             // LoadCpdsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1451, 755);
+            this.ClientSize = new System.Drawing.Size(1286, 676);
             this.Controls.Add(this.searchtb);
             this.Controls.Add(this.toolStrip1);
             this.Name = "LoadCpdsForm";
@@ -787,14 +824,14 @@
             this.searchtb.ResumeLayout(false);
             this.profiles.ResumeLayout(false);
             this.profiles.PerformLayout();
-            this.groupBox_way.ResumeLayout(false);
-            this.groupBox_way.PerformLayout();
-            this.groupBoxGeneBatch.ResumeLayout(false);
-            this.groupBoxGeneBatch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_crisper)).EndInit();
             this.search_tab.ResumeLayout(false);
             this.search_tab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_search)).EndInit();
+            this.groupBoxGeneBatch.ResumeLayout(false);
+            this.groupBoxGeneBatch.PerformLayout();
+            this.groupBox_way.ResumeLayout(false);
+            this.groupBox_way.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -826,18 +863,10 @@
         public System.Windows.Forms.DataGridView dGV_cpds;
         private System.Windows.Forms.DataGridView dGV_crisper;
         private System.Windows.Forms.TabPage search_tab;
-        public System.Windows.Forms.TextBox searchText;
         public System.Windows.Forms.DataGridView dGV_search;
-        private System.Windows.Forms.RadioButton equal_radioButton;
-        private System.Windows.Forms.RadioButton contains;
-        private System.Windows.Forms.RadioButton startswith_radioButton;
         public System.Windows.Forms.TabControl searchtb;
         public System.Windows.Forms.TabPage profiles;
         private System.Windows.Forms.TabPage compunds;
-        private System.Windows.Forms.GroupBox groupBoxGeneBatch;
-        private System.Windows.Forms.RadioButton radioButton_cpd;
-        private System.Windows.Forms.RadioButton radioButton_gene;
-        private System.Windows.Forms.GroupBox groupBox_way;
         private MaterialSkin.Controls.MaterialComboBox comboBox_mapping;
         private MaterialSkin.Controls.MaterialComboBox comboBox_fields;
         private MaterialSkin.Controls.MaterialComboBox y_combo;
@@ -851,5 +880,13 @@
         private MaterialSkin.Controls.MaterialButton save_profiles;
         private MaterialSkin.Controls.MaterialButton plot_prof;
         private MaterialSkin.Controls.MaterialTextBox textBox_gene;
+        private System.Windows.Forms.GroupBox groupBox_way;
+        private MaterialSkin.Controls.MaterialRadioButton contains;
+        private MaterialSkin.Controls.MaterialRadioButton startswith_radioButton;
+        private MaterialSkin.Controls.MaterialRadioButton equal_radioButton;
+        private System.Windows.Forms.GroupBox groupBoxGeneBatch;
+        private MaterialSkin.Controls.MaterialRadioButton radioButton_cpd;
+        private MaterialSkin.Controls.MaterialRadioButton radioButton_gene;
+        private MaterialSkin.Controls.MaterialTextBox searchText;
     }
 }

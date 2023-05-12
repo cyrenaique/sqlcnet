@@ -269,18 +269,45 @@ namespace sqlcnet
                 string sql = "SELECT * FROM " + cmb + " WHERE " + cmb2 + " IN (";
 
 
-                if (cmb == "cpdgene" || cmb == "genepath" || cmb == "genedis")
+                if (cmb == "cpdgene"  || cmb == "genedis")
                 {
-                    sql = "SELECT " + cmb + ".*, gene.name, gene.symbol FROM " + cmb + " JOIN gene ON gene.geneid= " + cmb + ".geneid WHERE  " + cmb + "." + cmb2 + " IN (";
+                    sql = "select  disease.name as disease_Name, gene.symbol as Gene_symbol ,genedis.* " +
+                        "from genedis" +
+                        " inner join disease on genedis.disid=disease.disid" +
+                        "  inner join gene on genedis.geneid=gene.geneid " +
+                        " WHERE  cpdpath." + cmb2 + " IN (";
                 }
-                if (cmb == "cpdpath")
+                else if  (cmb == "cpdgene")
+                    {
+                    sql= "select  cpd.name as Compound_Name, gene.symbol as Gene_symbol ,cpdgene.*" +
+                        "  from cpdgene" +
+                        "  inner join cpd on cpdgene.pubchemid=cpd.pubchemid" +
+                        "  inner join gene on cpdgene.geneid=gene.geneid "+
+                        " WHERE  cpdpath." + cmb2 + " IN (";
+                }
+                else if (cmb == "cpdpath")
                 {
-                    sql = "SELECT " + cmb + ".*, pathway.name FROM " + cmb + " JOIN pathway ON pathway.pathid= " + cmb + ".pathid WHERE  " + cmb + "." + cmb2 + " IN (";
+                    sql = "select  cpd.name as Compound_Name, pathway.name as Pathway_Name ,cpdpath.*" +
+                        " from cpdpath " +
+                        " inner join cpd on cpdpath.pubchemid=cpd.pubchemid " +
+                        " inner join pathway on cpdpath.pathid=pathway.pathid " +
+                        " WHERE  cpdpath." + cmb2 + " IN (";
                 }
 
-                if (cmb == "cpddis")
+                else if (cmb == "cpddis")
                 {
-                    sql = "SELECT " + cmb + ".*, disease.name FROM " + cmb + " JOIN disease ON disease.disid= " + cmb + ".disid WHERE  " + cmb + "." + cmb2 + " IN (";
+                    sql = "select   cpd.name as Compound_Name ,disease.name as disease_Name , cpddis.* " +
+                        "from cpddis " +
+                        "inner join cpd on cpddis.pubchemid=cpd.pubchemid " +
+                        "inner join disease on cpddis.disid=disease.disid "+
+                        " WHERE  cpddis." + cmb2 + " IN (";
+                }
+                else if (cmb == "genepath")
+                {
+                    sql = "select pathway.name as Pathway_Name ,gene.symbol as Gene_Symbol, genepath.*" +
+                        " from genepath  inner join pathway on genepath.pathid=pathway.pathid " +
+                        " inner join gene on genepath.geneid=gene.geneid "+
+                        " WHERE  genepath." + cmb2 + " IN (";
                 }
 
                 // Add a parameter placeholder for each value in the stringList
@@ -580,7 +607,7 @@ namespace sqlcnet
                 }
                 if (startswith_radioButton.Checked)
                 {
-                    sql_last_line = $" where UPPER({tbl_to_serach}.{col}) LIKE UPPER('% {search_text} ') ";
+                    sql_last_line = $" where UPPER({tbl_to_serach}.{col}) LIKE UPPER('{search_text}%') ";
                 }
 
                 //crisper
@@ -616,6 +643,7 @@ namespace sqlcnet
                 var tableResults_2 = new DataTable();
                 adapter_2.Fill(tableResults_2);
                 tbl_batchs_gene.Merge(tableResults_2);
+                conn_meta.Close();
             }
 
             //get profiles
@@ -626,7 +654,7 @@ namespace sqlcnet
                 {
                     batch_list.Add("'" + (string)row["batchid"] + "'");
                 }
-                conn_meta.Close();
+                
                 // get profiles
 
                 conn_profile = new NpgsqlConnection(cs_profile);
@@ -640,6 +668,7 @@ namespace sqlcnet
                 var cmd_profile = new NpgsqlCommand(sql_profile, conn_profile);
                 var adp_profile = new NpgsqlDataAdapter(cmd_profile);
                 adp_profile.Fill(tbl_profiles);
+                conn_profile.Close();
 
                 // add pubchemid or geneid to table
                 DataTable distinctTable = tbl_batchs_gene.DefaultView.ToTable(true, col_to_add, "batchid");
@@ -679,6 +708,7 @@ namespace sqlcnet
 
                     }
                 }
+
                 tbl_batchs_gene = tbl_profiles.DefaultView.ToTable(true, "source", col_to_add, "batchid");
                 dGV_crisper.DataSource = tbl_batchs_gene;
                 foreach (DataGridViewRow row in dGV_crisper.Rows)
@@ -761,11 +791,7 @@ namespace sqlcnet
             return type == typeof(decimal) || type == typeof(double) || type == typeof(float) || type == typeof(int) || type == typeof(long) || type == typeof(short);
         }
 
-       
-
-      
-
-        
+  
 
         private void plot_prof_Click(object sender, EventArgs e)
         {

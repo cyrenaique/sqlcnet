@@ -630,7 +630,7 @@
             this.compunds.Name = "compunds";
             this.compunds.Size = new System.Drawing.Size(1382, 623);
             this.compunds.TabIndex = 3;
-            this.compunds.Text = "compunds";
+            this.compunds.Text = "compounds";
             this.compunds.UseVisualStyleBackColor = true;
             // 
             // LoadCpdsForm

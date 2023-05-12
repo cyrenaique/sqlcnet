@@ -355,6 +355,7 @@ namespace sqlcnet
                         row["batchid"] = dt.Rows[i]["batchid"];
                         row["Similarity"] = dt.Rows[i]["Similarity"];
                         dt_new.Rows.Add(row);
+                        list_batch_thre.Add(dt.Rows[i]["batchid"].ToString());
                     }
                 }
                 dgv_sim.DataSource = dt_new;

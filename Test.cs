@@ -20,6 +20,7 @@ namespace sqlcnet
     {
         //private DataTable _tabName;
         int flag = 0;
+        string batchid;
         public TestForm()
         {
             InitializeComponent();
@@ -214,7 +215,7 @@ namespace sqlcnet
 
 
             DataTable tbl_all_prof = new DataTable();
-            string batchid = checkedListBox_Signal.SelectedItem.ToString().Split('+')[0];
+            batchid = checkedListBox_Signal.SelectedItem.ToString().Split('+')[0];
             string source_cpd = checkedListBox_Signal.SelectedItem.ToString().Split('+')[1];
             string sql_profile = "select * from aggprofiles where source=" + "'" + source_cpd + "'";
             NpgsqlCommand cmd_profile = new NpgsqlCommand(sql_profile, conn);
@@ -283,6 +284,8 @@ namespace sqlcnet
                 //}
 
             }
+            List<double> list_dist_thre = new List<double>();
+            List<string> list_batch_thre = new List<string>();
             for (int i = 0; i < list_batch.Count; i++)
             {
                 if (list_dist[i] > (double)numericUpDown_sim.Value)
@@ -291,6 +294,9 @@ namespace sqlcnet
                     row["batchid"] = list_batch[i];
                     row["Similarity"] = list_dist[i];
                     dataTable.Rows.Add(row);
+                    list_dist_thre.Add(list_dist[i]);
+                    list_batch_thre.Add(list_batch[i]);
+
                 }
                 
             }
@@ -325,7 +331,7 @@ namespace sqlcnet
             formsPlot1.Refresh();
 
             MessageBox.Show("Done");
-            save_same_profiles(list_batch, batchid);
+            save_same_profiles(list_batch_thre, batchid);
 
 
         }
@@ -337,6 +343,7 @@ namespace sqlcnet
             {
                 
                 DataTable dt = (DataTable)dgv_sim.DataSource;
+                List<string> list_batch_thre = new List<string>();
                 DataTable dt_new = new DataTable();
                 dt_new.Columns.Add("batchid", typeof(string));
                 dt_new.Columns.Add("Similarity", typeof(double));
@@ -353,6 +360,7 @@ namespace sqlcnet
                 dgv_sim.DataSource = dt_new;
                 dgv_sim.AutoGenerateColumns = true;
                 dgv_sim.Refresh();
+                save_same_profiles(list_batch_thre, batchid);
 
             }
 

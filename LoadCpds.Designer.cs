@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadCpdsForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -46,8 +47,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolTip_swap = new System.Windows.Forms.ToolTip(this.components);
             this.swap = new MaterialSkin.Controls.MaterialButton();
-            this.search = new System.Windows.Forms.TabPage();
-            this.save = new MaterialSkin.Controls.MaterialButton();
+            this.search_tab = new System.Windows.Forms.TabPage();
             this.comboBox_mapping = new MaterialSkin.Controls.MaterialComboBox();
             this.comboBox_fields = new MaterialSkin.Controls.MaterialComboBox();
             this.selectLabel = new MaterialSkin.Controls.MaterialLabel();
@@ -60,17 +60,15 @@
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.dGV_results = new System.Windows.Forms.DataGridView();
             this.comboBox_tables = new MaterialSkin.Controls.MaterialComboBox();
-            this.dGV_cpds = new System.Windows.Forms.DataGridView();
             this.searchtb = new System.Windows.Forms.TabControl();
-            this.profiles = new System.Windows.Forms.TabPage();
+            this.profiles_tab = new System.Windows.Forms.TabPage();
             this.plot_prof = new MaterialSkin.Controls.MaterialButton();
-            this.save_profiles = new MaterialSkin.Controls.MaterialButton();
             this.get_profile = new MaterialSkin.Controls.MaterialButton();
             this.dGV_crisper = new System.Windows.Forms.DataGridView();
-            this.search_tab = new System.Windows.Forms.TabPage();
+            this.search_all_tab = new System.Windows.Forms.TabPage();
             this.dGV_search = new System.Windows.Forms.DataGridView();
             this.search_all_db = new MaterialSkin.Controls.MaterialButton();
-            this.compunds = new System.Windows.Forms.TabPage();
+            this.compunds_tab = new System.Windows.Forms.TabPage();
             this.textBox_gene = new MaterialSkin.Controls.MaterialTextBox();
             this.groupBoxGeneBatch = new System.Windows.Forms.GroupBox();
             this.radioButton_gene = new MaterialSkin.Controls.MaterialRadioButton();
@@ -80,17 +78,18 @@
             this.startswith_radioButton = new MaterialSkin.Controls.MaterialRadioButton();
             this.contains = new MaterialSkin.Controls.MaterialRadioButton();
             this.searchText = new MaterialSkin.Controls.MaterialTextBox();
+            this.dGV_cpds = new System.Windows.Forms.DataGridView();
             this.toolStrip1.SuspendLayout();
-            this.search.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).BeginInit();
-            this.searchtb.SuspendLayout();
-            this.profiles.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGV_crisper)).BeginInit();
             this.search_tab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
+            this.searchtb.SuspendLayout();
+            this.profiles_tab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_crisper)).BeginInit();
+            this.search_all_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_search)).BeginInit();
             this.groupBoxGeneBatch.SuspendLayout();
             this.groupBox_way.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -109,7 +108,7 @@
             this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(3, 64);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1280, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1207, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -140,6 +139,7 @@
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.saveToolStripButton.Text = "&Save";
+            this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
             // printToolStripButton
             // 
@@ -226,7 +226,7 @@
             this.swap.Depth = 0;
             this.swap.HighEmphasis = true;
             this.swap.Icon = null;
-            this.swap.Location = new System.Drawing.Point(564, 216);
+            this.swap.Location = new System.Drawing.Point(550, 219);
             this.swap.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.swap.MouseState = MaterialSkin.MouseState.HOVER;
             this.swap.Name = "swap";
@@ -240,49 +240,29 @@
             this.swap.UseVisualStyleBackColor = true;
             this.swap.Click += new System.EventHandler(this.swap_Click);
             // 
-            // search
+            // search_tab
             // 
-            this.search.Controls.Add(this.save);
-            this.search.Controls.Add(this.comboBox_mapping);
-            this.search.Controls.Add(this.comboBox_fields);
-            this.search.Controls.Add(this.selectLabel);
-            this.search.Controls.Add(this.plot_results);
-            this.search.Controls.Add(this.materialLabel5);
-            this.search.Controls.Add(this.y_combo);
-            this.search.Controls.Add(this.materialLabel4);
-            this.search.Controls.Add(this.materialLabel1);
-            this.search.Controls.Add(this.x_combo);
-            this.search.Controls.Add(this.materialLabel2);
-            this.search.Controls.Add(this.swap);
-            this.search.Controls.Add(this.dGV_results);
-            this.search.Controls.Add(this.comboBox_tables);
-            this.search.Controls.Add(this.dGV_cpds);
-            this.search.Location = new System.Drawing.Point(4, 22);
-            this.search.Name = "search";
-            this.search.Padding = new System.Windows.Forms.Padding(3);
-            this.search.Size = new System.Drawing.Size(1217, 544);
-            this.search.TabIndex = 0;
-            this.search.Text = "Meta Data";
-            this.search.UseVisualStyleBackColor = true;
-            // 
-            // save
-            // 
-            this.save.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.save.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.save.Depth = 0;
-            this.save.HighEmphasis = true;
-            this.save.Icon = null;
-            this.save.Location = new System.Drawing.Point(872, 458);
-            this.save.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.save.MouseState = MaterialSkin.MouseState.HOVER;
-            this.save.Name = "save";
-            this.save.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.save.Size = new System.Drawing.Size(123, 36);
-            this.save.TabIndex = 35;
-            this.save.Text = "Save results";
-            this.save.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.save.UseAccentColor = false;
-            this.save.UseVisualStyleBackColor = true;
+            this.search_tab.Controls.Add(this.comboBox_mapping);
+            this.search_tab.Controls.Add(this.comboBox_fields);
+            this.search_tab.Controls.Add(this.selectLabel);
+            this.search_tab.Controls.Add(this.plot_results);
+            this.search_tab.Controls.Add(this.materialLabel5);
+            this.search_tab.Controls.Add(this.y_combo);
+            this.search_tab.Controls.Add(this.materialLabel4);
+            this.search_tab.Controls.Add(this.materialLabel1);
+            this.search_tab.Controls.Add(this.x_combo);
+            this.search_tab.Controls.Add(this.materialLabel2);
+            this.search_tab.Controls.Add(this.swap);
+            this.search_tab.Controls.Add(this.dGV_results);
+            this.search_tab.Controls.Add(this.comboBox_tables);
+            this.search_tab.Controls.Add(this.dGV_cpds);
+            this.search_tab.Location = new System.Drawing.Point(4, 22);
+            this.search_tab.Name = "search_tab";
+            this.search_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.search_tab.Size = new System.Drawing.Size(1144, 518);
+            this.search_tab.TabIndex = 0;
+            this.search_tab.Text = "Meta Data";
+            this.search_tab.UseVisualStyleBackColor = true;
             // 
             // comboBox_mapping
             // 
@@ -347,7 +327,7 @@
             this.plot_results.Depth = 0;
             this.plot_results.HighEmphasis = true;
             this.plot_results.Icon = null;
-            this.plot_results.Location = new System.Drawing.Point(461, 464);
+            this.plot_results.Location = new System.Drawing.Point(461, 426);
             this.plot_results.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.plot_results.MouseState = MaterialSkin.MouseState.HOVER;
             this.plot_results.Name = "plot_results";
@@ -365,7 +345,7 @@
             this.materialLabel5.AutoSize = true;
             this.materialLabel5.Depth = 0;
             this.materialLabel5.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel5.Location = new System.Drawing.Point(261, 462);
+            this.materialLabel5.Location = new System.Drawing.Point(261, 424);
             this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel5.Name = "materialLabel5";
             this.materialLabel5.Size = new System.Drawing.Size(11, 19);
@@ -386,7 +366,7 @@
             this.y_combo.FormattingEnabled = true;
             this.y_combo.IntegralHeight = false;
             this.y_combo.ItemHeight = 43;
-            this.y_combo.Location = new System.Drawing.Point(278, 458);
+            this.y_combo.Location = new System.Drawing.Point(278, 420);
             this.y_combo.MaxDropDownItems = 4;
             this.y_combo.MouseState = MaterialSkin.MouseState.OUT;
             this.y_combo.Name = "y_combo";
@@ -399,7 +379,7 @@
             this.materialLabel4.AutoSize = true;
             this.materialLabel4.Depth = 0;
             this.materialLabel4.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel4.Location = new System.Drawing.Point(50, 464);
+            this.materialLabel4.Location = new System.Drawing.Point(50, 426);
             this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel4.Name = "materialLabel4";
             this.materialLabel4.Size = new System.Drawing.Size(11, 19);
@@ -432,7 +412,7 @@
             this.x_combo.FormattingEnabled = true;
             this.x_combo.IntegralHeight = false;
             this.x_combo.ItemHeight = 43;
-            this.x_combo.Location = new System.Drawing.Point(67, 458);
+            this.x_combo.Location = new System.Drawing.Point(67, 420);
             this.x_combo.MaxDropDownItems = 4;
             this.x_combo.MouseState = MaterialSkin.MouseState.OUT;
             this.x_combo.Name = "x_combo";
@@ -464,9 +444,9 @@
             this.dGV_results.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dGV_results.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dGV_results.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_results.Location = new System.Drawing.Point(652, 83);
+            this.dGV_results.Location = new System.Drawing.Point(621, 83);
             this.dGV_results.Name = "dGV_results";
-            this.dGV_results.Size = new System.Drawing.Size(486, 346);
+            this.dGV_results.Size = new System.Drawing.Size(486, 305);
             this.dGV_results.TabIndex = 0;
             this.dGV_results.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_results_CellDoubleClick);
             this.dGV_results.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dGV_results_ColumnHeaderMouseDoubleClick);
@@ -495,48 +475,35 @@
             this.comboBox_tables.TabIndex = 14;
             this.comboBox_tables.DropDownClosed += new System.EventHandler(this.comboBox_tables_DropDownClosed);
             // 
-            // dGV_cpds
-            // 
-            this.dGV_cpds.AllowUserToAddRows = false;
-            this.dGV_cpds.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dGV_cpds.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.dGV_cpds.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dGV_cpds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_cpds.Location = new System.Drawing.Point(9, 83);
-            this.dGV_cpds.Name = "dGV_cpds";
-            this.dGV_cpds.Size = new System.Drawing.Size(548, 352);
-            this.dGV_cpds.TabIndex = 0;
-            // 
             // searchtb
             // 
             this.searchtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchtb.Controls.Add(this.search);
-            this.searchtb.Controls.Add(this.profiles);
             this.searchtb.Controls.Add(this.search_tab);
-            this.searchtb.Controls.Add(this.compunds);
+            this.searchtb.Controls.Add(this.profiles_tab);
+            this.searchtb.Controls.Add(this.search_all_tab);
+            this.searchtb.Controls.Add(this.compunds_tab);
             this.searchtb.Location = new System.Drawing.Point(17, 92);
             this.searchtb.Name = "searchtb";
             this.searchtb.SelectedIndex = 0;
-            this.searchtb.Size = new System.Drawing.Size(1225, 570);
+            this.searchtb.Size = new System.Drawing.Size(1152, 544);
             this.searchtb.TabIndex = 28;
             // 
-            // profiles
+            // profiles_tab
             // 
-            this.profiles.Controls.Add(this.groupBox_way);
-            this.profiles.Controls.Add(this.groupBoxGeneBatch);
-            this.profiles.Controls.Add(this.textBox_gene);
-            this.profiles.Controls.Add(this.plot_prof);
-            this.profiles.Controls.Add(this.save_profiles);
-            this.profiles.Controls.Add(this.get_profile);
-            this.profiles.Controls.Add(this.dGV_crisper);
-            this.profiles.Location = new System.Drawing.Point(4, 22);
-            this.profiles.Name = "profiles";
-            this.profiles.Size = new System.Drawing.Size(1382, 623);
-            this.profiles.TabIndex = 1;
-            this.profiles.Text = "Profiles";
-            this.profiles.UseVisualStyleBackColor = true;
+            this.profiles_tab.Controls.Add(this.groupBox_way);
+            this.profiles_tab.Controls.Add(this.groupBoxGeneBatch);
+            this.profiles_tab.Controls.Add(this.textBox_gene);
+            this.profiles_tab.Controls.Add(this.plot_prof);
+            this.profiles_tab.Controls.Add(this.get_profile);
+            this.profiles_tab.Controls.Add(this.dGV_crisper);
+            this.profiles_tab.Location = new System.Drawing.Point(4, 22);
+            this.profiles_tab.Name = "profiles_tab";
+            this.profiles_tab.Size = new System.Drawing.Size(1144, 518);
+            this.profiles_tab.TabIndex = 1;
+            this.profiles_tab.Text = "Profiles";
+            this.profiles_tab.UseVisualStyleBackColor = true;
             // 
             // plot_prof
             // 
@@ -547,7 +514,7 @@
             this.plot_prof.ForeColor = System.Drawing.Color.Black;
             this.plot_prof.HighEmphasis = true;
             this.plot_prof.Icon = null;
-            this.plot_prof.Location = new System.Drawing.Point(423, 283);
+            this.plot_prof.Location = new System.Drawing.Point(172, 283);
             this.plot_prof.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.plot_prof.MouseState = MaterialSkin.MouseState.HOVER;
             this.plot_prof.Name = "plot_prof";
@@ -560,26 +527,6 @@
             this.plot_prof.UseVisualStyleBackColor = false;
             this.plot_prof.Visible = false;
             this.plot_prof.Click += new System.EventHandler(this.plot_prof_Click);
-            // 
-            // save_profiles
-            // 
-            this.save_profiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.save_profiles.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.save_profiles.Depth = 0;
-            this.save_profiles.HighEmphasis = true;
-            this.save_profiles.Icon = null;
-            this.save_profiles.Location = new System.Drawing.Point(260, 283);
-            this.save_profiles.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.save_profiles.MouseState = MaterialSkin.MouseState.HOVER;
-            this.save_profiles.Name = "save_profiles";
-            this.save_profiles.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.save_profiles.Size = new System.Drawing.Size(128, 36);
-            this.save_profiles.TabIndex = 13;
-            this.save_profiles.Text = "save profiles";
-            this.save_profiles.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.save_profiles.UseAccentColor = false;
-            this.save_profiles.UseVisualStyleBackColor = true;
-            this.save_profiles.Click += new System.EventHandler(this.save_profiles_Click);
             // 
             // get_profile
             // 
@@ -606,24 +553,24 @@
             this.dGV_crisper.AllowUserToAddRows = false;
             this.dGV_crisper.AllowUserToDeleteRows = false;
             this.dGV_crisper.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_crisper.Location = new System.Drawing.Point(673, 66);
+            this.dGV_crisper.Location = new System.Drawing.Point(595, 34);
             this.dGV_crisper.Name = "dGV_crisper";
             this.dGV_crisper.Size = new System.Drawing.Size(550, 446);
             this.dGV_crisper.TabIndex = 2;
             this.dGV_crisper.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // search_tab
+            // search_all_tab
             // 
-            this.search_tab.Controls.Add(this.searchText);
-            this.search_tab.Controls.Add(this.dGV_search);
-            this.search_tab.Controls.Add(this.search_all_db);
-            this.search_tab.Location = new System.Drawing.Point(4, 22);
-            this.search_tab.Name = "search_tab";
-            this.search_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.search_tab.Size = new System.Drawing.Size(1382, 623);
-            this.search_tab.TabIndex = 2;
-            this.search_tab.Text = "search";
-            this.search_tab.UseVisualStyleBackColor = true;
+            this.search_all_tab.Controls.Add(this.searchText);
+            this.search_all_tab.Controls.Add(this.dGV_search);
+            this.search_all_tab.Controls.Add(this.search_all_db);
+            this.search_all_tab.Location = new System.Drawing.Point(4, 22);
+            this.search_all_tab.Name = "search_all_tab";
+            this.search_all_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.search_all_tab.Size = new System.Drawing.Size(1144, 518);
+            this.search_all_tab.TabIndex = 2;
+            this.search_all_tab.Text = "search";
+            this.search_all_tab.UseVisualStyleBackColor = true;
             // 
             // dGV_search
             // 
@@ -635,7 +582,7 @@
             this.dGV_search.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_search.Location = new System.Drawing.Point(382, 27);
             this.dGV_search.Name = "dGV_search";
-            this.dGV_search.Size = new System.Drawing.Size(976, 542);
+            this.dGV_search.Size = new System.Drawing.Size(903, 516);
             this.dGV_search.TabIndex = 2;
             // 
             // search_all_db
@@ -650,7 +597,7 @@
             this.search_all_db.MouseState = MaterialSkin.MouseState.HOVER;
             this.search_all_db.Name = "search_all_db";
             this.search_all_db.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.search_all_db.Size = new System.Drawing.Size(97, 36);
+            this.search_all_db.Size = new System.Drawing.Size(119, 36);
             this.search_all_db.TabIndex = 0;
             this.search_all_db.Text = "Search in DB";
             this.search_all_db.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -658,14 +605,14 @@
             this.search_all_db.UseVisualStyleBackColor = true;
             this.search_all_db.Click += new System.EventHandler(this.search_all_db_Click);
             // 
-            // compunds
+            // compunds_tab
             // 
-            this.compunds.Location = new System.Drawing.Point(4, 22);
-            this.compunds.Name = "compunds";
-            this.compunds.Size = new System.Drawing.Size(1382, 623);
-            this.compunds.TabIndex = 3;
-            this.compunds.Text = "compounds";
-            this.compunds.UseVisualStyleBackColor = true;
+            this.compunds_tab.Location = new System.Drawing.Point(4, 22);
+            this.compunds_tab.Name = "compunds_tab";
+            this.compunds_tab.Size = new System.Drawing.Size(1144, 518);
+            this.compunds_tab.TabIndex = 3;
+            this.compunds_tab.Text = "compounds";
+            this.compunds_tab.UseVisualStyleBackColor = true;
             // 
             // textBox_gene
             // 
@@ -806,32 +753,46 @@
             this.searchText.Text = "";
             this.searchText.TrailingIcon = null;
             // 
+            // dGV_cpds
+            // 
+            this.dGV_cpds.AllowUserToAddRows = false;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_cpds.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dGV_cpds.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dGV_cpds.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dGV_cpds.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dGV_cpds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGV_cpds.Location = new System.Drawing.Point(9, 83);
+            this.dGV_cpds.Name = "dGV_cpds";
+            this.dGV_cpds.Size = new System.Drawing.Size(534, 307);
+            this.dGV_cpds.TabIndex = 0;
+            // 
             // LoadCpdsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1286, 676);
+            this.ClientSize = new System.Drawing.Size(1213, 650);
             this.Controls.Add(this.searchtb);
             this.Controls.Add(this.toolStrip1);
             this.Name = "LoadCpdsForm";
             this.Text = "LoadCpds";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.search.ResumeLayout(false);
-            this.search.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).EndInit();
-            this.searchtb.ResumeLayout(false);
-            this.profiles.ResumeLayout(false);
-            this.profiles.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGV_crisper)).EndInit();
             this.search_tab.ResumeLayout(false);
             this.search_tab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).EndInit();
+            this.searchtb.ResumeLayout(false);
+            this.profiles_tab.ResumeLayout(false);
+            this.profiles_tab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_crisper)).EndInit();
+            this.search_all_tab.ResumeLayout(false);
+            this.search_all_tab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_search)).EndInit();
             this.groupBoxGeneBatch.ResumeLayout(false);
             this.groupBoxGeneBatch.PerformLayout();
             this.groupBox_way.ResumeLayout(false);
             this.groupBox_way.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_cpds)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -853,31 +814,28 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem pathwaysToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip_swap;
-        private System.Windows.Forms.TabPage search;
+        private System.Windows.Forms.TabPage search_tab;
         private MaterialSkin.Controls.MaterialLabel selectLabel;
         private MaterialSkin.Controls.MaterialLabel materialLabel5;
         private MaterialSkin.Controls.MaterialLabel materialLabel4;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private System.Windows.Forms.DataGridView dGV_results;
-        public System.Windows.Forms.DataGridView dGV_cpds;
         private System.Windows.Forms.DataGridView dGV_crisper;
-        private System.Windows.Forms.TabPage search_tab;
+        private System.Windows.Forms.TabPage search_all_tab;
         public System.Windows.Forms.DataGridView dGV_search;
         public System.Windows.Forms.TabControl searchtb;
-        public System.Windows.Forms.TabPage profiles;
-        private System.Windows.Forms.TabPage compunds;
+        public System.Windows.Forms.TabPage profiles_tab;
+        private System.Windows.Forms.TabPage compunds_tab;
         private MaterialSkin.Controls.MaterialComboBox comboBox_mapping;
         private MaterialSkin.Controls.MaterialComboBox comboBox_fields;
         private MaterialSkin.Controls.MaterialComboBox y_combo;
         private MaterialSkin.Controls.MaterialComboBox x_combo;
         private MaterialSkin.Controls.MaterialComboBox comboBox_tables;
-        private MaterialSkin.Controls.MaterialButton save;
         private MaterialSkin.Controls.MaterialButton plot_results;
         private MaterialSkin.Controls.MaterialButton swap;
         public MaterialSkin.Controls.MaterialButton search_all_db;
         private MaterialSkin.Controls.MaterialButton get_profile;
-        private MaterialSkin.Controls.MaterialButton save_profiles;
         private MaterialSkin.Controls.MaterialButton plot_prof;
         private MaterialSkin.Controls.MaterialTextBox textBox_gene;
         private System.Windows.Forms.GroupBox groupBox_way;
@@ -888,5 +846,6 @@
         private MaterialSkin.Controls.MaterialRadioButton radioButton_cpd;
         private MaterialSkin.Controls.MaterialRadioButton radioButton_gene;
         private MaterialSkin.Controls.MaterialTextBox searchText;
+        public System.Windows.Forms.DataGridView dGV_cpds;
     }
 }

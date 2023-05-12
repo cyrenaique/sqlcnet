@@ -27,6 +27,7 @@ using ScottPlot;
 using ScottPlot.Palettes;
 using System.Net.NetworkInformation;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Xml.Linq;
 
 namespace sqlcnet
 {
@@ -220,7 +221,65 @@ namespace sqlcnet
 
         }
 
-    
+        private void save_results(DataTable dt_to_save, string name)
+        {
+
+            if (dt_to_save.Rows.Count > 0)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "CSV (*.csv)|*.csv";
+                sfd.FileName = name + ".csv";
+                bool fileError = false;
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    if (File.Exists(sfd.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(sfd.FileName);
+                        }
+                        catch (IOException ex)
+                        {
+                            fileError = true;
+                            MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
+                        }
+                    }
+                    if (!fileError)
+                    {
+                        try
+                        {
+                            StringBuilder sb = new StringBuilder();
+
+                            string[] columnNames = dt_to_save.Columns.Cast<DataColumn>().
+                                                          Select(column => column.ColumnName).
+                                                          ToArray();
+                            sb.AppendLine(string.Join(",", columnNames));
+
+                            foreach (DataRow row in dt_to_save.Rows)
+                            {
+                                string[] fields = row.ItemArray.Select(field => field.ToString()).
+                                                            ToArray();
+                                sb.AppendLine(string.Join(",", fields));
+                            }
+
+
+                            File.WriteAllText(sfd.FileName, sb.ToString());
+
+                            MessageBox.Show("Data Exported Successfully !!!", "Info");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error :" + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No Record To Export !!!", "Info");
+            }
+        }
+
 
         private void comboBox_tables_DropDownClosed(object sender, EventArgs e)
         {
@@ -722,73 +781,38 @@ namespace sqlcnet
 
 
         }
-        private void save_profiles_Click(object sender, EventArgs e)
-        {
-            //tbl_profiles
-            if (dGV_crisper.Rows.Count > 0)
-            {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "CSV (*.csv)|*.csv";
-                sfd.FileName = "Output.csv";
-                bool fileError = false;
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    if (File.Exists(sfd.FileName))
-                    {
-                        try
-                        {
-                            File.Delete(sfd.FileName);
-                        }
-                        catch (IOException ex)
-                        {
-                            fileError = true;
-                            MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
-                        }
-                    }
-                    if (!fileError)
-                    {
-                        try
-                        {
-                            // tbl_profiles.ToCSV(sfd.FileName);
-                            StringBuilder sb = new StringBuilder();
-
-                            string[] columnNames = tbl_profiles.Columns.Cast<DataColumn>().
-                                                          Select(column => column.ColumnName).
-                                                          ToArray();
-                            sb.AppendLine(string.Join(",", columnNames));
-
-                            foreach (DataRow row in tbl_profiles.Rows)
-                            {
-                                string[] fields = row.ItemArray.Select(field => field.ToString()).
-                                                            ToArray();
-                                sb.AppendLine(string.Join(",", fields));
-                            }
-
-
-                            File.WriteAllText(sfd.FileName, sb.ToString());
-
-                            MessageBox.Show("Data Exported Successfully !!!", "Info");
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error :" + ex.Message);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("No Record To Export !!!", "Info");
-            }
-
-        }
-
+        
         private static bool IsNumericType(Type type)
         {
             return type == typeof(decimal) || type == typeof(double) || type == typeof(float) || type == typeof(int) || type == typeof(long) || type == typeof(short);
         }
 
-  
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+
+            if (searchtb.SelectedTab == searchtb.TabPages["search_tab"])
+            {
+                save_results(dt, "results");
+            }
+            if (searchtb.SelectedTab == searchtb.TabPages["profiles_tab"])
+            {
+                save_results(tbl_profiles, "profiles");
+
+            }
+            if (searchtb.SelectedTab == searchtb.TabPages["search_all_tab"])
+            {
+
+            }
+            if (searchtb.SelectedTab == searchtb.TabPages["compunds_tab"])
+            {
+
+            }
+            if (searchtb.SelectedTab == searchtb.TabPages["profile_tab"])
+            {
+
+            }
+        }
+      
 
         private void plot_prof_Click(object sender, EventArgs e)
         {

@@ -220,12 +220,7 @@ namespace sqlcnet
 
         }
 
-        private void searchBox_TextChanged(object sender, EventArgs e)
-        {
-            string text = comboBox_mapping.GetItemText(this.comboBox_mapping.SelectedItem);
-            (dGV_results.DataSource as DataTable).DefaultView.RowFilter = string.Format(text + " LIKE '{0}%'", searchBox.Text);
-
-        }
+    
 
         private void comboBox_tables_DropDownClosed(object sender, EventArgs e)
         {

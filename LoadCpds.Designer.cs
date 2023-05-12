@@ -45,22 +45,21 @@
             this.pathwaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolTip_swap = new System.Windows.Forms.ToolTip(this.components);
-            this.swap = new System.Windows.Forms.Button();
+            this.swap = new MaterialSkin.Controls.MaterialButton();
             this.search = new System.Windows.Forms.TabPage();
+            this.save = new MaterialSkin.Controls.MaterialButton();
+            this.comboBox_mapping = new MaterialSkin.Controls.MaterialComboBox();
+            this.comboBox_fields = new MaterialSkin.Controls.MaterialComboBox();
             this.selectLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.plot_results = new System.Windows.Forms.Button();
+            this.plot_results = new MaterialSkin.Controls.MaterialButton();
             this.materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
-            this.y_combo = new System.Windows.Forms.ComboBox();
-            this.comboBox_fields = new System.Windows.Forms.ComboBox();
+            this.y_combo = new MaterialSkin.Controls.MaterialComboBox();
             this.materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.x_combo = new System.Windows.Forms.ComboBox();
-            this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
-            this.comboBox_mapping = new System.Windows.Forms.ComboBox();
+            this.x_combo = new MaterialSkin.Controls.MaterialComboBox();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
-            this.searchBox = new System.Windows.Forms.TextBox();
             this.dGV_results = new System.Windows.Forms.DataGridView();
-            this.comboBox_tables = new System.Windows.Forms.ComboBox();
+            this.comboBox_tables = new MaterialSkin.Controls.MaterialComboBox();
             this.dGV_cpds = new System.Windows.Forms.DataGridView();
             this.searchtb = new System.Windows.Forms.TabControl();
             this.profiles = new System.Windows.Forms.TabPage();
@@ -71,16 +70,16 @@
             this.groupBoxGeneBatch = new System.Windows.Forms.GroupBox();
             this.radioButton_cpd = new System.Windows.Forms.RadioButton();
             this.radioButton_gene = new System.Windows.Forms.RadioButton();
-            this.plot_prof = new System.Windows.Forms.Button();
-            this.save_profiles = new System.Windows.Forms.Button();
-            this.get_profile = new System.Windows.Forms.Button();
+            this.plot_prof = new MaterialSkin.Controls.MaterialButton();
+            this.save_profiles = new MaterialSkin.Controls.MaterialButton();
+            this.get_profile = new MaterialSkin.Controls.MaterialButton();
             this.dGV_crisper = new System.Windows.Forms.DataGridView();
-            this.textBox_gene = new System.Windows.Forms.TextBox();
             this.search_tab = new System.Windows.Forms.TabPage();
             this.dGV_search = new System.Windows.Forms.DataGridView();
             this.searchText = new System.Windows.Forms.TextBox();
-            this.search_all_db = new System.Windows.Forms.Button();
+            this.search_all_db = new MaterialSkin.Controls.MaterialButton();
             this.compunds = new System.Windows.Forms.TabPage();
+            this.textBox_gene = new MaterialSkin.Controls.MaterialTextBox();
             this.toolStrip1.SuspendLayout();
             this.search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
@@ -222,29 +221,38 @@
             // 
             // swap
             // 
+            this.swap.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.swap.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.swap.Depth = 0;
+            this.swap.HighEmphasis = true;
+            this.swap.Icon = null;
             this.swap.Location = new System.Drawing.Point(674, 247);
+            this.swap.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.swap.MouseState = MaterialSkin.MouseState.HOVER;
             this.swap.Name = "swap";
-            this.swap.Size = new System.Drawing.Size(75, 23);
+            this.swap.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.swap.Size = new System.Drawing.Size(64, 36);
             this.swap.TabIndex = 21;
             this.swap.Text = "Swap";
             this.toolTip_swap.SetToolTip(this.swap, "Swap Data between the Grid View");
+            this.swap.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.swap.UseAccentColor = false;
             this.swap.UseVisualStyleBackColor = true;
             this.swap.Click += new System.EventHandler(this.swap_Click);
             // 
             // search
             // 
+            this.search.Controls.Add(this.save);
+            this.search.Controls.Add(this.comboBox_mapping);
+            this.search.Controls.Add(this.comboBox_fields);
             this.search.Controls.Add(this.selectLabel);
             this.search.Controls.Add(this.plot_results);
             this.search.Controls.Add(this.materialLabel5);
             this.search.Controls.Add(this.y_combo);
-            this.search.Controls.Add(this.comboBox_fields);
             this.search.Controls.Add(this.materialLabel4);
             this.search.Controls.Add(this.materialLabel1);
             this.search.Controls.Add(this.x_combo);
-            this.search.Controls.Add(this.materialLabel3);
-            this.search.Controls.Add(this.comboBox_mapping);
             this.search.Controls.Add(this.materialLabel2);
-            this.search.Controls.Add(this.searchBox);
             this.search.Controls.Add(this.swap);
             this.search.Controls.Add(this.dGV_results);
             this.search.Controls.Add(this.comboBox_tables);
@@ -257,12 +265,75 @@
             this.search.Text = "Meta Data";
             this.search.UseVisualStyleBackColor = true;
             // 
+            // save
+            // 
+            this.save.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.save.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.save.Depth = 0;
+            this.save.HighEmphasis = true;
+            this.save.Icon = null;
+            this.save.Location = new System.Drawing.Point(1079, 572);
+            this.save.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.save.MouseState = MaterialSkin.MouseState.HOVER;
+            this.save.Name = "save";
+            this.save.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.save.Size = new System.Drawing.Size(123, 36);
+            this.save.TabIndex = 35;
+            this.save.Text = "Save results";
+            this.save.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.save.UseAccentColor = false;
+            this.save.UseVisualStyleBackColor = true;
+            // 
+            // comboBox_mapping
+            // 
+            this.comboBox_mapping.AutoResize = false;
+            this.comboBox_mapping.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.comboBox_mapping.Depth = 0;
+            this.comboBox_mapping.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox_mapping.DropDownHeight = 174;
+            this.comboBox_mapping.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_mapping.DropDownWidth = 121;
+            this.comboBox_mapping.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboBox_mapping.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comboBox_mapping.FormattingEnabled = true;
+            this.comboBox_mapping.IntegralHeight = false;
+            this.comboBox_mapping.ItemHeight = 43;
+            this.comboBox_mapping.Location = new System.Drawing.Point(181, 25);
+            this.comboBox_mapping.MaxDropDownItems = 4;
+            this.comboBox_mapping.MouseState = MaterialSkin.MouseState.OUT;
+            this.comboBox_mapping.Name = "comboBox_mapping";
+            this.comboBox_mapping.Size = new System.Drawing.Size(121, 49);
+            this.comboBox_mapping.StartIndex = 0;
+            this.comboBox_mapping.TabIndex = 34;
+            // 
+            // comboBox_fields
+            // 
+            this.comboBox_fields.AutoResize = false;
+            this.comboBox_fields.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.comboBox_fields.Depth = 0;
+            this.comboBox_fields.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox_fields.DropDownHeight = 174;
+            this.comboBox_fields.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_fields.DropDownWidth = 121;
+            this.comboBox_fields.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboBox_fields.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comboBox_fields.FormattingEnabled = true;
+            this.comboBox_fields.IntegralHeight = false;
+            this.comboBox_fields.ItemHeight = 43;
+            this.comboBox_fields.Location = new System.Drawing.Point(6, 23);
+            this.comboBox_fields.MaxDropDownItems = 4;
+            this.comboBox_fields.MouseState = MaterialSkin.MouseState.OUT;
+            this.comboBox_fields.Name = "comboBox_fields";
+            this.comboBox_fields.Size = new System.Drawing.Size(121, 49);
+            this.comboBox_fields.StartIndex = 0;
+            this.comboBox_fields.TabIndex = 33;
+            // 
             // selectLabel
             // 
             this.selectLabel.AutoSize = true;
             this.selectLabel.Depth = 0;
             this.selectLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.selectLabel.Location = new System.Drawing.Point(6, 21);
+            this.selectLabel.Location = new System.Drawing.Point(6, 3);
             this.selectLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.selectLabel.Name = "selectLabel";
             this.selectLabel.Size = new System.Drawing.Size(103, 19);
@@ -271,11 +342,21 @@
             // 
             // plot_results
             // 
+            this.plot_results.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.plot_results.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.plot_results.Depth = 0;
+            this.plot_results.HighEmphasis = true;
+            this.plot_results.Icon = null;
             this.plot_results.Location = new System.Drawing.Point(469, 572);
+            this.plot_results.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.plot_results.MouseState = MaterialSkin.MouseState.HOVER;
             this.plot_results.Name = "plot_results";
-            this.plot_results.Size = new System.Drawing.Size(75, 23);
+            this.plot_results.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.plot_results.Size = new System.Drawing.Size(123, 36);
             this.plot_results.TabIndex = 26;
             this.plot_results.Text = "plot results";
+            this.plot_results.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.plot_results.UseAccentColor = false;
             this.plot_results.UseVisualStyleBackColor = true;
             this.plot_results.Click += new System.EventHandler(this.plot_results_Click);
             // 
@@ -293,19 +374,25 @@
             // 
             // y_combo
             // 
+            this.y_combo.AutoResize = false;
+            this.y_combo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.y_combo.Depth = 0;
+            this.y_combo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.y_combo.DropDownHeight = 174;
+            this.y_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.y_combo.DropDownWidth = 121;
+            this.y_combo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.y_combo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.y_combo.FormattingEnabled = true;
-            this.y_combo.Location = new System.Drawing.Point(286, 570);
+            this.y_combo.IntegralHeight = false;
+            this.y_combo.ItemHeight = 43;
+            this.y_combo.Location = new System.Drawing.Point(286, 566);
+            this.y_combo.MaxDropDownItems = 4;
+            this.y_combo.MouseState = MaterialSkin.MouseState.OUT;
             this.y_combo.Name = "y_combo";
-            this.y_combo.Size = new System.Drawing.Size(121, 21);
+            this.y_combo.Size = new System.Drawing.Size(121, 49);
+            this.y_combo.StartIndex = 0;
             this.y_combo.TabIndex = 23;
-            // 
-            // comboBox_fields
-            // 
-            this.comboBox_fields.FormattingEnabled = true;
-            this.comboBox_fields.Location = new System.Drawing.Point(9, 43);
-            this.comboBox_fields.Name = "comboBox_fields";
-            this.comboBox_fields.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_fields.TabIndex = 15;
             // 
             // materialLabel4
             // 
@@ -324,7 +411,7 @@
             this.materialLabel1.AutoSize = true;
             this.materialLabel1.Depth = 0;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel1.Location = new System.Drawing.Point(274, 20);
+            this.materialLabel1.Location = new System.Drawing.Point(179, 3);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(123, 19);
@@ -333,52 +420,37 @@
             // 
             // x_combo
             // 
+            this.x_combo.AutoResize = false;
+            this.x_combo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.x_combo.Depth = 0;
+            this.x_combo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.x_combo.DropDownHeight = 174;
+            this.x_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.x_combo.DropDownWidth = 121;
+            this.x_combo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.x_combo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.x_combo.FormattingEnabled = true;
-            this.x_combo.Location = new System.Drawing.Point(75, 572);
+            this.x_combo.IntegralHeight = false;
+            this.x_combo.ItemHeight = 43;
+            this.x_combo.Location = new System.Drawing.Point(75, 566);
+            this.x_combo.MaxDropDownItems = 4;
+            this.x_combo.MouseState = MaterialSkin.MouseState.OUT;
             this.x_combo.Name = "x_combo";
-            this.x_combo.Size = new System.Drawing.Size(121, 21);
+            this.x_combo.Size = new System.Drawing.Size(121, 49);
+            this.x_combo.StartIndex = 0;
             this.x_combo.TabIndex = 22;
-            // 
-            // materialLabel3
-            // 
-            this.materialLabel3.AutoSize = true;
-            this.materialLabel3.Depth = 0;
-            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel3.Location = new System.Drawing.Point(1086, 20);
-            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel3.Name = "materialLabel3";
-            this.materialLabel3.Size = new System.Drawing.Size(77, 19);
-            this.materialLabel3.TabIndex = 30;
-            this.materialLabel3.Text = "SearchBox";
-            // 
-            // comboBox_mapping
-            // 
-            this.comboBox_mapping.FormattingEnabled = true;
-            this.comboBox_mapping.Location = new System.Drawing.Point(276, 42);
-            this.comboBox_mapping.Name = "comboBox_mapping";
-            this.comboBox_mapping.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_mapping.Sorted = true;
-            this.comboBox_mapping.TabIndex = 19;
             // 
             // materialLabel2
             // 
             this.materialLabel2.AutoSize = true;
             this.materialLabel2.Depth = 0;
             this.materialLabel2.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel2.Location = new System.Drawing.Point(840, 20);
+            this.materialLabel2.Location = new System.Drawing.Point(879, 3);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
             this.materialLabel2.Size = new System.Drawing.Size(98, 19);
             this.materialLabel2.TabIndex = 29;
             this.materialLabel2.Text = "Choose Table";
-            // 
-            // searchBox
-            // 
-            this.searchBox.Location = new System.Drawing.Point(1089, 43);
-            this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(100, 20);
-            this.searchBox.TabIndex = 12;
-            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
             // 
             // dGV_results
             // 
@@ -401,11 +473,25 @@
             // 
             // comboBox_tables
             // 
+            this.comboBox_tables.AutoResize = false;
+            this.comboBox_tables.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.comboBox_tables.Depth = 0;
+            this.comboBox_tables.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox_tables.DropDownHeight = 174;
+            this.comboBox_tables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_tables.DropDownWidth = 121;
+            this.comboBox_tables.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboBox_tables.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.comboBox_tables.FormattingEnabled = true;
-            this.comboBox_tables.Location = new System.Drawing.Point(843, 43);
+            this.comboBox_tables.IntegralHeight = false;
+            this.comboBox_tables.ItemHeight = 43;
+            this.comboBox_tables.Location = new System.Drawing.Point(872, 29);
+            this.comboBox_tables.MaxDropDownItems = 4;
+            this.comboBox_tables.MouseState = MaterialSkin.MouseState.OUT;
             this.comboBox_tables.Name = "comboBox_tables";
-            this.comboBox_tables.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_tables.Size = new System.Drawing.Size(121, 49);
             this.comboBox_tables.Sorted = true;
+            this.comboBox_tables.StartIndex = 0;
             this.comboBox_tables.TabIndex = 14;
             this.comboBox_tables.DropDownClosed += new System.EventHandler(this.comboBox_tables_DropDownClosed);
             // 
@@ -438,13 +524,13 @@
             // 
             // profiles
             // 
+            this.profiles.Controls.Add(this.textBox_gene);
             this.profiles.Controls.Add(this.groupBox_way);
             this.profiles.Controls.Add(this.groupBoxGeneBatch);
             this.profiles.Controls.Add(this.plot_prof);
             this.profiles.Controls.Add(this.save_profiles);
             this.profiles.Controls.Add(this.get_profile);
             this.profiles.Controls.Add(this.dGV_crisper);
-            this.profiles.Controls.Add(this.textBox_gene);
             this.profiles.Location = new System.Drawing.Point(4, 22);
             this.profiles.Name = "profiles";
             this.profiles.Size = new System.Drawing.Size(1382, 623);
@@ -532,34 +618,64 @@
             // 
             // plot_prof
             // 
+            this.plot_prof.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.plot_prof.BackColor = System.Drawing.Color.RosyBrown;
+            this.plot_prof.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.plot_prof.Depth = 0;
             this.plot_prof.ForeColor = System.Drawing.Color.Black;
-            this.plot_prof.Location = new System.Drawing.Point(646, 44);
+            this.plot_prof.HighEmphasis = true;
+            this.plot_prof.Icon = null;
+            this.plot_prof.Location = new System.Drawing.Point(281, 150);
+            this.plot_prof.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.plot_prof.MouseState = MaterialSkin.MouseState.HOVER;
             this.plot_prof.Name = "plot_prof";
-            this.plot_prof.Size = new System.Drawing.Size(75, 23);
+            this.plot_prof.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.plot_prof.Size = new System.Drawing.Size(128, 36);
             this.plot_prof.TabIndex = 14;
             this.plot_prof.Text = "Plot Profiles";
+            this.plot_prof.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.plot_prof.UseAccentColor = false;
             this.plot_prof.UseVisualStyleBackColor = false;
             this.plot_prof.Visible = false;
             this.plot_prof.Click += new System.EventHandler(this.plot_prof_Click);
             // 
             // save_profiles
             // 
-            this.save_profiles.Location = new System.Drawing.Point(526, 61);
+            this.save_profiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.save_profiles.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.save_profiles.Depth = 0;
+            this.save_profiles.HighEmphasis = true;
+            this.save_profiles.Icon = null;
+            this.save_profiles.Location = new System.Drawing.Point(91, 150);
+            this.save_profiles.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.save_profiles.MouseState = MaterialSkin.MouseState.HOVER;
             this.save_profiles.Name = "save_profiles";
-            this.save_profiles.Size = new System.Drawing.Size(75, 23);
+            this.save_profiles.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.save_profiles.Size = new System.Drawing.Size(128, 36);
             this.save_profiles.TabIndex = 13;
             this.save_profiles.Text = "save profiles";
+            this.save_profiles.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.save_profiles.UseAccentColor = false;
             this.save_profiles.UseVisualStyleBackColor = true;
             this.save_profiles.Click += new System.EventHandler(this.save_profiles_Click);
             // 
             // get_profile
             // 
-            this.get_profile.Location = new System.Drawing.Point(526, 24);
+            this.get_profile.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.get_profile.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.get_profile.Depth = 0;
+            this.get_profile.HighEmphasis = true;
+            this.get_profile.Icon = null;
+            this.get_profile.Location = new System.Drawing.Point(495, 37);
+            this.get_profile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.get_profile.MouseState = MaterialSkin.MouseState.HOVER;
             this.get_profile.Name = "get_profile";
-            this.get_profile.Size = new System.Drawing.Size(75, 23);
+            this.get_profile.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.get_profile.Size = new System.Drawing.Size(78, 36);
             this.get_profile.TabIndex = 6;
             this.get_profile.Text = "search";
+            this.get_profile.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.get_profile.UseAccentColor = false;
             this.get_profile.UseVisualStyleBackColor = true;
             this.get_profile.Click += new System.EventHandler(this.get_profile_Click);
             // 
@@ -568,19 +684,11 @@
             this.dGV_crisper.AllowUserToAddRows = false;
             this.dGV_crisper.AllowUserToDeleteRows = false;
             this.dGV_crisper.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_crisper.Location = new System.Drawing.Point(39, 95);
+            this.dGV_crisper.Location = new System.Drawing.Point(673, 66);
             this.dGV_crisper.Name = "dGV_crisper";
             this.dGV_crisper.Size = new System.Drawing.Size(550, 446);
             this.dGV_crisper.TabIndex = 2;
             this.dGV_crisper.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // textBox_gene
-            // 
-            this.textBox_gene.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.textBox_gene.Location = new System.Drawing.Point(14, 32);
-            this.textBox_gene.Name = "textBox_gene";
-            this.textBox_gene.Size = new System.Drawing.Size(166, 20);
-            this.textBox_gene.TabIndex = 1;
             // 
             // search_tab
             // 
@@ -617,11 +725,21 @@
             // 
             // search_all_db
             // 
+            this.search_all_db.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.search_all_db.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.search_all_db.Depth = 0;
+            this.search_all_db.HighEmphasis = true;
+            this.search_all_db.Icon = null;
             this.search_all_db.Location = new System.Drawing.Point(220, 44);
+            this.search_all_db.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.search_all_db.MouseState = MaterialSkin.MouseState.HOVER;
             this.search_all_db.Name = "search_all_db";
-            this.search_all_db.Size = new System.Drawing.Size(81, 28);
+            this.search_all_db.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.search_all_db.Size = new System.Drawing.Size(97, 36);
             this.search_all_db.TabIndex = 0;
             this.search_all_db.Text = "SearchDB";
+            this.search_all_db.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.search_all_db.UseAccentColor = false;
             this.search_all_db.UseVisualStyleBackColor = true;
             this.search_all_db.Click += new System.EventHandler(this.search_all_db_Click);
             // 
@@ -633,6 +751,23 @@
             this.compunds.TabIndex = 3;
             this.compunds.Text = "compounds";
             this.compunds.UseVisualStyleBackColor = true;
+            // 
+            // textBox_gene
+            // 
+            this.textBox_gene.AnimateReadOnly = false;
+            this.textBox_gene.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_gene.Depth = 0;
+            this.textBox_gene.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.textBox_gene.LeadingIcon = null;
+            this.textBox_gene.Location = new System.Drawing.Point(14, 31);
+            this.textBox_gene.MaxLength = 50;
+            this.textBox_gene.MouseState = MaterialSkin.MouseState.OUT;
+            this.textBox_gene.Multiline = false;
+            this.textBox_gene.Name = "textBox_gene";
+            this.textBox_gene.Size = new System.Drawing.Size(166, 50);
+            this.textBox_gene.TabIndex = 17;
+            this.textBox_gene.Text = "";
+            this.textBox_gene.TrailingIcon = null;
             // 
             // LoadCpdsForm
             // 
@@ -683,33 +818,19 @@
         private System.Windows.Forms.ToolTip toolTip_swap;
         private System.Windows.Forms.TabPage search;
         private MaterialSkin.Controls.MaterialLabel selectLabel;
-        private System.Windows.Forms.Button plot_results;
         private MaterialSkin.Controls.MaterialLabel materialLabel5;
-        private System.Windows.Forms.ComboBox y_combo;
-        private System.Windows.Forms.ComboBox comboBox_fields;
         private MaterialSkin.Controls.MaterialLabel materialLabel4;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
-        private System.Windows.Forms.ComboBox x_combo;
-        private MaterialSkin.Controls.MaterialLabel materialLabel3;
-        private System.Windows.Forms.ComboBox comboBox_mapping;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
-        private System.Windows.Forms.TextBox searchBox;
-        private System.Windows.Forms.Button swap;
         private System.Windows.Forms.DataGridView dGV_results;
-        private System.Windows.Forms.ComboBox comboBox_tables;
         public System.Windows.Forms.DataGridView dGV_cpds;
         private System.Windows.Forms.DataGridView dGV_crisper;
-        private System.Windows.Forms.TextBox textBox_gene;
         private System.Windows.Forms.TabPage search_tab;
         public System.Windows.Forms.TextBox searchText;
-        public System.Windows.Forms.Button search_all_db;
         public System.Windows.Forms.DataGridView dGV_search;
-        private System.Windows.Forms.Button get_profile;
         private System.Windows.Forms.RadioButton equal_radioButton;
         private System.Windows.Forms.RadioButton contains;
         private System.Windows.Forms.RadioButton startswith_radioButton;
-        private System.Windows.Forms.Button save_profiles;
-        private System.Windows.Forms.Button plot_prof;
         public System.Windows.Forms.TabControl searchtb;
         public System.Windows.Forms.TabPage profiles;
         private System.Windows.Forms.TabPage compunds;
@@ -717,5 +838,18 @@
         private System.Windows.Forms.RadioButton radioButton_cpd;
         private System.Windows.Forms.RadioButton radioButton_gene;
         private System.Windows.Forms.GroupBox groupBox_way;
+        private MaterialSkin.Controls.MaterialComboBox comboBox_mapping;
+        private MaterialSkin.Controls.MaterialComboBox comboBox_fields;
+        private MaterialSkin.Controls.MaterialComboBox y_combo;
+        private MaterialSkin.Controls.MaterialComboBox x_combo;
+        private MaterialSkin.Controls.MaterialComboBox comboBox_tables;
+        private MaterialSkin.Controls.MaterialButton save;
+        private MaterialSkin.Controls.MaterialButton plot_results;
+        private MaterialSkin.Controls.MaterialButton swap;
+        public MaterialSkin.Controls.MaterialButton search_all_db;
+        private MaterialSkin.Controls.MaterialButton get_profile;
+        private MaterialSkin.Controls.MaterialButton save_profiles;
+        private MaterialSkin.Controls.MaterialButton plot_prof;
+        private MaterialSkin.Controls.MaterialTextBox textBox_gene;
     }
 }

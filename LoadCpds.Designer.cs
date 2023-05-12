@@ -30,7 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadCpdsForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -109,7 +112,7 @@
             this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(3, 64);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1207, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1187, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -227,7 +230,7 @@
             this.swap.Depth = 0;
             this.swap.HighEmphasis = true;
             this.swap.Icon = null;
-            this.swap.Location = new System.Drawing.Point(550, 219);
+            this.swap.Location = new System.Drawing.Point(535, 218);
             this.swap.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.swap.MouseState = MaterialSkin.MouseState.HOVER;
             this.swap.Name = "swap";
@@ -260,7 +263,7 @@
             this.search_tab.Location = new System.Drawing.Point(4, 22);
             this.search_tab.Name = "search_tab";
             this.search_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.search_tab.Size = new System.Drawing.Size(1144, 518);
+            this.search_tab.Size = new System.Drawing.Size(1124, 518);
             this.search_tab.TabIndex = 0;
             this.search_tab.Text = "Meta Data";
             this.search_tab.UseVisualStyleBackColor = true;
@@ -279,7 +282,7 @@
             this.comboBox_mapping.FormattingEnabled = true;
             this.comboBox_mapping.IntegralHeight = false;
             this.comboBox_mapping.ItemHeight = 43;
-            this.comboBox_mapping.Location = new System.Drawing.Point(181, 25);
+            this.comboBox_mapping.Location = new System.Drawing.Point(380, 30);
             this.comboBox_mapping.MaxDropDownItems = 4;
             this.comboBox_mapping.MouseState = MaterialSkin.MouseState.OUT;
             this.comboBox_mapping.Name = "comboBox_mapping";
@@ -301,7 +304,7 @@
             this.comboBox_fields.FormattingEnabled = true;
             this.comboBox_fields.IntegralHeight = false;
             this.comboBox_fields.ItemHeight = 43;
-            this.comboBox_fields.Location = new System.Drawing.Point(6, 23);
+            this.comboBox_fields.Location = new System.Drawing.Point(124, 30);
             this.comboBox_fields.MaxDropDownItems = 4;
             this.comboBox_fields.MouseState = MaterialSkin.MouseState.OUT;
             this.comboBox_fields.Name = "comboBox_fields";
@@ -314,7 +317,7 @@
             this.selectLabel.AutoSize = true;
             this.selectLabel.Depth = 0;
             this.selectLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.selectLabel.Location = new System.Drawing.Point(6, 3);
+            this.selectLabel.Location = new System.Drawing.Point(6, 43);
             this.selectLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.selectLabel.Name = "selectLabel";
             this.selectLabel.Size = new System.Drawing.Size(103, 19);
@@ -392,7 +395,7 @@
             this.materialLabel1.AutoSize = true;
             this.materialLabel1.Depth = 0;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel1.Location = new System.Drawing.Point(179, 3);
+            this.materialLabel1.Location = new System.Drawing.Point(251, 43);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(123, 19);
@@ -426,7 +429,7 @@
             this.materialLabel2.AutoSize = true;
             this.materialLabel2.Depth = 0;
             this.materialLabel2.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel2.Location = new System.Drawing.Point(879, 3);
+            this.materialLabel2.Location = new System.Drawing.Point(768, 43);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
             this.materialLabel2.Size = new System.Drawing.Size(98, 19);
@@ -438,6 +441,8 @@
             this.dGV_results.AllowUserToAddRows = false;
             this.dGV_results.AllowUserToDeleteRows = false;
             this.dGV_results.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_results.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dGV_results.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -445,9 +450,9 @@
             this.dGV_results.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dGV_results.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dGV_results.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_results.Location = new System.Drawing.Point(621, 83);
+            this.dGV_results.Location = new System.Drawing.Point(616, 85);
             this.dGV_results.Name = "dGV_results";
-            this.dGV_results.Size = new System.Drawing.Size(486, 305);
+            this.dGV_results.Size = new System.Drawing.Size(483, 305);
             this.dGV_results.TabIndex = 0;
             this.dGV_results.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_results_CellDoubleClick);
             this.dGV_results.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dGV_results_ColumnHeaderMouseDoubleClick);
@@ -479,15 +484,16 @@
             // dGV_cpds
             // 
             this.dGV_cpds.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dGV_cpds.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dGV_cpds.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_cpds.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dGV_cpds.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dGV_cpds.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dGV_cpds.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dGV_cpds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_cpds.Location = new System.Drawing.Point(9, 83);
+            this.dGV_cpds.Location = new System.Drawing.Point(9, 85);
             this.dGV_cpds.Name = "dGV_cpds";
-            this.dGV_cpds.Size = new System.Drawing.Size(534, 307);
+            this.dGV_cpds.Size = new System.Drawing.Size(504, 305);
             this.dGV_cpds.TabIndex = 0;
             // 
             // searchtb
@@ -502,7 +508,7 @@
             this.searchtb.Location = new System.Drawing.Point(17, 92);
             this.searchtb.Name = "searchtb";
             this.searchtb.SelectedIndex = 0;
-            this.searchtb.Size = new System.Drawing.Size(1152, 544);
+            this.searchtb.Size = new System.Drawing.Size(1132, 544);
             this.searchtb.TabIndex = 28;
             // 
             // profiles_tab
@@ -515,7 +521,7 @@
             this.profiles_tab.Controls.Add(this.dGV_crisper);
             this.profiles_tab.Location = new System.Drawing.Point(4, 22);
             this.profiles_tab.Name = "profiles_tab";
-            this.profiles_tab.Size = new System.Drawing.Size(1144, 518);
+            this.profiles_tab.Size = new System.Drawing.Size(1124, 518);
             this.profiles_tab.TabIndex = 1;
             this.profiles_tab.Text = "Profiles";
             this.profiles_tab.UseVisualStyleBackColor = true;
@@ -672,7 +678,7 @@
             this.get_profile.Depth = 0;
             this.get_profile.HighEmphasis = true;
             this.get_profile.Icon = null;
-            this.get_profile.Location = new System.Drawing.Point(496, 146);
+            this.get_profile.Location = new System.Drawing.Point(467, 146);
             this.get_profile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.get_profile.MouseState = MaterialSkin.MouseState.HOVER;
             this.get_profile.Name = "get_profile";
@@ -689,8 +695,10 @@
             // 
             this.dGV_crisper.AllowUserToAddRows = false;
             this.dGV_crisper.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_crisper.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dGV_crisper.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_crisper.Location = new System.Drawing.Point(595, 34);
+            this.dGV_crisper.Location = new System.Drawing.Point(552, 34);
             this.dGV_crisper.Name = "dGV_crisper";
             this.dGV_crisper.Size = new System.Drawing.Size(550, 446);
             this.dGV_crisper.TabIndex = 2;
@@ -704,7 +712,7 @@
             this.search_all_tab.Location = new System.Drawing.Point(4, 22);
             this.search_all_tab.Name = "search_all_tab";
             this.search_all_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.search_all_tab.Size = new System.Drawing.Size(1144, 518);
+            this.search_all_tab.Size = new System.Drawing.Size(1124, 518);
             this.search_all_tab.TabIndex = 2;
             this.search_all_tab.Text = "search";
             this.search_all_tab.UseVisualStyleBackColor = true;
@@ -716,12 +724,12 @@
             this.searchText.Depth = 0;
             this.searchText.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.searchText.LeadingIcon = null;
-            this.searchText.Location = new System.Drawing.Point(42, 76);
+            this.searchText.Location = new System.Drawing.Point(16, 75);
             this.searchText.MaxLength = 50;
             this.searchText.MouseState = MaterialSkin.MouseState.OUT;
             this.searchText.Multiline = false;
             this.searchText.Name = "searchText";
-            this.searchText.Size = new System.Drawing.Size(274, 50);
+            this.searchText.Size = new System.Drawing.Size(225, 50);
             this.searchText.TabIndex = 3;
             this.searchText.Text = "";
             this.searchText.TrailingIcon = null;
@@ -730,13 +738,15 @@
             // 
             this.dGV_search.AllowUserToAddRows = false;
             this.dGV_search.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_search.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dGV_search.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dGV_search.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_search.Location = new System.Drawing.Point(382, 27);
+            this.dGV_search.Location = new System.Drawing.Point(263, 20);
             this.dGV_search.Name = "dGV_search";
-            this.dGV_search.Size = new System.Drawing.Size(903, 516);
+            this.dGV_search.Size = new System.Drawing.Size(855, 450);
             this.dGV_search.TabIndex = 2;
             // 
             // search_all_db
@@ -746,7 +756,7 @@
             this.search_all_db.Depth = 0;
             this.search_all_db.HighEmphasis = true;
             this.search_all_db.Icon = null;
-            this.search_all_db.Location = new System.Drawing.Point(134, 148);
+            this.search_all_db.Location = new System.Drawing.Point(51, 145);
             this.search_all_db.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.search_all_db.MouseState = MaterialSkin.MouseState.HOVER;
             this.search_all_db.Name = "search_all_db";
@@ -777,7 +787,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1213, 650);
+            this.ClientSize = new System.Drawing.Size(1193, 650);
             this.Controls.Add(this.searchtb);
             this.Controls.Add(this.toolStrip1);
             this.Name = "LoadCpdsForm";

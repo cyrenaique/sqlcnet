@@ -576,6 +576,8 @@ namespace sqlcnet
                 fc.chart1.Series[0].Points.AddXY(x_values, y_counts);
             }
             fc.chart1.Series[0].Name = val_combo_x + "__" + val_combo_y;
+           
+
             fc.Show();
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -962,7 +964,7 @@ namespace sqlcnet
 
 
                     // create a new SqlCommand object to search the table for the string
-                    var command = new NpgsqlCommand($"SELECT * FROM {table} WHERE {col} = '{text}'", conn_meta);
+                    var command = new NpgsqlCommand($"SELECT * FROM {table} WHERE UPPER({col}) LIKE UPPER('{text}%')", conn_meta);
 
                     // create a new SqlDataAdapter object to fill a DataTable with the results of the query
                     var adapter = new NpgsqlDataAdapter(command);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.formsPlot1 = new ScottPlot.FormsPlot();
             this.checkedListBox_Signal = new System.Windows.Forms.CheckedListBox();
@@ -162,6 +163,8 @@
             // dgv_sim
             // 
             this.dgv_sim.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dgv_sim.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_sim.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_sim.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;

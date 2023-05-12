@@ -1,4 +1,6 @@
-﻿using Npgsql;
+﻿using MaterialSkin;
+using MaterialSkin.Controls;
+using Npgsql;
 using ScottPlot;
 using System;
 using System.Collections;
@@ -16,17 +18,20 @@ using static Plotly.NET.StyleParam.LinearAxisId;
 
 namespace sqlcnet
 {
-    public partial class TestForm : Form
+    public partial class plotForm : MaterialForm
     {
         //private DataTable _tabName;
         int flag = 0;
         string batchid;
         DataTable dataTable = new DataTable();
-        public TestForm()
+        public plotForm()
         {
             InitializeComponent();
-            //checkedListBox_Signal.Height = checkedListBox_Signal.Items.Count * checkedListBox_Signal.ItemHeight;
-            //_tabName = tabName;
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+          
         }
 
         private static bool IsNumericType(Type type)

@@ -43,7 +43,7 @@ namespace sqlcnet
         readonly string cs_profile = "Server=192.168.2.131;Port=5432;User Id=arno; Database=ksilink_cpds; Password=12345";
         public GKForm f2;
         public LoadCpdsForm f_cpds;
-        public TestForm TF;
+        public plotForm TF;
         string cmb, cmb2;
         protected DataGridView MyDgv;
         public DataTable tbl_profiles;
@@ -818,7 +818,7 @@ namespace sqlcnet
         {
 
 
-            TestForm TF = new TestForm();
+            plotForm TF = new plotForm();
             //var plt = TF.formsPlot1.Plot;
             DataTable groupedDataTable = tbl_profiles;
             List<string> batch_list = new List<string>(tbl_profiles.Rows.Count);

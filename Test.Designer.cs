@@ -1,6 +1,6 @@
 ﻿namespace sqlcnet
 {
-    partial class TestForm
+    partial class plotForm
     {
         /// <summary>
         /// Required designer variable.
@@ -172,7 +172,7 @@
             this.checkBoxSave.Text = "Save";
             this.checkBoxSave.UseVisualStyleBackColor = true;
             // 
-            // TestForm
+            // plotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -187,8 +187,8 @@
             this.Controls.Add(this.checkedListBox_Signal);
             this.Controls.Add(this.formsPlot1);
             this.Controls.Add(this.webBrowser1);
-            this.Name = "TestForm";
-            this.Text = "Test";
+            this.Name = "plotForm";
+            this.Text = "Plots";
             ((System.ComponentModel.ISupportInitialize)(this.dg_test)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sim)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_sim)).EndInit();

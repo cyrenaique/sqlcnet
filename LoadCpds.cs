@@ -25,6 +25,7 @@ using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using ScottPlot;
 using ScottPlot.Palettes;
+using System.Net.NetworkInformation;
 
 namespace sqlcnet
 {
@@ -542,7 +543,8 @@ namespace sqlcnet
 
         private void get_profile_Click(object sender, EventArgs e)
         {
-
+            dGV_crisper.DataSource = null;
+            
             conn_meta.Close();
             if (conn_meta.State == ConnectionState.Closed)
             {
@@ -550,102 +552,75 @@ namespace sqlcnet
             }
             string search_text = textBox_gene.Text;
             tbl_profiles = new DataTable();
-
-
-            
-            
-            
-            
-            // search in gene 
             var tbl_batchs_gene = new DataTable();
-            if (radioButton_gene.Checked) {
-                var schemaTable1 = conn_meta.GetSchema("Columns", new[] { null, null, "gene" });
-                var columnNames = new List<string>();
-                foreach (DataRow row in schemaTable1.Rows)
-                {
-                    if (row["DATA_TYPE"].ToString() != "double precision")
-                        columnNames.Add(row["COLUMN_NAME"].ToString());
-                }
-                foreach (var col in columnNames)
-                    {
-                        string sql_last_line = " where gene. " + col + " LIKE UPPER('%" + search_text + "%') ";
-                        if (equal_radioButton.Checked)
-                        {
-                            sql_last_line = " where gene. " + col + "= UPPER('" + search_text + "') ";
-                        }
-                        if (startswith_radioButton.Checked)
-                        {
-                            sql_last_line = " where gene. " + col + " LIKE UPPER('" + search_text + "%') ";
-                        }
-
-                        //crisper
-                        string sql_crisper = "select crispermeta.batchid,gene.geneid,gene.symbol,gene.synonyms" +
-                            " from crispermeta " +
-                            "inner join gene on crispermeta.geneid=gene.geneid " + sql_last_line + "" +
-                            " GROUP BY crispermeta.batchid,gene.geneid,gene.symbol,gene.synonyms";
-
-                        var command_1 = new NpgsqlCommand(sql_crisper, conn_meta);
-                        var adapter_1 = new NpgsqlDataAdapter(command_1);
-                        var tableResults_1 = new DataTable();
-                        adapter_1.Fill(tableResults_1);
-                        tbl_batchs_gene.Merge(tableResults_1);
-
-                        //cpd
-                        string sql_cpd = "select  batchs.batchid, gene.geneid,gene.symbol,gene.synonyms" +
-                            " from batchs" +
-                            " inner join cpdgene on cpdgene.pubchemid=batchs.pubchemid" +
-                            " inner join gene on cpdgene.geneid=gene.geneid" + sql_last_line +
-                            " GROUP BY batchs.batchid, gene.geneid,gene.symbol,gene.synonyms";
-
-                        var command_2 = new NpgsqlCommand(sql_cpd, conn_meta);
-                        var adapter_2 = new NpgsqlDataAdapter(command_2);
-                        var tableResults_2 = new DataTable();
-                        adapter_2.Fill(tableResults_2);
-                        tbl_batchs_gene.Merge(tableResults_2);
-                    }
-            }
-
-            // search in cpd 
-          
-            else if (radioButton_cpd.Checked)
+            string tbl_to_serach = "gene";
+            string col_to_add = "symbol";
+            if (radioButton_cpd.Checked)
             {
-                var schemaTable2 = conn_meta.GetSchema("Columns", new[] { null, null, "cpd" });
-                var columnNames = new List<string>();
-                foreach (DataRow row in schemaTable2.Rows)
+                tbl_to_serach = "cpd";
+                col_to_add = "pubchemid";
+
+            }
+            var schemaTable1 = conn_meta.GetSchema("Columns", new[] { null, null, tbl_to_serach });
+            var columnNames = new List<string>();
+            foreach (DataRow row in schemaTable1.Rows)
+            {
+                if (row["DATA_TYPE"].ToString() != "double precision")
+                    columnNames.Add(row["COLUMN_NAME"].ToString());
+            }
+            // get data
+            foreach (var col in columnNames)
+            {
+
+                string sql_last_line = $" where UPPER({tbl_to_serach}.{col}) LIKE UPPER('% {search_text} %') ";
+
+                if (equal_radioButton.Checked)
                 {
-                    if (row["DATA_TYPE"].ToString() != "double precision")
-                        columnNames.Add(row["COLUMN_NAME"].ToString());
+                    sql_last_line = $" where UPPER({tbl_to_serach}.{col}) =  UPPER('{search_text}') ";
                 }
-                foreach (var col in columnNames)
+                if (startswith_radioButton.Checked)
                 {
-                    string sql_last_line = " where cpd." + col + " LIKE '%" + search_text + "%' ";
-                    if (equal_radioButton.Checked)
-                    {
-                        sql_last_line = " where cpd." + col + "= '" + search_text + "' ";
-                    }
-                    if (startswith_radioButton.Checked)
-                    {
-                        sql_last_line = " where cpd." + col + " LIKE '" + search_text + "%' ";
-                    }
-
-                
-
-                    //cpd
-                    string sql_cpd = "select  batchs.batchid, cpd.pubchemid,cpd.name " +
-                        " from cpd" +
-                        " inner join batchs on batchs.pubchemid=cpd.pubchemid " +
-                          sql_last_line +
-                        " GROUP BY batchs.batchid, cpd.pubchemid,cpd.name";
-
-                    var command_2 = new NpgsqlCommand(sql_cpd, conn_meta);
-                    var adapter_2 = new NpgsqlDataAdapter(command_2);
-                    var tableResults_2 = new DataTable();
-                    adapter_2.Fill(tableResults_2);
-                    tbl_batchs_gene.Merge(tableResults_2);
+                    sql_last_line = $" where UPPER({tbl_to_serach}.{col}) LIKE UPPER('% {search_text} ') ";
                 }
+
+                //crisper
+                if (radioButton_gene.Checked) { 
+                    string sql_crisper = "select crispermeta.batchid,gene.geneid,gene.symbol,gene.synonyms" +
+                    " from crispermeta " +
+                    "inner join gene on crispermeta.geneid=gene.geneid " + sql_last_line + "" +
+                    " GROUP BY crispermeta.batchid,gene.geneid,gene.symbol,gene.synonyms";
+
+                var command_1 = new NpgsqlCommand(sql_crisper, conn_meta);
+                var adapter_1 = new NpgsqlDataAdapter(command_1);
+                var tableResults_1 = new DataTable();
+                adapter_1.Fill(tableResults_1);
+                tbl_batchs_gene.Merge(tableResults_1);
+                }
+                //cpd
+                string sql_cpd = "select  batchs.batchid, gene.geneid,gene.symbol,gene.synonyms" +
+                    " from batchs" +
+                    " inner join cpdgene on cpdgene.pubchemid=batchs.pubchemid" +
+                    " inner join gene on cpdgene.geneid=gene.geneid" + sql_last_line +
+                    " GROUP BY batchs.batchid, gene.geneid,gene.symbol,gene.synonyms";
+                if (radioButton_cpd.Checked)
+                {
+                    sql_cpd = "select  batchs.batchid, cpd.pubchemid,cpd.name " +
+                       " from cpd" +
+                       " inner join batchs on batchs.pubchemid=cpd.pubchemid " +
+                         sql_last_line +
+                       " GROUP BY batchs.batchid, cpd.pubchemid,cpd.name";
+                }
+
+                var command_2 = new NpgsqlCommand(sql_cpd, conn_meta);
+                var adapter_2 = new NpgsqlDataAdapter(command_2);
+                var tableResults_2 = new DataTable();
+                adapter_2.Fill(tableResults_2);
+                tbl_batchs_gene.Merge(tableResults_2);
             }
 
-            if (tbl_batchs_gene.Rows.Count>0) { 
+            //get profiles
+            if (tbl_batchs_gene.Rows.Count > 0)
+            {
                 List<string> batch_list = new List<string>(tbl_batchs_gene.Rows.Count);
                 foreach (DataRow row in tbl_batchs_gene.Rows)
                 {
@@ -659,119 +634,63 @@ namespace sqlcnet
                 {
                     conn_profile.Open();
                 }
-                if (batch_list.Count > 0)
+                string sql_profile = "select * from aggprofiles where batchid  in ("
+                      + string.Join(",", batch_list)
+                      + ")";
+                var cmd_profile = new NpgsqlCommand(sql_profile, conn_profile);
+                var adp_profile = new NpgsqlDataAdapter(cmd_profile);
+                adp_profile.Fill(tbl_profiles);
+
+                // add pubchemid or geneid to table
+                DataTable distinctTable = tbl_batchs_gene.DefaultView.ToTable(true, col_to_add, "batchid");
+                Dictionary<string, List<string>> batchGeneDict = new Dictionary<string, List<string>>();
+
+                foreach (DataRow row in distinctTable.Rows)
                 {
-                    string sql_profile = "select * from aggprofiles where batchid  in ("
-                       + string.Join(",", batch_list)
-                       + ")";
-                    var cmd_profile = new NpgsqlCommand(sql_profile, conn_profile);
-                    var adp_profile = new NpgsqlDataAdapter(cmd_profile);
-                    adp_profile.Fill(tbl_profiles);
+                    string batchid = row["batchid"].ToString();
+                    string symbol = row[col_to_add].ToString();
 
-                    // add gene info
-                    if (radioButton_gene.Checked)
+                    if (batchGeneDict.ContainsKey(batchid))
                     {
-                        DataTable distinctTable = tbl_batchs_gene.DefaultView.ToTable(true, "symbol", "batchid");
-                        Dictionary<string, List<string>> batchGeneDict = new Dictionary<string, List<string>>();
-
-                        foreach (DataRow row in distinctTable.Rows)
-                        {
-                            string batchid = row["batchid"].ToString();
-                            string symbol = row["symbol"].ToString();
-
-                            if (batchGeneDict.ContainsKey(batchid))
-                            {
-                                batchGeneDict[batchid].Add(symbol);
-                            }
-                            else
-                            {
-                                batchGeneDict.Add(batchid, new List<string> { symbol });
-                            }
-                        }
-
-                        tbl_profiles.Columns.Add("symbol");
-                        foreach (DataRow row in tbl_profiles.Rows)
-                        {
-                            string batchid = row.Field<string>("batchid");
-                            if (batchGeneDict.ContainsKey(batchid))
-                            {
-                                List<string> symbol = batchGeneDict[batchid];
-                                if (symbol.Count == 1)
-                                {
-                                    row.SetField("symbol", symbol[0]);
-                                }
-                                else
-                                {
-                                    // Handle multiple "geneid" values for "batchid"
-                                }
-
-
-                            }
-                        }
-                        tbl_batchs_gene = tbl_profiles.DefaultView.ToTable(true, "source", "symbol", "batchid");
+                        batchGeneDict[batchid].Add(symbol);
                     }
-                        // add pubchem info
-                    else if (radioButton_cpd.Checked)
+                    else
                     {
-                            DataTable distinctTable = tbl_batchs_gene.DefaultView.ToTable(true, "pubchemid", "batchid");
-                            Dictionary<string, List<string>> batchGeneDict = new Dictionary<string, List<string>>();
-
-                            foreach (DataRow row in distinctTable.Rows)
-                            {
-                                string batchid = row["batchid"].ToString();
-                                string pubchemid = row["pubchemid"].ToString();
-
-                                if (batchGeneDict.ContainsKey(batchid))
-                                {
-                                    batchGeneDict[batchid].Add(pubchemid);
-                                }
-                                else
-                                {
-                                    batchGeneDict.Add(batchid, new List<string> { pubchemid });
-                                }
-                            }
-
-                            tbl_profiles.Columns.Add("pubchemid");
-                            foreach (DataRow row in tbl_profiles.Rows)
-                            {
-                                string batchid = row.Field<string>("batchid");
-                                if (batchGeneDict.ContainsKey(batchid))
-                                {
-                                    List<string> pubchemid = batchGeneDict[batchid];
-                                    if (pubchemid.Count == 1)
-                                    {
-                                        row.SetField("pubchemid", pubchemid[0]);
-                                    }
-                                    else
-                                    {
-                                        // Handle multiple "geneid" values for "batchid"
-                                    }
-
-
-                                }
-                            }
-                            tbl_batchs_gene = tbl_profiles.DefaultView.ToTable(true, "source", "pubchemid", "batchid");
-
+                        batchGeneDict.Add(batchid, new List<string> { symbol });
                     }
-                    dGV_crisper.DataSource = tbl_batchs_gene;
-                    foreach (DataGridViewRow row in dGV_crisper.Rows)
-                    {
-                        row.HeaderCell.Value = (row.Index + 1).ToString();
-                    }
-
-
-
                 }
-                
-                
+
+                tbl_profiles.Columns.Add(col_to_add);
+                foreach (DataRow row in tbl_profiles.Rows)
+                {
+                    string batchid = row.Field<string>("batchid");
+                    if (batchGeneDict.ContainsKey(batchid))
+                    {
+                        List<string> symbol = batchGeneDict[batchid];
+                        if (symbol.Count == 1)
+                        {
+                            row.SetField(col_to_add, symbol[0]);
+                        }
+                        else
+                        {
+                            // Handle multiple "geneid" values for "batchid"
+                        }
+
+
+                    }
+                }
+                tbl_batchs_gene = tbl_profiles.DefaultView.ToTable(true, "source", col_to_add, "batchid");
+                dGV_crisper.DataSource = tbl_batchs_gene;
+                foreach (DataGridViewRow row in dGV_crisper.Rows)
+                {
+                    row.HeaderCell.Value = (row.Index + 1).ToString();
+                }
             }
             else
             {
                 MessageBox.Show("Record Not Found");
             }
-            plot_prof.Visible= true;
-
-            //
+            plot_prof.Visible = true;
 
 
 

@@ -168,6 +168,7 @@
             this.dgv_sim.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_sim.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgv_sim.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dgv_sim.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_sim.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgv_sim.Location = new System.Drawing.Point(1006, 363);

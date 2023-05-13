@@ -83,7 +83,7 @@ namespace sqlcnet
                 comboBox_tables.ValueMember = dt.Columns[0].ColumnName;
 
             }
-            
+
             comboBox_tables.Sorted = true;
 
             //comboBox_mapping----------------------------------------------
@@ -314,7 +314,7 @@ namespace sqlcnet
             string val_combo = comboBox_fields.GetItemText(comboBox_fields.SelectedItem);
             cmb2 = comboBox_mapping.GetItemText(comboBox_mapping.SelectedItem);
             dGV_results.Visible = true;
-            dGV_cpds.AllowUserToAddRows=false; ;
+            dGV_cpds.AllowUserToAddRows = false; ;
             if (col_list.Contains(cmb2))
             {
                 foreach (DataGridViewRow row in dGV_cpds.Rows)
@@ -329,7 +329,7 @@ namespace sqlcnet
                 string sql = "SELECT * FROM " + cmb + " WHERE " + cmb2 + " IN (";
 
 
-                if ( cmb == "genedis")
+                if (cmb == "genedis")
                 {
                     sql = "select  disease.name as disease_Name, gene.symbol as Gene_symbol ,genedis.* " +
                         "from genedis" +
@@ -337,12 +337,12 @@ namespace sqlcnet
                         "  inner join gene on genedis.geneid=gene.geneid " +
                         " WHERE  genedis." + cmb2 + " IN (";
                 }
-                else if  (cmb == "cpdgene")
-                    {
-                    sql= "select  cpd.name as Compound_Name, gene.symbol as Gene_symbol ,cpdgene.*" +
+                else if (cmb == "cpdgene")
+                {
+                    sql = "select  cpd.name as Compound_Name, gene.symbol as Gene_symbol ,cpdgene.*" +
                         "  from cpdgene" +
                         "  inner join cpd on cpdgene.pubchemid=cpd.pubchemid" +
-                        "  inner join gene on cpdgene.geneid=gene.geneid "+
+                        "  inner join gene on cpdgene.geneid=gene.geneid " +
                         " WHERE  cpdgene." + cmb2 + " IN (";
                 }
                 else if (cmb == "cpdpath")
@@ -359,14 +359,14 @@ namespace sqlcnet
                     sql = "select   cpd.name as Compound_Name ,disease.name as disease_Name , cpddis.* " +
                         "from cpddis " +
                         "inner join cpd on cpddis.pubchemid=cpd.pubchemid " +
-                        "inner join disease on cpddis.disid=disease.disid "+
+                        "inner join disease on cpddis.disid=disease.disid " +
                         " WHERE  cpddis." + cmb2 + " IN (";
                 }
                 else if (cmb == "genepath")
                 {
                     sql = "select pathway.name as Pathway_Name ,gene.symbol as Gene_Symbol, genepath.*" +
                         " from genepath  inner join pathway on genepath.pathid=pathway.pathid " +
-                        " inner join gene on genepath.geneid=gene.geneid "+
+                        " inner join gene on genepath.geneid=gene.geneid " +
                         " WHERE  genepath." + cmb2 + " IN (";
                 }
 
@@ -421,6 +421,8 @@ namespace sqlcnet
         private void swap_Click(object sender, EventArgs e)
         {
             DataTable tempTable = (DataTable)dGV_results.DataSource;
+            dGV_cpds.Rows.Clear();
+            dGV_cpds.Columns.Clear();
             // Set the data source of dataGridView1 to the data source of dataGridView2
             dGV_results.DataSource = dGV_cpds.DataSource;
             // Set the data source of dataGridView2 to the DataTable object that was created from dataGridView1
@@ -581,7 +583,7 @@ namespace sqlcnet
                 fc.chart1.Series[0].Points.AddXY(x_values, y_counts);
             }
             fc.chart1.Series[0].Name = val_combo_x + "__" + val_combo_y;
-           
+
 
             fc.Show();
         }
@@ -633,7 +635,7 @@ namespace sqlcnet
         private void get_profile_Click(object sender, EventArgs e)
         {
             dGV_crisper.DataSource = null;
-            
+
             conn_meta.Close();
             if (conn_meta.State == ConnectionState.Closed)
             {
@@ -673,17 +675,18 @@ namespace sqlcnet
                 }
 
                 //crisper
-                if (radioButton_gene.Checked) { 
+                if (radioButton_gene.Checked)
+                {
                     string sql_crisper = "select crispermeta.batchid,gene.geneid,gene.symbol,gene.synonyms" +
                     " from crispermeta " +
                     "inner join gene on crispermeta.geneid=gene.geneid " + sql_last_line + "" +
                     " GROUP BY crispermeta.batchid,gene.geneid,gene.symbol,gene.synonyms";
 
-                var command_1 = new NpgsqlCommand(sql_crisper, conn_meta);
-                var adapter_1 = new NpgsqlDataAdapter(command_1);
-                var tableResults_1 = new DataTable();
-                adapter_1.Fill(tableResults_1);
-                tbl_batchs_gene.Merge(tableResults_1);
+                    var command_1 = new NpgsqlCommand(sql_crisper, conn_meta);
+                    var adapter_1 = new NpgsqlDataAdapter(command_1);
+                    var tableResults_1 = new DataTable();
+                    adapter_1.Fill(tableResults_1);
+                    tbl_batchs_gene.Merge(tableResults_1);
                 }
                 //cpd
                 string sql_cpd = "select  batchs.batchid, gene.geneid,gene.symbol,gene.synonyms" +
@@ -707,7 +710,7 @@ namespace sqlcnet
                 tbl_batchs_gene.Merge(tableResults_2);
                 conn_meta.Close();
             }
-            
+
 
             //get profiles
             if (tbl_batchs_gene.Rows.Count > 0)
@@ -717,7 +720,7 @@ namespace sqlcnet
                 {
                     batch_list.Add("'" + (string)row["batchid"] + "'");
                 }
-                
+
                 // get profiles
 
                 conn_profile = new NpgsqlConnection(cs_profile);
@@ -788,7 +791,7 @@ namespace sqlcnet
 
 
         }
-        
+
         private static bool IsNumericType(Type type)
         {
             return type == typeof(decimal) || type == typeof(double) || type == typeof(float) || type == typeof(int) || type == typeof(long) || type == typeof(short);
@@ -830,16 +833,73 @@ namespace sqlcnet
             }
             else if (e.Control && e.KeyCode == Keys.V)
             {
-                dGV_cpds.DataSource = dGV_crisper.DataSource;
-                List<string> columns_name = new List<string>();
-                for (var i = 0; i < dGV_cpds.ColumnCount; i++)
+                // Get the clipboard data object
+                IDataObject dataObject = Clipboard.GetDataObject();
+
+                // Check if the clipboard data is in a supported format
+                if (dataObject != null && dataObject.GetDataPresent(DataFormats.Text))
                 {
-                    columns_name.Add(dGV_cpds.Columns[i].HeaderText);
+                    // Get the clipboard text and split it into rows
+                    string clipboardText = (string)dataObject.GetData(DataFormats.Text);
+                    string[] clipboardRows = clipboardText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    dGV_cpds.Rows.Clear();
+                    dGV_cpds.Columns.Clear();
+
+                    // Create columns based on the headers in the clipboard data
+                    string[] clipboardHeaders = clipboardRows[0].Split('\t');
+                    ;
+                    foreach (string header in clipboardHeaders)
+                    {
+                        DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
+                        column.HeaderText = header;
+                        column.Name = header;
+
+                        dGV_cpds.Columns.Add(column);
+
+
+
+                    }
+
+                    // Iterate through the rows in the clipboard data and add them to the destination DataGridView
+                    for (int i = 1; i < clipboardRows.Length; i++)
+                    {
+                        string[] clipboardCells = clipboardRows[i].Split('\t');
+                        DataGridViewRow newRow = new DataGridViewRow();
+
+                        // Map the data from the source columns to the destination columns
+                        for (int j = 0; j < clipboardCells.Length; j++)
+                        {
+                            if (j < dGV_cpds.Columns.Count)
+                            {
+                                DataGridViewColumn column = dGV_cpds.Columns[j];
+                                if (column is DataGridViewTextBoxColumn)
+                                {
+                                    DataGridViewTextBoxCell cell = new DataGridViewTextBoxCell();
+                                    cell.Value = clipboardCells[j];
+                                    newRow.Cells.Add(cell);
+
+                                }
+                                // Add additional mapping code here for other column types
+                            }
+                        }
+
+                        dGV_cpds.Rows.Add(newRow);
+
+                    }
+
+
+                    List<string> columns_name = new List<string>();
+                    for (var i = 0; i < dGV_cpds.ColumnCount; i++)
+                    {
+                        columns_name.Add(dGV_cpds.Columns[i].HeaderText);
+
+                    }
+                    comboBox_fields.DataSource = columns_name;
 
                 }
-                comboBox_fields.DataSource = columns_name;
-
             }
+            dGV_cpds.Refresh();
         }
 
         private void plot_prof_Click(object sender, EventArgs e)
@@ -929,7 +989,7 @@ namespace sqlcnet
             for (int i = 0; i < groupedDataTable.Rows.Count; i++)
             {
 
-                TF.checkedListBox_Signal.Items.Add(groupedDataTable.Rows[i]["batchid"].ToString()+"+"+ groupedDataTable.Rows[i]["source"].ToString());
+                TF.checkedListBox_Signal.Items.Add(groupedDataTable.Rows[i]["batchid"].ToString() + "+" + groupedDataTable.Rows[i]["source"].ToString());
 
             }
 

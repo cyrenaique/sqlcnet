@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadCpdsForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -287,6 +287,7 @@
             this.comboBox_mapping.MouseState = MaterialSkin.MouseState.OUT;
             this.comboBox_mapping.Name = "comboBox_mapping";
             this.comboBox_mapping.Size = new System.Drawing.Size(121, 49);
+            this.comboBox_mapping.Sorted = true;
             this.comboBox_mapping.StartIndex = 0;
             this.comboBox_mapping.TabIndex = 34;
             // 
@@ -441,8 +442,8 @@
             this.dGV_results.AllowUserToAddRows = false;
             this.dGV_results.AllowUserToDeleteRows = false;
             this.dGV_results.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dGV_results.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_results.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dGV_results.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -483,10 +484,10 @@
             // 
             // dGV_cpds
             // 
-            this.dGV_cpds.AllowUserToAddRows = false;
+            this.dGV_cpds.AllowDrop = true;
             this.dGV_cpds.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dGV_cpds.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_cpds.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle14;
             this.dGV_cpds.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dGV_cpds.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dGV_cpds.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -495,6 +496,7 @@
             this.dGV_cpds.Name = "dGV_cpds";
             this.dGV_cpds.Size = new System.Drawing.Size(504, 305);
             this.dGV_cpds.TabIndex = 0;
+            this.dGV_cpds.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dGV_cpds_KeyDown);
             // 
             // searchtb
             // 
@@ -695,8 +697,8 @@
             // 
             this.dGV_crisper.AllowUserToAddRows = false;
             this.dGV_crisper.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dGV_crisper.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_crisper.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle15;
             this.dGV_crisper.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_crisper.Location = new System.Drawing.Point(552, 34);
             this.dGV_crisper.Name = "dGV_crisper";
@@ -738,8 +740,8 @@
             // 
             this.dGV_search.AllowUserToAddRows = false;
             this.dGV_search.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dGV_search.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_search.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
             this.dGV_search.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));

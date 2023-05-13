@@ -57,7 +57,7 @@ namespace sqlcnet
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
-            dGV_cpds.Visible = false;
+            dGV_cpds.Visible = true;
             dGV_results.Visible = false;
 
             //comboBox_tables----------------------------------------------
@@ -82,6 +82,7 @@ namespace sqlcnet
                 comboBox_tables.ValueMember = dt.Columns[0].ColumnName;
 
             }
+            comboBox_tables.Sorted = true;
 
             //comboBox_mapping----------------------------------------------
             cmd.CommandText = "SELECT column_name, table_name FROM information_schema.columns WHERE table_schema = 'public'";
@@ -283,7 +284,8 @@ namespace sqlcnet
 
         private void comboBox_tables_DropDownClosed(object sender, EventArgs e)
         {
-            cmb = comboBox_tables.GetItemText(this.comboBox_tables.SelectedItem);
+            comboBox_tables.Sorted = true;
+            cmb = comboBox_tables.GetItemText(comboBox_tables.SelectedItem);
             conn_meta.Close();
             if (conn_meta.State == ConnectionState.Closed)
             {
@@ -307,9 +309,10 @@ namespace sqlcnet
 
 
             List<string> list_res_data = new List<string>();
-            string val_combo = comboBox_fields.GetItemText(this.comboBox_fields.SelectedItem);
-            cmb2 = comboBox_mapping.GetItemText(this.comboBox_mapping.SelectedItem);
+            string val_combo = comboBox_fields.GetItemText(comboBox_fields.SelectedItem);
+            cmb2 = comboBox_mapping.GetItemText(comboBox_mapping.SelectedItem);
             dGV_results.Visible = true;
+            dGV_cpds.AllowUserToAddRows=false; ;
             if (col_list.Contains(cmb2))
             {
                 foreach (DataGridViewRow row in dGV_cpds.Rows)
@@ -814,7 +817,28 @@ namespace sqlcnet
 
             }
         }
-      
+
+        private void dGV_cpds_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                DataObject d = dGV_cpds.GetClipboardContent();
+                Clipboard.SetDataObject(d);
+                e.Handled = true;
+            }
+            else if (e.Control && e.KeyCode == Keys.V)
+            {
+                dGV_cpds.DataSource = dGV_crisper.DataSource;
+                List<string> columns_name = new List<string>();
+                for (var i = 0; i < dGV_cpds.ColumnCount; i++)
+                {
+                    columns_name.Add(dGV_cpds.Columns[i].HeaderText);
+
+                }
+                comboBox_fields.DataSource = columns_name;
+
+            }
+        }
 
         private void plot_prof_Click(object sender, EventArgs e)
         {

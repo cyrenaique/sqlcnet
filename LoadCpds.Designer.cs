@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadCpdsForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -62,7 +62,6 @@
             this.x_combo = new MaterialSkin.Controls.MaterialComboBox();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.dGV_results = new System.Windows.Forms.DataGridView();
-            this.comboBox_tables = new MaterialSkin.Controls.MaterialComboBox();
             this.dGV_cpds = new System.Windows.Forms.DataGridView();
             this.searchtb = new System.Windows.Forms.TabControl();
             this.profiles_tab = new System.Windows.Forms.TabPage();
@@ -83,6 +82,7 @@
             this.search_all_db = new MaterialSkin.Controls.MaterialButton();
             this.compunds_tab = new System.Windows.Forms.TabPage();
             this.npgsqlCommandBuilder1 = new Npgsql.NpgsqlCommandBuilder();
+            this.comboBox_tables = new System.Windows.Forms.ComboBox();
             this.toolStrip1.SuspendLayout();
             this.search_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
@@ -246,6 +246,7 @@
             // 
             // search_tab
             // 
+            this.search_tab.Controls.Add(this.comboBox_tables);
             this.search_tab.Controls.Add(this.comboBox_mapping);
             this.search_tab.Controls.Add(this.comboBox_fields);
             this.search_tab.Controls.Add(this.selectLabel);
@@ -258,7 +259,6 @@
             this.search_tab.Controls.Add(this.materialLabel2);
             this.search_tab.Controls.Add(this.swap);
             this.search_tab.Controls.Add(this.dGV_results);
-            this.search_tab.Controls.Add(this.comboBox_tables);
             this.search_tab.Controls.Add(this.dGV_cpds);
             this.search_tab.Location = new System.Drawing.Point(4, 22);
             this.search_tab.Name = "search_tab";
@@ -442,8 +442,8 @@
             this.dGV_results.AllowUserToAddRows = false;
             this.dGV_results.AllowUserToDeleteRows = false;
             this.dGV_results.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dGV_results.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_results.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dGV_results.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -458,36 +458,12 @@
             this.dGV_results.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_results_CellDoubleClick);
             this.dGV_results.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dGV_results_ColumnHeaderMouseDoubleClick);
             // 
-            // comboBox_tables
-            // 
-            this.comboBox_tables.AutoResize = false;
-            this.comboBox_tables.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.comboBox_tables.Depth = 0;
-            this.comboBox_tables.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboBox_tables.DropDownHeight = 174;
-            this.comboBox_tables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_tables.DropDownWidth = 121;
-            this.comboBox_tables.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.comboBox_tables.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.comboBox_tables.FormattingEnabled = true;
-            this.comboBox_tables.IntegralHeight = false;
-            this.comboBox_tables.ItemHeight = 43;
-            this.comboBox_tables.Location = new System.Drawing.Point(872, 29);
-            this.comboBox_tables.MaxDropDownItems = 4;
-            this.comboBox_tables.MouseState = MaterialSkin.MouseState.OUT;
-            this.comboBox_tables.Name = "comboBox_tables";
-            this.comboBox_tables.Size = new System.Drawing.Size(121, 49);
-            this.comboBox_tables.Sorted = true;
-            this.comboBox_tables.StartIndex = 0;
-            this.comboBox_tables.TabIndex = 14;
-            this.comboBox_tables.DropDownClosed += new System.EventHandler(this.comboBox_tables_DropDownClosed);
-            // 
             // dGV_cpds
             // 
             this.dGV_cpds.AllowDrop = true;
             this.dGV_cpds.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dGV_cpds.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_cpds.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dGV_cpds.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dGV_cpds.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dGV_cpds.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -697,8 +673,8 @@
             // 
             this.dGV_crisper.AllowUserToAddRows = false;
             this.dGV_crisper.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dGV_crisper.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_crisper.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dGV_crisper.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_crisper.Location = new System.Drawing.Point(552, 34);
             this.dGV_crisper.Name = "dGV_crisper";
@@ -740,8 +716,8 @@
             // 
             this.dGV_search.AllowUserToAddRows = false;
             this.dGV_search.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dGV_search.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dGV_search.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dGV_search.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -784,6 +760,16 @@
             // 
             this.npgsqlCommandBuilder1.QuotePrefix = "\"";
             this.npgsqlCommandBuilder1.QuoteSuffix = "\"";
+            // 
+            // comboBox_tables
+            // 
+            this.comboBox_tables.FormattingEnabled = true;
+            this.comboBox_tables.Location = new System.Drawing.Point(934, 42);
+            this.comboBox_tables.Name = "comboBox_tables";
+            this.comboBox_tables.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_tables.Sorted = true;
+            this.comboBox_tables.TabIndex = 35;
+            this.comboBox_tables.DropDownClosed += new System.EventHandler(this.comboBox_tables_DropDownClosed);
             // 
             // LoadCpdsForm
             // 
@@ -849,7 +835,6 @@
         private MaterialSkin.Controls.MaterialComboBox comboBox_fields;
         private MaterialSkin.Controls.MaterialComboBox y_combo;
         private MaterialSkin.Controls.MaterialComboBox x_combo;
-        private MaterialSkin.Controls.MaterialComboBox comboBox_tables;
         private MaterialSkin.Controls.MaterialButton plot_results;
         private MaterialSkin.Controls.MaterialButton swap;
         public MaterialSkin.Controls.MaterialButton search_all_db;
@@ -866,5 +851,6 @@
         private MaterialSkin.Controls.MaterialTextBox searchText;
         public System.Windows.Forms.DataGridView dGV_cpds;
         private Npgsql.NpgsqlCommandBuilder npgsqlCommandBuilder1;
+        private System.Windows.Forms.ComboBox comboBox_tables;
     }
 }

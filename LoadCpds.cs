@@ -78,10 +78,12 @@ namespace sqlcnet
             {
                 dt = new DataTable();
                 dt.Load(reader);
+                //dt.DefaultView.Sort = dt.Columns[0].ColumnName;
                 comboBox_tables.DataSource = dt;
                 comboBox_tables.ValueMember = dt.Columns[0].ColumnName;
 
             }
+            
             comboBox_tables.Sorted = true;
 
             //comboBox_mapping----------------------------------------------
@@ -284,7 +286,7 @@ namespace sqlcnet
 
         private void comboBox_tables_DropDownClosed(object sender, EventArgs e)
         {
-            comboBox_tables.Sorted = true;
+            //comboBox_tables.Sorted = true;
             cmb = comboBox_tables.GetItemText(comboBox_tables.SelectedItem);
             conn_meta.Close();
             if (conn_meta.State == ConnectionState.Closed)

@@ -421,8 +421,6 @@ namespace sqlcnet
         private void swap_Click(object sender, EventArgs e)
         {
             DataTable tempTable = (DataTable)dGV_results.DataSource;
-            dGV_cpds.Rows.Clear();
-            dGV_cpds.Columns.Clear();
             // Set the data source of dataGridView1 to the data source of dataGridView2
             dGV_results.DataSource = dGV_cpds.DataSource;
             // Set the data source of dataGridView2 to the DataTable object that was created from dataGridView1

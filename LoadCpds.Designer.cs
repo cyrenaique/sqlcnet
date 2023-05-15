@@ -51,6 +51,7 @@
             this.toolTip_swap = new System.Windows.Forms.ToolTip(this.components);
             this.swap = new MaterialSkin.Controls.MaterialButton();
             this.search_tab = new System.Windows.Forms.TabPage();
+            this.comboBox_tables = new System.Windows.Forms.ComboBox();
             this.comboBox_mapping = new MaterialSkin.Controls.MaterialComboBox();
             this.comboBox_fields = new MaterialSkin.Controls.MaterialComboBox();
             this.selectLabel = new MaterialSkin.Controls.MaterialLabel();
@@ -82,7 +83,6 @@
             this.search_all_db = new MaterialSkin.Controls.MaterialButton();
             this.compunds_tab = new System.Windows.Forms.TabPage();
             this.npgsqlCommandBuilder1 = new Npgsql.NpgsqlCommandBuilder();
-            this.comboBox_tables = new System.Windows.Forms.ComboBox();
             this.toolStrip1.SuspendLayout();
             this.search_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_results)).BeginInit();
@@ -268,6 +268,16 @@
             this.search_tab.Text = "Meta Data";
             this.search_tab.UseVisualStyleBackColor = true;
             // 
+            // comboBox_tables
+            // 
+            this.comboBox_tables.FormattingEnabled = true;
+            this.comboBox_tables.Location = new System.Drawing.Point(759, 53);
+            this.comboBox_tables.Name = "comboBox_tables";
+            this.comboBox_tables.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_tables.Sorted = true;
+            this.comboBox_tables.TabIndex = 35;
+            this.comboBox_tables.DropDownClosed += new System.EventHandler(this.comboBox_tables_DropDownClosed);
+            // 
             // comboBox_mapping
             // 
             this.comboBox_mapping.AutoResize = false;
@@ -282,11 +292,11 @@
             this.comboBox_mapping.FormattingEnabled = true;
             this.comboBox_mapping.IntegralHeight = false;
             this.comboBox_mapping.ItemHeight = 43;
-            this.comboBox_mapping.Location = new System.Drawing.Point(380, 30);
+            this.comboBox_mapping.Location = new System.Drawing.Point(278, 25);
             this.comboBox_mapping.MaxDropDownItems = 4;
             this.comboBox_mapping.MouseState = MaterialSkin.MouseState.OUT;
             this.comboBox_mapping.Name = "comboBox_mapping";
-            this.comboBox_mapping.Size = new System.Drawing.Size(121, 49);
+            this.comboBox_mapping.Size = new System.Drawing.Size(202, 49);
             this.comboBox_mapping.Sorted = true;
             this.comboBox_mapping.StartIndex = 0;
             this.comboBox_mapping.TabIndex = 34;
@@ -305,11 +315,11 @@
             this.comboBox_fields.FormattingEnabled = true;
             this.comboBox_fields.IntegralHeight = false;
             this.comboBox_fields.ItemHeight = 43;
-            this.comboBox_fields.Location = new System.Drawing.Point(124, 30);
+            this.comboBox_fields.Location = new System.Drawing.Point(21, 25);
             this.comboBox_fields.MaxDropDownItems = 4;
             this.comboBox_fields.MouseState = MaterialSkin.MouseState.OUT;
             this.comboBox_fields.Name = "comboBox_fields";
-            this.comboBox_fields.Size = new System.Drawing.Size(121, 49);
+            this.comboBox_fields.Size = new System.Drawing.Size(224, 49);
             this.comboBox_fields.StartIndex = 0;
             this.comboBox_fields.TabIndex = 33;
             // 
@@ -318,7 +328,7 @@
             this.selectLabel.AutoSize = true;
             this.selectLabel.Depth = 0;
             this.selectLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.selectLabel.Location = new System.Drawing.Point(6, 43);
+            this.selectLabel.Location = new System.Drawing.Point(18, 3);
             this.selectLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.selectLabel.Name = "selectLabel";
             this.selectLabel.Size = new System.Drawing.Size(103, 19);
@@ -396,7 +406,7 @@
             this.materialLabel1.AutoSize = true;
             this.materialLabel1.Depth = 0;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel1.Location = new System.Drawing.Point(251, 43);
+            this.materialLabel1.Location = new System.Drawing.Point(276, 0);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(123, 19);
@@ -430,7 +440,7 @@
             this.materialLabel2.AutoSize = true;
             this.materialLabel2.Depth = 0;
             this.materialLabel2.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel2.Location = new System.Drawing.Point(768, 43);
+            this.materialLabel2.Location = new System.Drawing.Point(770, 14);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
             this.materialLabel2.Size = new System.Drawing.Size(98, 19);
@@ -762,16 +772,6 @@
             // 
             this.npgsqlCommandBuilder1.QuotePrefix = "\"";
             this.npgsqlCommandBuilder1.QuoteSuffix = "\"";
-            // 
-            // comboBox_tables
-            // 
-            this.comboBox_tables.FormattingEnabled = true;
-            this.comboBox_tables.Location = new System.Drawing.Point(934, 42);
-            this.comboBox_tables.Name = "comboBox_tables";
-            this.comboBox_tables.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_tables.Sorted = true;
-            this.comboBox_tables.TabIndex = 35;
-            this.comboBox_tables.DropDownClosed += new System.EventHandler(this.comboBox_tables_DropDownClosed);
             // 
             // LoadCpdsForm
             // 

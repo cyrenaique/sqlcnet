@@ -331,7 +331,7 @@ namespace sqlcnet
 
                 if (cmb == "genedis")
                 {
-                    sql = "select  disease.name as disease_Name, gene.symbol as Gene_symbol ,genedis.* " +
+                    sql = "select  disease.name as disease_Name, gene.symbol as Gene_symbol ,gene.chromosome,genedis.* " +
                         "from genedis" +
                         " inner join disease on genedis.disid=disease.disid" +
                         "  inner join gene on genedis.geneid=gene.geneid " +
@@ -339,7 +339,7 @@ namespace sqlcnet
                 }
                 else if (cmb == "cpdgene")
                 {
-                    sql = "select  cpd.name as Compound_Name, gene.symbol as Gene_symbol ,cpdgene.*" +
+                    sql = "select  cpd.name as Compound_Name, gene.symbol as Gene_symbol ,gene.chromosome,,cpdgene.*" +
                         "  from cpdgene" +
                         "  inner join cpd on cpdgene.pubchemid=cpd.pubchemid" +
                         "  inner join gene on cpdgene.geneid=gene.geneid " +
@@ -364,7 +364,7 @@ namespace sqlcnet
                 }
                 else if (cmb == "genepath")
                 {
-                    sql = "select pathway.name as Pathway_Name ,gene.symbol as Gene_Symbol, genepath.*" +
+                    sql = "select pathway.name as Pathway_Name ,gene.symbol as Gene_Symbol,gene.chromosome, genepath.*" +
                         " from genepath  inner join pathway on genepath.pathid=pathway.pathid " +
                         " inner join gene on genepath.geneid=gene.geneid " +
                         " WHERE  genepath." + cmb2 + " IN (";

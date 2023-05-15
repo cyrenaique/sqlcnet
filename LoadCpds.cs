@@ -339,7 +339,7 @@ namespace sqlcnet
                 }
                 else if (cmb == "cpdgene")
                 {
-                    sql = "select  cpd.name as Compound_Name, gene.symbol as Gene_symbol ,gene.chromosome,,cpdgene.*" +
+                    sql = "select  cpd.name as Compound_Name, gene.symbol as Gene_symbol ,gene.chromosome,cpdgene.*" +
                         "  from cpdgene" +
                         "  inner join cpd on cpdgene.pubchemid=cpd.pubchemid" +
                         "  inner join gene on cpdgene.geneid=gene.geneid " +

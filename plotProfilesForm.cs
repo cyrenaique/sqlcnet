@@ -231,9 +231,7 @@ namespace sqlcnet
             DataTable tbl_all_prof = new DataTable();
             batchid = checkedListBox_Signal.SelectedItem.ToString().Split('+')[0];
             string source_cpd = checkedListBox_Signal.SelectedItem.ToString().Split('+')[1];
-            string sql_profile = "select * from aggprofiles where source=" + "'" + source_cpd + "'";
-            NpgsqlCommand cmd_profile = new NpgsqlCommand(sql_profile, conn);
-            Npgsql.NpgsqlDataReader Resource = cmd_profile.ExecuteReader();
+           
 
             List<double[]> list_pro = new List<double[]>();
             List<string> list_col = new List<string>();
@@ -274,11 +272,15 @@ namespace sqlcnet
             List<double> list_dist = new List<double>();
             List<string> list_batch = new List<string>();
             double sim = 0.0;
-            
 
+            dataTable = new DataTable();
             // add columns to the DataTable
             dataTable.Columns.Add("batchid", typeof(string));
             dataTable.Columns.Add("Similarity", typeof(double));
+            string source_cpd2 = comboBox_sources.SelectedItem.ToString();
+            string sql_profile = "select * from aggprofiles where source=" + "'" + source_cpd2 + "'";
+            NpgsqlCommand cmd_profile = new NpgsqlCommand(sql_profile, conn);
+            Npgsql.NpgsqlDataReader Resource = cmd_profile.ExecuteReader();
 
             while (Resource.Read())
             {

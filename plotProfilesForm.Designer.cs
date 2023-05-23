@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.formsPlot1 = new ScottPlot.FormsPlot();
             this.checkedListBox_Signal = new System.Windows.Forms.CheckedListBox();
@@ -39,6 +39,8 @@
             this.dgv_sim = new System.Windows.Forms.DataGridView();
             this.checkBoxSave = new System.Windows.Forms.CheckBox();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.comboBox_sources = new System.Windows.Forms.ComboBox();
+            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dg_test)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sim)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_sim)).BeginInit();
@@ -96,7 +98,7 @@
             this.button_disp.Depth = 0;
             this.button_disp.HighEmphasis = true;
             this.button_disp.Icon = null;
-            this.button_disp.Location = new System.Drawing.Point(1062, 225);
+            this.button_disp.Location = new System.Drawing.Point(972, 225);
             this.button_disp.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.button_disp.MouseState = MaterialSkin.MouseState.HOVER;
             this.button_disp.Name = "button_disp";
@@ -163,8 +165,8 @@
             // dgv_sim
             // 
             this.dgv_sim.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dgv_sim.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dgv_sim.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgv_sim.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_sim.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -200,11 +202,50 @@
             this.materialLabel1.TabIndex = 11;
             this.materialLabel1.Text = "threshold Similarity";
             // 
+            // comboBox_sources
+            // 
+            this.comboBox_sources.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_sources.FormattingEnabled = true;
+            this.comboBox_sources.Items.AddRange(new object[] {
+            "source_1",
+            "source_2",
+            "source_3",
+            "source_4",
+            "source_5",
+            "source_6",
+            "source_7_25",
+            "source_7_625",
+            "source_8",
+            "source_9",
+            "source_10",
+            "source_11",
+            "source_12",
+            "source_13"});
+            this.comboBox_sources.Location = new System.Drawing.Point(1124, 225);
+            this.comboBox_sources.Name = "comboBox_sources";
+            this.comboBox_sources.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_sources.TabIndex = 12;
+            // 
+            // materialLabel2
+            // 
+            this.materialLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.materialLabel2.AutoSize = true;
+            this.materialLabel2.Depth = 0;
+            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel2.Location = new System.Drawing.Point(1107, 249);
+            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel2.Name = "materialLabel2";
+            this.materialLabel2.Size = new System.Drawing.Size(153, 19);
+            this.materialLabel2.TabIndex = 13;
+            this.materialLabel2.Text = "Select Source for Sim";
+            // 
             // plotProfilesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1323, 681);
+            this.Controls.Add(this.materialLabel2);
+            this.Controls.Add(this.comboBox_sources);
             this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.checkBoxSave);
             this.Controls.Add(this.dgv_sim);
@@ -237,5 +278,7 @@
         private MaterialSkin.Controls.MaterialButton button_disp;
         private MaterialSkin.Controls.MaterialButton button_stat;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
+        private System.Windows.Forms.ComboBox comboBox_sources;
+        private MaterialSkin.Controls.MaterialLabel materialLabel2;
     }
 }

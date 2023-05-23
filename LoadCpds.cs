@@ -319,8 +319,13 @@ namespace sqlcnet
             {
                 foreach (DataGridViewRow row in dGV_cpds.Rows)
                 {
+                    if (row.Cells[val_combo].Value != null)
+                    {
+                        list_res_data.Add(row.Cells[val_combo].Value.ToString());
 
-                    list_res_data.Add(row.Cells[val_combo].Value.ToString());
+                    }
+
+                   
                 }
 
                 List<string> unique_items = new HashSet<string>(list_res_data).ToList();
@@ -582,7 +587,7 @@ namespace sqlcnet
             }
             fc.chart1.Series[0].Name = val_combo_x + "__" + val_combo_y;
 
-
+            fc.chart1.Series["Genes in Pathway"].ToolTip = "Pathway: #VALX";
             fc.Show();
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -845,15 +850,17 @@ namespace sqlcnet
                     dGV_cpds.Columns.Clear();
 
                     // Create columns based on the headers in the clipboard data
-                    string[] clipboardHeaders = clipboardRows[0].Split('\t');
+                    string[] clipboardHeaders = clipboardRows[0].Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
                     ;
                     foreach (string header in clipboardHeaders)
                     {
-                        DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
-                        column.HeaderText = header;
-                        column.Name = header;
+                            DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
+                            column.HeaderText = header;
+                            column.Name = header;
 
-                        dGV_cpds.Columns.Add(column);
+                            dGV_cpds.Columns.Add(column);
+                      
+                        
 
 
 
@@ -862,7 +869,7 @@ namespace sqlcnet
                     // Iterate through the rows in the clipboard data and add them to the destination DataGridView
                     for (int i = 1; i < clipboardRows.Length; i++)
                     {
-                        string[] clipboardCells = clipboardRows[i].Split('\t');
+                        string[] clipboardCells = clipboardRows[i].Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
                         DataGridViewRow newRow = new DataGridViewRow();
 
                         // Map the data from the source columns to the destination columns

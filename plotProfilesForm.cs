@@ -78,11 +78,16 @@ namespace sqlcnet
             }
             formsPlot1.Plot.Title("Profiles");
             //formsPlot1.Plot.YAxis.Label("Probability");           
-            
+
             //var bnColor = System.Drawing.ColorTranslator.FromHtml("#2e3440");
             //formsPlot1.Plot.Style(figureBackground: bnColor, dataBackground: bnColor);
+            if (list_pro.Count()==2)
+            {
+                dist = Distance(list_pro[0].ToList(), list_pro[1].ToList());
+            }
+            
 
-            //formsPlot1.Plot.XAxis2.Label("Cosine Distance: " + dist.ToString());
+            formsPlot1.Plot.XAxis2.Label("Cosine Distance: " + dist.ToString());
             formsPlot1.Refresh();
         }
 
